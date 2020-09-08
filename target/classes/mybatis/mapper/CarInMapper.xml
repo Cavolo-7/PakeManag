@@ -29,14 +29,8 @@
           update t_carport set carport_carnumber=#{carportCarnumber},carport_photo=#{carportPhoto} where carport_id = #{carportId}
     </update>
 
-    <!--  插入历史汇总表  -->
     <insert id="insertHistory" parameterType="com.auc.pojo.History">
           INSERT into t_histor(history_carnumber,history_photo) VALUES(#{historyCarnumber},#{historyPhoto})
     </insert>
-
-    <!--  查询欢迎信息  -->
-    <select id="findWelcomeMsg" resultType="java.lang.String">
-         select param_name from t_param where param_type='welcomeMsg' and param_value=1001
-    </select>
 
 </mapper>
