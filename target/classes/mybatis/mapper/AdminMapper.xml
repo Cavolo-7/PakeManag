@@ -3,13 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.auc.mapper.AdminMapper">
-    <select id="Longin" resultType="com.auc.pojo.Admin">
-       select * from t_vip
-       <where>
-       <if test="vipAccount!=null and vipAccount!=''">and vip_account = #{vipAccount}</if>
-       <if test="vipPassword!=null and vipPassword!=''">and vip_password = #{vipPassword}</if>
-       limit 1
-       </where>
-    </select>
+    <select id="login" resultType="com.auc.pojo.Admin">
+  select w.worker_id,w.worker_account,w.worker_password,w.worker_name,w.worker_phone,w.worker_age,w.worker_sex,w.worker_address,w.worker_state,
+(select r.role_name from t_role as r where w.role_id=r.role_id)
+roleName
+ from t_worker as w where w.worker_account = #{workerAccount}
+ and w.worker_password=#{workerPassword}  limit 1
+  </select>
 
 </mapper>
