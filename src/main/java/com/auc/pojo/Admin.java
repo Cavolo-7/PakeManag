@@ -17,14 +17,16 @@ public class Admin {
    private String workerAge;//员工年龄
    private Integer workerSex;//员工性别
    private String workerAddress;//员工住址
+   private Date workerCreatetimr;//员工账号创建时间
+
    private String roleName;//角色名称
    private String stateName;//状态名称
-   private Date workerCreatetimr;//
+   private String sexName;//员工性别
 
    public Admin() {
    }
 
-   public Admin(Integer workerId, String workerAccount, String workerPassword, String workerName, Integer roleId, Integer workerState, String workerPhone, String workerAge, Integer workerSex, String workerAddress, String roleName, String stateName, Date workerCreatetimr) {
+   public Admin(Integer workerId, String workerAccount, String workerPassword, String workerName, Integer roleId, Integer workerState, String workerPhone, String workerAge, Integer workerSex, String workerAddress, Date workerCreatetimr, String roleName, String stateName, String sexName) {
       this.workerId = workerId;
       this.workerAccount = workerAccount;
       this.workerPassword = workerPassword;
@@ -35,9 +37,10 @@ public class Admin {
       this.workerAge = workerAge;
       this.workerSex = workerSex;
       this.workerAddress = workerAddress;
+      this.workerCreatetimr = workerCreatetimr;
       this.roleName = roleName;
       this.stateName = stateName;
-      this.workerCreatetimr = workerCreatetimr;
+      this.sexName = sexName;
    }
 
    public Date getWorkerCreatetimr() {
@@ -144,6 +147,14 @@ public class Admin {
       this.stateName = stateName;
    }
 
+   public String getSexName() {
+      return sexName;
+   }
+
+   public void setSexName(String sexName) {
+      this.sexName = sexName;
+   }
+
    @Override
    public String toString() {
       return "Admin{" +
@@ -157,9 +168,10 @@ public class Admin {
               ", workerAge='" + workerAge + '\'' +
               ", workerSex=" + workerSex +
               ", workerAddress='" + workerAddress + '\'' +
+              ", workerCreatetimr=" + workerCreatetimr +
               ", roleName='" + roleName + '\'' +
               ", stateName='" + stateName + '\'' +
-              ", workerCreatetimr=" + workerCreatetimr +
+              ", sexName='" + sexName + '\'' +
               '}';
    }
 }

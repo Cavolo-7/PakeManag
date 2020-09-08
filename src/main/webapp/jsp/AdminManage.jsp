@@ -93,7 +93,7 @@
                 , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
                 , {field: 'workerAccount', title: '账号', width: '5%'}
                 , {field: 'workerName', title: '用户名', width: '10%'}
-                , {field: 'workerSex', title: '性别', width: '5%', }
+                , {field: 'sexName', title: '性别', width: '5%', }
                 , {field: 'workerAge', title: '年龄', width: '5%', }
                 , {field: 'workerPhone', title: '电话', width: '10%', }
                 , {field: 'workerAddress', title: '住址', width: '10%', }
@@ -107,7 +107,7 @@
             ]]
             , id: 'testReload'
         })
-        table.on('tool(mangerTable)', function (obj) {
+        table.on('tool(demo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 layer.confirm('真的要修改么', function (index) {
@@ -127,22 +127,22 @@
                 });
 
             } else if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    // $.ajax({
-                    //   url: "../HeadsServlet?methodName=Delete",
-                    //   data: {'data': JSON.stringify(data)},
-                    //   method: "post",
-                    //   dataType: "json",
-                    //   success: function (data) {
-                    //     if (data == "删除成功") {
-                    //       layer.msg("删除成功")
-                    //       obj.del();
-                    //       layer.close(index);
-                    //     } else {
-                    //       layer.msg("删除失败")
-                    //     }
-                    //   }
-                    // })
+                layer.confirm('真的要删除吗？', function (index) {
+                    $.ajax({
+                      url: "/admin/deleteAdmin",
+                      data: {workerAccount: data.workerAccount},
+                      method: "post",
+                      dataType: "text",
+                      success: function (data) {
+                        if (data == "删除成功") {
+                          layer.msg("删除成功!")
+                          obj.del();
+                          layer.close(index);
+                        } else {
+                          layer.msg("删除失败!")
+                        }
+                      }
+                    })
 
                 });
             }
@@ -150,11 +150,9 @@
 
         var $ = layui.$, active = {
             reload: function () {
-                var username = $('#username');
-                var account = $('#account');
-                var phone = $('#phone');
-                var carnumber = $('#carnumber');
-                var worker = $('#worker');
+                var adminName = $('#adminName').val();
+                var account = $('#account').val();
+                var phone = $('#phone').val();
                 //执行重载
                 table.reload('testReload', {
                     page: {
@@ -162,11 +160,9 @@
                     }
                     , where: {
                         key: {
-                            username: username.val(),
-                            account: account.val(),
-                            phone: phone.val(),
-                            worker:worker.val(),
-                            carnumber:carnumber.val(),
+                            adminName: adminName,
+                            account: account,
+                            phone: phone,
                         }
                     }
                 }, 'data');
