@@ -19,4 +19,6 @@ public interface AdminMapper {
     //查询计算
     public Integer selectAdminCount(@Param("condition") Map<String, String> condition);
 
+
+
 }

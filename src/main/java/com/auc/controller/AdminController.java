@@ -6,6 +6,7 @@ import com.auc.pojo.LayuiData;
 import com.auc.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,10 +51,8 @@ public class AdminController {
             curPage = (curPage - 1) * pageSize;
         }
         LayuiData<Admin> layuiData = adminService.selectAdminList(condition, curPage, pageSize);
-
-//        Gson gson = new Gson();
-//        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str = JSON.toJSONString(layuiData);
         return str;
     }
+
 }
