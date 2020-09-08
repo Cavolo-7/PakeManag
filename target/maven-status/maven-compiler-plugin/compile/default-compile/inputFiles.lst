@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+F:\IdeaProjects\ParkManage\src\main\java\com\auc\pojo\Admin.java
+F:\IdeaProjects\ParkManage\src\main\java\com\auc\service\impl\Longinimpl.java
+F:\IdeaProjects\ParkManage\src\main\java\com\auc\service\LonginService.java
+F:\IdeaProjects\ParkManage\src\main\java\com\ParkmanageApplication.java
+F:\IdeaProjects\ParkManage\src\main\java\com\auc\mapper\AdminMapper.java
+F:\IdeaProjects\ParkManage\src\main\java\com\auc\controller\HelloControl.java
+=======
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\pojo\Vip.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\pojo\Admin.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\controller\AdminController.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\service\AdminService.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\pojo\LayuiData.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\mapper\AdminMapper.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\service\impl\AdminServiceImpl.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\pojo\Menu.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\auc\pojo\Produce.java
+C:\Users\JC\Desktop\ParkManage\src\main\java\com\ParkmanageApplication.java
+>>>>>>> dc2ce0db7c0ff7b53eef8167d2a5956685368d20

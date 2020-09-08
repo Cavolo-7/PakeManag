@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.PersonManageMapper">
+    <select id="queryWhite" resultType="com.auc.pojo.White">
+        select w.white_id ,w.white_name ,w.white_carnumber,w.white_phone,w.white_createtime,w.white_account,w.white_password,u.worker_name,u.worker_account from t_white w,t_worker u
+        <where>
+            and w.worker_id=u.worker_id
+            <if test="account!=null and account!='' ">and w.white_account = #{account}</if>
+            <if test="whiteName!=null and whiteName!='' ">and w.white_name = #{whiteName}</if>
+            <if test="phone!=null and phone!='' ">and w.white_phone = #{phone}</if>
+            <if test="carnumber!=null and carnumber!='' ">and w.white_carnumber = #{carnumber}</if>
+            <if test="worker!=null and worker!='' ">and u.worker_name = #{worker}</if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+    <select id="queryWhiteCount" resultType="Integer">
+        select count(*)from t_white w,t_worker u
+        <where>
+            and w.worker_id=u.worker_id
+            <if test="whiteName!=null and whiteName!='' ">and w.white_name = #{whiteName}</if>
+            <if test="account!=null and account!='' ">and w.white_account = #{account}</if>
+            <if test="phone!=null and phone!='' ">and w.white_phone = #{phone}</if>
+            <if test="carnumber!=null and carnumber!='' ">and w.white_carnumber = #{carnumber}</if>
+            <if test="worker!=null and worker!='' ">and u.worker_name = #{worker}</if>
+        </where>
+    </select>
+</mapper>
