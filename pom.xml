@@ -85,6 +85,13 @@
             <version>1.2.68</version>
         </dependency>
 
+        <!-- baidu文字识别sdk -->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.11.0</version>
+        </dependency>
+
 
     </dependencies>
 

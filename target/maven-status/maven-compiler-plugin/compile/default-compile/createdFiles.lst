@@ -1,0 +1,6 @@
+com\auc\service\impl\Longinimpl.class
+com\ParkmanageApplication.class
+com\auc\pojo\Admin.class
+com\auc\controller\HelloControl.class
+com\auc\mapper\AdminMapper.class
+com\auc\service\LonginService.class
