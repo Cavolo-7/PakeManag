@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
+// 白名单管理
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/personManage")
 public class PersonManageMapperControl {
 
     @Autowired
@@ -52,4 +53,29 @@ public class PersonManageMapperControl {
         return str;
     }
 
+    @RequestMapping("/add")
+    @ResponseBody
+    public String AddWhite(String username, String account,String phone, String carnumber, String pass){
+        System.out.println("增加白名单");
+        White white=new White(username,account,pass,carnumber,phone,5);
+        System.out.println(white);
+        personManageService.addWhite(white);
+        return "增加成功";
+    }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public String DelWhite(String username, String account,String phone, String carnumber,String like, String pass){
+        System.out.println("删除白名单");
+
+        return "删除成功";
+    }
+
+    @RequestMapping("/edit")
+    @ResponseBody
+    public String UpdWhite(String username, String account,String phone, String carnumber,String like, String pass){
+        System.out.println("修改白名单");
+
+        return "编辑成功";
+    }
 }

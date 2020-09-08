@@ -55,7 +55,7 @@
             <button class="layui-btn" data-type="reload">搜索</button>
             <br><br><br>
             <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>
-            <button class="layui-btn" onclick="xadmin.open('添加用户','./admin-add.jsp',600,470)"><i
+            <button class="layui-btn" onclick="xadmin.open('添加用户','./AddWhite.jsp',600,470)"><i
                     class="layui-icon"></i>添加
             </button>
           </div>
@@ -82,7 +82,7 @@
     table.render({
       elem: '#whiteTable'
       , id: 'whiteTable'
-      , url: '/admin/white'
+      , url: '/personManage/white'
       , cellMinWidth: 80
       // 限制每页的条数
       , limit: 10
@@ -115,39 +115,38 @@
       var data = obj.data;
       if (obj.event === 'edit') {
         layer.confirm('真的要修改么', function (index) {
-          // $.ajax({
-          //   url: "../HeadsServlet?methodName=UpData",
-          //   data: {'data': JSON.stringify(data)},
-          //   method: 'post',
-          //   dataType: 'json',
-          //   success: function (data) {
-          //     if (data == "编辑成功") {
-          //       layer.msg("编辑成功")
-          //     } else {
-          //       layer.msg("编辑失败")
-          //     }
-          //   }
-          // })
+          $.ajax({
+            url: "/personManage/edit",
+            data: {'data': JSON.stringify(data)},
+            method: 'post',
+            dataType: 'text',
+            success: function (data) {
+              if (data == "编辑成功") {
+                layer.msg("编辑成功")
+              } else {
+                layer.msg("编辑失败")
+              }
+            }
+          })
         });
 
       } else if (obj.event === 'del') {
         layer.confirm('真的删除行么', function (index) {
-          // $.ajax({
-          //   url: "../HeadsServlet?methodName=Delete",
-          //   data: {'data': JSON.stringify(data)},
-          //   method: "post",
-          //   dataType: "json",
-          //   success: function (data) {
-          //     if (data == "删除成功") {
-          //       layer.msg("删除成功")
-          //       obj.del();
-          //       layer.close(index);
-          //     } else {
-          //       layer.msg("删除失败")
-          //     }
-          //   }
-          // })
-
+          $.ajax({
+            url: "/personManage/del",
+            data: {'data': JSON.stringify(data)},
+            method: "post",
+            dataType: "text",
+            success: function (data) {
+              if (data == "删除成功") {
+                layer.msg("删除成功")
+                obj.del();
+                layer.close(index);
+              } else {
+                layer.msg("删除失败")
+              }
+            }
+          })
         });
       }
     });
