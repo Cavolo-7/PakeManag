@@ -1,0 +1,10 @@
+com\ParkmanageApplication.class
+com\auc\pojo\Admin.class
+com\auc\pojo\Produce.class
+com\auc\pojo\LayuiData.class
+com\auc\service\AdminService.class
+com\auc\pojo\Vip.class
+com\auc\service\impl\AdminServiceImpl.class
+com\auc\controller\AdminController.class
+com\auc\pojo\Menu.class
+com\auc\mapper\AdminMapper.class
