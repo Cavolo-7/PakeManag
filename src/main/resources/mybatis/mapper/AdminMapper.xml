@@ -14,7 +14,7 @@
 
     <!--查询管理员列表表格数据-->
     <select id="selectAdmin" parameterType="java.util.Map" resultType="com.auc.pojo.Admin">
-        select w.worker_id,w.worker_account,w.worker_password,w.worker_name,
+        select w.worker_id,w.worker_account,w.worker_password,w.worker_name,w.worker_createtimr,
         w.worker_phone,w.worker_age,w.worker_sex,w.worker_address,
         (select r.role_name from t_role as r where r.role_id=w.role_id ) roleName,
         (select p.param_name from t_param as p where p.param_value= w.worker_state )StateName

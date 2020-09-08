@@ -14,7 +14,7 @@
 
     <!--查询管理员列表表格数据-->
     <select id="selectAdmin" parameterType="java.util.Map" resultType="com.auc.pojo.Admin">
-        select w.worker_id,w.worker_account,w.worker_password,w.worker_name,
+        select w.worker_id,w.worker_account,w.worker_password,w.worker_name,w.worker_createtimr,
         w.worker_phone,w.worker_age,w.worker_sex,w.worker_address,
         (select r.role_name from t_role as r where r.role_id=w.role_id ) roleName,
         (select p.param_name from t_param as p where p.param_value= w.worker_state )StateName
@@ -36,16 +36,16 @@
 
 <!--    查询计算管理员数据相关条数-->
     <select id="selectAdminCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        select count(worker_id) from t_worker where 1=1
+        select count(worker_id) from t_worker as w where 1=1
 
         <if test="condition.adminName !=null and condition.adminName !='' ">
-            and worker_name like concat('%',#{condition.adminName},'%')
+            and w.worker_name like concat('%',#{condition.adminName},'%')
         </if>
         <if test="condition.account !=null and condition.account!=''">
-            and worker_account like concat('%',#{condition.account},'%')
+            and w.worker_account like concat('%',#{condition.account},'%')
         </if>
         <if test="condition.phone !=null and condition.phone!=''">
-            and  worker_phone like concat('%',#{condition.phone},'%')
+            and  w.worker_phone like concat('%',#{condition.phone},'%')
         </if>
     </select>
 </mapper>

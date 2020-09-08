@@ -1,182 +1,192 @@
 <%--
   Created by IntelliJ IDEA.
-  User: JC
-  Date: 2020/8/16
-  Time: 19:50
+  User: 69080
+  Date: 2020/8/17
+  Time: 11:06
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
+<html class="x-admin-sm">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>管理员管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>管理员信息查询</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js" charset="UTF-8"></script>
-    <script src="${pageContext.request.contextPath}/layui/layui.js" charset="UTF-8"></script>
-<%--    <script src="${pageContext.request.contextPath}/js/Admin.js" charset="UTF-8"></script>--%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/xadmin.css">
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
 </head>
 <body>
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
-<div>
-<%--    <form class="layui-form" action="${pageContext.request.contextPath}/adminServlet?methodName=getAdminList" method="post">--%>
-        <div class="layui-form-item">
-            <div class="layui-input-block" style="margin-top: 20px">
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">用户名：</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="adminName" id="adminName" placeholder="请输入管理员姓名" autocomplete="off"
-                                   class="layui-input">
+<div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">演示</a>
+            <a>
+              <cite>导航元素</cite></a>
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()"
+       title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+</div>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <div class="demoTable">
+                        <div class="layui-inline">
+                            <input class="layui-input" name="adminName" placeholder="请输入管理员姓名" id="adminName" autocomplete="off">
                         </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">账号：</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="account" id="account" placeholder="请输入管理员账号" autocomplete="off"
-                                   class="layui-input">
+                        <div class="layui-inline">
+                            <input class="layui-input" name="account" placeholder="请输入管理员账号" id="account" autocomplete="off">
                         </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">电话：</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="phone" id="phone" placeholder="请输入电话号码" autocomplete="off"
-                                   class="layui-input">
+                        <div class="layui-inline">
+                            <input class="layui-input" name="phone" placeholder="请输入电话号码" id="phone" autocomplete="off">
                         </div>
-                    </div>
-                        <button class="layui-btn" style="margin-top: 0px;" id="search" data-type="reload">
-                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        <button class="layui-btn" data-type="reload">搜索</button>
+                        <br><br><br>
+                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>
+                        <button class="layui-btn" onclick="xadmin.open('添加用户','./admin-add.jsp',600,470)"><i
+                                class="layui-icon"></i>添加
                         </button>
-<%--                            <button class="layui-btn" type="button" onclick="cx(this)">查询</button>--%>
-                        <button class="layui-btn" type="button" id="searchUserifAccount11" onclick="addAdmin(this)">添加</button>
                     </div>
-
+                </div>
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="demo" lay-filter="demo"></table>
                 </div>
             </div>
         </div>
-<%--    </form>--%>
+    </div>
 </div>
-<div>
-    <table id="demo" lay-filter="test"></table>
-    <script type="text/html" id="barDemo">
-<%--        <a class="layui-btn  layui-btn-xs" lay-event="detail" >添加</a>--%>
-        <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="updateAdmin(this)">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-    <script>
-        var path = $("#path").val();
-        //加载table模块
-        layui.use(['table', 'layer', 'laypage'], function () {
-            var table = layui.table;
-            var laypage = layui.laypage; //分页
-            var layer = layui.layer; //弹层
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
 
-
-            //执行一个 table 实例
-            table.render({
-                elem: '#demo'
-                , height: 312
-                , url: path + '/admin/getAdminList' //数据接口
-                , page: {//开启分页
-                    layout: ['limit', 'count', 'prev', 'page', 'next', 'skip']
-                    , limit: 4//一页显示多少条
-                    , limits: [1,2, 5,10]//每页条数的选择项
-                    , groups: 2 //只显示 2 个连续页码
-                    ,first: "首页" //不显示首页
-                    ,last: "尾页" //不显示尾页
+<script>
+    layui.use(['form', 'table'], function () {
+        var table = layui.table
+        var form = layui.form;
+        var util = layui.util;
+        var laydate = layui.laydate;
+        table.render({
+            elem: '#demo'
+            , id: 'demo'
+            , url: '/admin/getAdminList'
+            , cellMinWidth: 80
+            // 限制每页的条数
+            , limit: 10
+            , limits: [10]
+            //数据没有时显示
+            , text: {
+                none: '暂无相关数据'
+            }
+            // 开启分页
+            , page: true
+            , cols: [[
+                //序号
+                {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
+                , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
+                , {field: 'workerAccount', title: '账号', width: '5%'}
+                , {field: 'workerName', title: '用户名', width: '10%'}
+                , {field: 'workerSex', title: '性别', width: '5%', }
+                , {field: 'workerAge', title: '年龄', width: '5%', }
+                , {field: 'workerPhone', title: '电话', width: '10%', }
+                , {field: 'workerAddress', title: '住址', width: '10%', }
+                , {field: 'roleName', title: '角色', width: '10%', }
+                , {field: 'stateName', title: '账号状态', width: '5%',}
+                ,{ field: 'workerCreatetimr', width: '10%', title: '创建时间', align: 'center', templet: function (d) {
+                        return util.toDateString(d.workerCreatetimr, "yyyy-MM-dd")
+                    }
                 }
-                , toolbar: 'default'
-                , cols: [[ //表头
-                    {field: 'workerId', title: 'ID', width: 80, sort: true,hidden:true}
-                    , {field: 'workerAccount', title: '用户名', width: 180}
-                    , {field: 'workerName', title: '用户名', width: 180}
-                    , {field: 'workerSex', title: '性别', width: 280, sort: true}
-                    , {field: 'workerAge', title: '年龄', width: 280, sort: true}
-                    , {field: 'workerPhone', title: '电话', width: 4280, sort: true}
-                    , {field: 'workerAddress', title: '住址', width: 280, sort: true}
-                    , {field: 'roleName', title: '角色', width: 280, sort: true}
-                    , {field: 'stateName', title: '账号状态', width: 280, sort: true}
-                    , {fixed: 'right',  align: 'center', toolbar: '#barDemo'}
+                , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
+            ]]
+            , id: 'testReload'
+        })
+        table.on('tool(mangerTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.confirm('真的要修改么', function (index) {
+                    // $.ajax({
+                    //   url: "../HeadsServlet?methodName=UpData",
+                    //   data: {'data': JSON.stringify(data)},
+                    //   method: 'post',
+                    //   dataType: 'json',
+                    //   success: function (data) {
+                    //     if (data == "编辑成功") {
+                    //       layer.msg("编辑成功")
+                    //     } else {
+                    //       layer.msg("编辑失败")
+                    //     }
+                    //   }
+                    // })
+                });
 
-                ]]
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    // $.ajax({
+                    //   url: "../HeadsServlet?methodName=Delete",
+                    //   data: {'data': JSON.stringify(data)},
+                    //   method: "post",
+                    //   dataType: "json",
+                    //   success: function (data) {
+                    //     if (data == "删除成功") {
+                    //       layer.msg("删除成功")
+                    //       obj.del();
+                    //       layer.close(index);
+                    //     } else {
+                    //       layer.msg("删除失败")
+                    //     }
+                    //   }
+                    // })
 
-            });
-
-            //监听头工具栏事件
-            table.on('tool(test)', function (obj) {
-                var checkStatus = table.checkStatus(obj.config.id)
-                    , data = checkStatus.data; //获取选中的数据
-                switch (obj.event) {
-                    case 'add':
-                        layer.msg('添加');
-                        break;
-                }
-
-            });
-
-
-            table.on('tool(test)', function (obj) {
-                var data = obj.data;
-                 if (obj.event === 'del') {
-                     layer.confirm('真的要删除吗', function (index) {
-                         $.ajax({
-                             url: path + "/admin/deleteAdmin",
-                             data: {adminId: data.adminId},
-                             success: function (data) {
-                                 if (data == "删除成功") {
-                                     obj.del();
-                                     layer.alert("删除成功");
-                                     layer.close(index);
-
-                                 } else {
-                                     layer.alert("删除失败");
-                                     layer.close(index);
-                                 }
-                             }
-                         })
-
-                     });
-                 }
-            });
-
-
-            var active = {
-                reload: function () {
-                    var adminName = $("#adminName").val();//搜索框内容
-                    var date=$("#account").val();
-                    var date1=$("#phone").val();
-                    //执行重载
-                    table.reload('demo', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                        , where: {
-                            adminName: adminName,//作为参数传递给后端
-                            account:account,
-                            phone:phone,
-                        }
-                    });
-
-                }
-
-            };
-
-            $('#search').on('click', function () {
-                var type = $(this).data('type');//自定义type属性，这里即为reload
-                active[type] ? active[type].call(this) : ''; //如果存在active[type]，则调用改函数
-            });
-
+                });
+            }
         });
 
+        var $ = layui.$, active = {
+            reload: function () {
+                var username = $('#username');
+                var account = $('#account');
+                var phone = $('#phone');
+                var carnumber = $('#carnumber');
+                var worker = $('#worker');
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        key: {
+                            username: username.val(),
+                            account: account.val(),
+                            phone: phone.val(),
+                            worker:worker.val(),
+                            carnumber:carnumber.val(),
+                        }
+                    }
+                }, 'data');
+            }
+        };
 
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
 
+        // var $ = layui.$, active = {
+        //   getCheckData: function () { //获取选中数据
+        //     var checkStatus = table.checkStatus('testReload')
+        //         , data = checkStatus.data;
+        //     layer.alert(JSON.stringify(data));
+        //   }
+        // };
 
-
-    </script>
-
-</div>
-</body>
+    });
+</script>
 </html>
+

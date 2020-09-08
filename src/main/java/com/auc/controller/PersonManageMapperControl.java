@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/personManage")
 public class PersonManageMapperControl {
 
     @Autowired

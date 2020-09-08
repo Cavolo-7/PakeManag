@@ -82,7 +82,7 @@
     table.render({
       elem: '#whiteTable'
       , id: 'whiteTable'
-      , url: '/admin/white'
+      , url: '/personManage/white'
       , cellMinWidth: 80
       // 限制每页的条数
       , limit: 10

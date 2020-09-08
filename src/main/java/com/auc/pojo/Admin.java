@@ -17,15 +17,14 @@ public class Admin {
    private String workerAge;//员工年龄
    private Integer workerSex;//员工性别
    private String workerAddress;//员工住址
-
    private String roleName;//角色名称
    private String stateName;//状态名称
-
+   private Date workerCreatetimr;//
 
    public Admin() {
    }
 
-   public Admin(Integer workerId, String workerAccount, String workerPassword, String workerName, Integer roleId, Integer workerState, String workerPhone, String workerAge, Integer workerSex, String workerAddress) {
+   public Admin(Integer workerId, String workerAccount, String workerPassword, String workerName, Integer roleId, Integer workerState, String workerPhone, String workerAge, Integer workerSex, String workerAddress, String roleName, String stateName, Date workerCreatetimr) {
       this.workerId = workerId;
       this.workerAccount = workerAccount;
       this.workerPassword = workerPassword;
@@ -36,6 +35,17 @@ public class Admin {
       this.workerAge = workerAge;
       this.workerSex = workerSex;
       this.workerAddress = workerAddress;
+      this.roleName = roleName;
+      this.stateName = stateName;
+      this.workerCreatetimr = workerCreatetimr;
+   }
+
+   public Date getWorkerCreatetimr() {
+      return workerCreatetimr;
+   }
+
+   public void setWorkerCreatetimr(Date workerCreatetimr) {
+      this.workerCreatetimr = workerCreatetimr;
    }
 
    public Integer getWorkerId() {
@@ -149,6 +159,7 @@ public class Admin {
               ", workerAddress='" + workerAddress + '\'' +
               ", roleName='" + roleName + '\'' +
               ", stateName='" + stateName + '\'' +
+              ", workerCreatetimr=" + workerCreatetimr +
               '}';
    }
 }
