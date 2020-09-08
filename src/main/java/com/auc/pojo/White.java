@@ -3,7 +3,7 @@ package com.auc.pojo;
 import java.util.Date;
 
 public class White {
-    private Integer whiteId;
+    private Integer whiteId;  //id
     private String whiteName;
     private String whiteAccount;
     private String whitePassword;
