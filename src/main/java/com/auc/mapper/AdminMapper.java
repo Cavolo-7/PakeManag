@@ -19,6 +19,7 @@ public interface AdminMapper {
     //查询计算
     public Integer selectAdminCount(@Param("condition") Map<String, String> condition);
 
-
+    //删除管理员账号
+    public Integer deleteAdmin(String workerAccount);
 
 }

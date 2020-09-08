@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
  **/
 public interface CarService {
 
-    public void carIn(String accessToken);//车辆入库
+    public boolean carIn(String accessToken);//车辆入库
+
+    public void noCarWelcome();//空闲时的欢迎信息
 
 }

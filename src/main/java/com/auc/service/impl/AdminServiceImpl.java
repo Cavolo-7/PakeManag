@@ -30,5 +30,16 @@ public class AdminServiceImpl implements AdminService {
         return layuiData;
     }
 
+    //删除管理员账号
+    @Override
+    public boolean deleteAdmin(String workerAccount) {
+        boolean flag = false;
+        int a = adminMapper.deleteAdmin(workerAccount);
+        if (a > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
 
 }

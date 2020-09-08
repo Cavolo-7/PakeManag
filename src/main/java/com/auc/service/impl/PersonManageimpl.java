@@ -27,12 +27,31 @@ public class PersonManageimpl implements PersonManageService {
         String phone = (String) hashMap.get("phone");
         String worker = (String) hashMap.get("worker");
         String carnumber = (String) hashMap.get("carnumber");
-        System.out.println(username);
         int num = 0;
         list=personManageMapper.queryWhite(page,pageSize,username,account,phone,worker,carnumber);
         num=personManageMapper.queryWhiteCount(username,account,phone,worker,carnumber);
+        System.out.println(list);
         hashMaps.put("list", list);
         hashMaps.put("num", num);
         return hashMaps;
+    }
+
+    @Override
+    public HashMap delWhite(String account) {
+
+        return null;
+    }
+
+    @Override
+    public HashMap updWhite(HashMap hashMap) {
+
+        return null;
+    }
+
+    @Override
+    public HashMap addWhite(White white) {
+
+
+        return null;
     }
 }

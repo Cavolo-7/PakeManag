@@ -4,28 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.auc.mapper.CarInMapper">
 
-    <select id="findWhite">
-
+    <!--  根据车牌号查询白名单用户表  -->
+    <select id="findWhite" parameterType="java.lang.String" resultType="com.auc.pojo.White">
+        select white_id,white_name,white_account,white_password,white_carnumber,white_phone,white_createtime,worker_id from t_white where white_carnumber=#{whiteCarnumber}
     </select>
 
-    <select id="findVip">
-
+    <!--  根据车牌号查询月缴用户表  -->
+    <select id="findVip" parameterType="java.lang.String" resultType="com.auc.pojo.Vip">
+         SELECT vip_id,vip_name,vip_account,vip_password,vip_carnumber,vip_sex,vip_age,vip_phone,vip_address,vip_recharge,vip_score,produce_id,vip_startime,vip_endtime,worker_id from t_vip where vip_carnumber=#{vipCarnumber}
     </select>
 
-    <insert id="insertExemption">
-
+    <!--  添加至免检用户表  -->
+    <insert id="insertExemption" parameterType="com.auc.pojo.Exemption">
+         insert into t_exemption(exemption_name,exemption_carnumber,exemption_paytime) VALUES(#{exemptionName},#{exemptionCarnumber},#{exemptionPaytime})
     </insert>
 
-    <select id="findCarPort">
-
+    <!--  查询停车场车位表  -->
+    <select id="findCarPortList" resultType="com.auc.pojo.CarPort">
+         SELECT carport_id,carport_number,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport
     </select>
 
-    <insert id="insertCarPort">
+    <!--  修改停车车位表  -->
+    <update id="updateCarPort" parameterType="com.auc.pojo.CarPort">
+          update t_carport set carport_carnumber=#{carportCarnumber},carport_photo=#{carportPhoto} where carport_id = #{carportId}
+    </update>
 
-    </insert>
-
-    <insert id="insertHistoryss">
-
+    <insert id="insertHistory" parameterType="com.auc.pojo.History">
+          INSERT into t_histor(history_carnumber,history_photo) VALUES(#{historyCarnumber},#{historyPhoto})
     </insert>
 
 </mapper>

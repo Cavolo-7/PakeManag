@@ -2,8 +2,9 @@ package com.auc.pojo;
 
 import java.util.Date;
 
+//白名单
 public class White {
-    private Integer whiteId;  //id
+    private Integer whiteId;
     private String whiteName;
     private String whiteAccount;
     private String whitePassword;
@@ -14,6 +15,15 @@ public class White {
     private String workerName;
 
     public White() {
+    }
+
+    public White(String whiteName, String whiteAccount, String whitePassword, String whiteCarnumber, String whitePhone, Integer workerId) {
+        this.whiteName = whiteName;
+        this.whiteAccount = whiteAccount;
+        this.whitePassword = whitePassword;
+        this.whiteCarnumber = whiteCarnumber;
+        this.whitePhone = whitePhone;
+        this.workerId = workerId;
     }
 
     public White(Integer whiteId, String whiteName, String whiteAccount, String whitePassword, String whiteCarnumber, String whitePhone, Date whiteCreatetime, Integer workerId, String workerName) {

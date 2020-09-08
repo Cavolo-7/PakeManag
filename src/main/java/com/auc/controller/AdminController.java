@@ -6,7 +6,6 @@ import com.auc.pojo.LayuiData;
 import com.auc.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,16 +23,15 @@ public class AdminController {
 
     @RequestMapping(value = "/getAdminList", produces = "text/plain;charset=utf-8")
     public String getAdminList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String adminName=request.getParameter("adminName");
-        String account=request.getParameter("account");
-        String phone=request.getParameter("phone");
+        String adminName = request.getParameter("key[adminName]");
+        String account = request.getParameter("key[account]");
+        String phone = request.getParameter("key[phone]");
         String curPageStr = request.getParameter("page");
         String pageSizeStr = request.getParameter("limit");
         Integer pageSize = 5;
         Integer curPage = 1;
         int a = 0;
         Map<String, String> condition = new HashMap<>();
-
         if (null != adminName && !"".equalsIgnoreCase(adminName)) {
             condition.put("adminName", adminName);
         }
@@ -51,8 +49,25 @@ public class AdminController {
             curPage = (curPage - 1) * pageSize;
         }
         LayuiData<Admin> layuiData = adminService.selectAdminList(condition, curPage, pageSize);
+
+//        Gson gson = new Gson();
+//        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str = JSON.toJSONString(layuiData);
         return str;
     }
 
+    //删除管理员账号
+    @RequestMapping(value = "/deleteAdmin", produces = "text/plain;charset=utf-8")
+    public String deleteAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String workerAccount=request.getParameter("workerAccount");
+        System.out.println("****"+workerAccount);
+        String str = null;
+        boolean flag=adminService.deleteAdmin(workerAccount);
+        if (flag==true){
+            str="删除成功";
+        }else {
+            str="删除失败";
+        }
+        return str;
+    }
 }

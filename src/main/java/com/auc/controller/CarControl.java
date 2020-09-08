@@ -22,7 +22,7 @@ import java.util.UUID;
  * @create:2020-09-08 08:58:29
  **/
 @Controller
-@RequestMapping("/car")
+@RequestMapping(value = "/car")
 public class CarControl {
 
     @Autowired
@@ -39,9 +39,10 @@ public class CarControl {
       * @Param file:
       * @return: void
       **/
-    @RequestMapping("/carin")
+
     @ResponseBody
-    public void carIn(HttpServletRequest request,MultipartFile file) throws IOException {
+    @RequestMapping(value = "/carIn",produces = "text/html;charset=utf-8")
+    public String carIn(HttpServletRequest request,MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();//获取文件名
         String prefix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1); //获取后缀名（格式）
         String uuid = UUID.randomUUID().toString();//使用UUID+后缀名保存
@@ -58,9 +59,27 @@ public class CarControl {
             files.getParentFile().mkdirs();
         }
         file.transferTo(files);// 将接收的文件保存到指定文件中
-
         String accessToken = authServiceImpl.getAuth();//获取accessToken，调用车牌识别接口
-        carServiceImpl.carIn(accessToken);//车辆入库业务
+        boolean flag = carServiceImpl.carIn(accessToken);//车辆入库业务
+        String result = "";
+        if (flag = true){
+            result = "success";
+        }else {
+            result = "error";
+        }
+        return result;
     }
+
+    /**
+      * @Author: TheBigBlue
+      * @Description:
+      * @Date: 2020/9/8
+      * @return: java.lang.String
+      **/
+    @RequestMapping(value = "/noCarWelcome",produces = "text/html;charset=utf-8")
+    public void noCarWelcome(){
+
+    }
+
 
 }
