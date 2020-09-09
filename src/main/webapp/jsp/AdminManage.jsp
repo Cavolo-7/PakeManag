@@ -64,6 +64,7 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">重置密码</a>
 </script>
 </body>
 
@@ -144,6 +145,23 @@
                       }
                     })
 
+                });
+            }else if (obj.event === 'detail'){
+                layer.confirm('确定要重置密码吗？', function (index) {
+                    $.ajax({
+                        url: "/admin/updateAdminPassword",
+                        data: {workerAccount: data.workerAccount},
+                        method: "post",
+                        dataType: "text",
+                        success: function (data) {
+                            if (data == "重置成功") {
+                                layer.alert("重置密码成功！默认密码为：123456")
+                                // layer.close(index);
+                            } else {
+                                layer.msg("重置密码失败!")
+                            }
+                        }
+                    })
                 });
             }
         });

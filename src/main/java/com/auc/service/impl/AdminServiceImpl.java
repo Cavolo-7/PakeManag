@@ -41,5 +41,16 @@ public class AdminServiceImpl implements AdminService {
         return flag;
     }
 
+    //重置管理员密码
+    @Override
+    public boolean updateAdminPassword(String workerAccount) {
+        boolean flag=false;
+        int n=adminMapper.updateAdminPassword(workerAccount);
+        if (n>0){
+            flag=true;
+        }
+        return flag;
+    }
+
 
 }

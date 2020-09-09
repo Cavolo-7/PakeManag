@@ -1,5 +1,6 @@
 package com.auc.service;
 
+import com.auc.pojo.WelcomeInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -10,8 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
  **/
 public interface CarService {
 
-    public boolean carIn(String accessToken);//车辆入库
+    public String carIn(String accessToken,String path);//车辆入库
 
-    public void noCarWelcome();//空闲时的欢迎信息
+    public WelcomeInfo noCarWelcome();//空闲时入场显示屏信息
+
+    public WelcomeInfo carWelcome(String carNumber);//车辆入场时显示屏信息
 
 }

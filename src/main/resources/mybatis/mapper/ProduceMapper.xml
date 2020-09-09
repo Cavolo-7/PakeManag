@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.ProduceMapper">
+    <select id="queryProduce" resultType="com.auc.pojo.Produce">
+        select p.produce_id,p.produce_name,p.produce_describe,p.produce_money,a.param_name from t_produce p,t_param a
+        <where>
+            and p.produce_static=a.param_value
+            <if test="paramName!=null and paramName!=''">and a.param_name = #{paramName}</if>
+            <if test="produceName!=null and produceName!='' ">and p.produce_name = #{produceName}</if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="queryProduceCount" resultType="Integer">
+        select count(*) from t_produce p,t_param a
+        <where>
+            and p.produce_static=a.param_value
+            <if test="paramName!=null and paramName!=''">and a.param_name = #{paramName}</if>
+            <if test="produceName!=null and produceName!='' ">and p.produce_name = #{produceName}</if>
+        </where>
+    </select>
+
+    <select id="queryProduceStatic" resultType="com.auc.pojo.Param">
+        select param_id,param_name,param_type,param_value from t_param
+        <where>
+            and param_name=#{paramName}
+            and param_type='produceState'
+        </where>
+    </select>
+
+    <insert id="addProduce" parameterType="com.auc.pojo.Produce">
+        insert into t_produce (produce_name,produce_describe,produce_money,produce_static) VALUES (#{produceName},#{produceDescribe},#{produceMoney},#{produceStatic})
+    </insert>
+
+    <update id="delProduce" parameterType="java.lang.String">
+        update t_produce
+        <set>
+            <if test="produceStatic!=null and produceStatic !='' ">produce_static =#{produceStatic},</if>
+        </set>
+        <where>
+            produce_id=#{produceId}
+        </where>
+    </update>
+
+    <update id="updProduce" parameterType="java.lang.String">
+        update t_produce
+        <set>
+            <if test="produceName!=null and produceName !='' ">produce_name =#{produceName},</if>
+            <if test="produceMoney!=null and produceMoney !='' ">produce_money =#{produceMoney},</if>
+        </set>
+        <where>
+            produce_id=#{produceId}
+        </where>
+    </update>
+
+</mapper>

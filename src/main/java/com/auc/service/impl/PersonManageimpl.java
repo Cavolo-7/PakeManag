@@ -37,21 +37,35 @@ public class PersonManageimpl implements PersonManageService {
     }
 
     @Override
-    public HashMap delWhite(String account) {
-
-        return null;
+    public boolean delWhite(String whiteAccount) {
+        boolean fal=false;
+        int num=0;
+        num=personManageMapper.delWhite(whiteAccount);
+        if (num>0){
+            fal=true;
+        }
+        return fal;
     }
 
     @Override
-    public HashMap updWhite(HashMap hashMap) {
-
-        return null;
+    public boolean updWhite(String whiteAccount,String whiteName,String whiteCarnumber, String whitePhone) {
+        boolean fal=false;
+        int num=0;
+        num=personManageMapper.updWhite(whiteAccount,whiteName,whiteCarnumber,whitePhone);
+        if (num>0){
+            fal=true;
+        }
+        return fal;
     }
 
     @Override
-    public HashMap addWhite(White white) {
-
-
-        return null;
+    public boolean addWhite(White white) {
+        boolean fal=false;
+        int num=0;
+        num=personManageMapper.addWhite(white);
+        if (num>0){
+            fal=true;
+        }
+        return fal;
     }
 }

@@ -4,14 +4,19 @@ public class Param {
     private Integer paramId;//参数id
     private String paramName;//参数名字
     private String paramType;//参数类型
+    private Integer paramValue;//参数值
 
     public Param() {
     }
 
-    public Param(Integer paramId, String paramName, String paramType) {
-        this.paramId = paramId;
-        this.paramName = paramName;
-        this.paramType = paramType;
+
+
+    public Integer getParamValue() {
+        return paramValue;
+    }
+
+    public void setParamValue(Integer paramValue) {
+        this.paramValue = paramValue;
     }
 
     public Integer getParamId() {
@@ -44,6 +49,7 @@ public class Param {
                 "paramId=" + paramId +
                 ", paramName='" + paramName + '\'' +
                 ", paramType='" + paramType + '\'' +
+                ", paramValue=" + paramValue +
                 '}';
     }
 }

@@ -157,7 +157,7 @@
           //关闭当前frame
           setTimeout(function () {
             xadmin.close();
-          }, 10000);
+          }, 20000);
           // 可以对父窗口进行刷新
           xadmin.father_reload();
         } else {

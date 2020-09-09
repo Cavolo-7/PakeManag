@@ -3,14 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.auc.mapper.AdminMapper">
-    <select id="Longin" resultType="com.auc.pojo.Admin">
-       select * from t_vip
-       <where>
-       <if test="vipAccount!=null and vipAccount!=''">and vip_account = #{vipAccount}</if>
-       <if test="vipPassword!=null and vipPassword!=''">and vip_password = #{vipPassword}</if>
-       limit 1
-       </where>
-    </select>
+
 
     <!--查询管理员列表表格数据-->
     <select id="selectAdmin" parameterType="java.util.Map" resultType="com.auc.pojo.Admin">
@@ -53,4 +46,9 @@
     <delete id="deleteAdmin" parameterType="java.lang.String">
         delete from t_worker where worker_account=#{workerAccount}
     </delete>
+
+<!--    修改密码-->
+    <update id="updateAdminPassword" parameterType="java.lang.String">
+  update t_worker as w  set w.worker_password='123456' where w.worker_account=#{workerAccount}
+    </update>
 </mapper>

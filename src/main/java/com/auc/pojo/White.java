@@ -1,8 +1,9 @@
 package com.auc.pojo;
 
 import java.util.Date;
-
-//白名单
+/**
+ * 白名单实体类
+ */
 public class White {
     private Integer whiteId;
     private String whiteName;

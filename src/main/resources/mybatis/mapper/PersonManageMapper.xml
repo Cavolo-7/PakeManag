@@ -15,6 +15,7 @@
         </where>
         limit #{page},#{limit}
     </select>
+
     <select id="queryWhiteCount" resultType="Integer">
         select count(*)from t_white w,t_worker u
         <where>
@@ -26,4 +27,28 @@
             <if test="worker!=null and worker!='' ">and u.worker_name = #{worker}</if>
         </where>
     </select>
+
+    <insert id="addWhite" parameterType="com.auc.pojo.White">
+        insert into t_white (white_name,white_account,white_password,white_carnumber,white_phone,worker_id) VALUES (#{whiteName},#{whiteAccount},#{whitePassword},#{whiteCarnumber},#{whitePhone},#{workerId})
+    </insert>
+
+    <delete id="delWhite" parameterType="java.lang.String">
+        delete from t_white
+        <where>
+            white_account=#{whiteAccount}
+        </where>
+    </delete>
+
+    <update id="updWhite" parameterType="java.lang.String">
+        update t_white
+        <set>
+            <if test="whiteName!=null and whiteName !='' ">white_name =#{whiteName},</if>
+            <if test="whiteCarnumber!=null and whiteCarnumber !='' ">white_carnumber =#{whiteCarnumber},</if>
+            <if test="whitePhone!=null and whitePhone !='' ">white_phone =#{whitePhone},</if>
+        </set>
+        <where>
+            white_account=#{whiteAccount}
+        </where>
+    </update>
+
 </mapper>
