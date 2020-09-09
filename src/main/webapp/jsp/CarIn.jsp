@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: acsk
@@ -19,6 +20,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
     <!-- Font Awesome Css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/fontawesome/css/all.min.css" />
     <!-- Owl Carousel Css -->
@@ -70,21 +72,27 @@
                                     <span class="d-inline-block">空余车位：</span>${welcomeInfo.noNum}
                                 </p>
                             </li>
-                            <li>
-                                <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
-                                    <span class="d-inline-block">停车位：</span>${welcomeInfo.carPort}
-                                </p>
-                            </li>
-                            <li>
-                                <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
-                                    <span class="d-inline-block">车牌号：</span>${welcomeInfo.carNumber}
-                                </p>
-                            </li>
-                            <li>
-                                <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
-                                    <span class="d-inline-block">停车类型：</span>${welcomeInfo.carType}
-                                </p>
-                            </li>
+                            <c:if test="${not empty welcomeInfo.carPort}">
+                                <li>
+                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
+                                        <span class="d-inline-block">您的停车位：</span>${welcomeInfo.carPort}
+                                    </p>
+                                </li>
+                            </c:if>
+                            <c:if test="${not empty welcomeInfo.carNumber}">
+                                <li>
+                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
+                                        <span class="d-inline-block">车牌号：</span>${welcomeInfo.carNumber}
+                                    </p>
+                                </li>
+                            </c:if>
+                            <c:if test="${not empty welcomeInfo.carType}">
+                                <li>
+                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
+                                        <span class="d-inline-block">停车类型：</span>${welcomeInfo.carType}
+                                    </p>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -107,7 +115,7 @@
                                     <p class="ms-font-lato font-weight-bold">
                                         SHUTTLE SERVICE
                                     </p>
-                                    <div class="ms-service-box-hover position-absolute rounded">
+                                    <div class="ms-service-box-hover position-absolute rounded" onclick="openInput()">
                                         <img class="img-fluid pb-3" src="${pageContext.request.contextPath}/imags/26.png" alt="Service Hover Image"/>
                                         <p class="ms-font-lato font-weight-bold">
                                             SHUTTLE SERVICE
