@@ -39,4 +39,9 @@
          select param_name from t_param where param_type='welcomeMsg' and param_value=1001
     </select>
 
+    <!--  根据车牌查询停车位  -->
+    <select id="findCarPort" resultType="com.auc.pojo.CarPort">
+         SELECT carport_id,carport_number,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport where carport_carnumber=#{carNumber}
+    </select>
+
 </mapper>
