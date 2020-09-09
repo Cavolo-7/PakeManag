@@ -1,18 +1,18 @@
 package com.auc.pojo;
 
 public class Relation {
-    private Integer relationId;//权限id
+    private Integer relationId;//关系id
     private Integer menuId;//菜单id
-    private Integer roleId;//角色id
+    private Integer urisdictionId;//权限id
 
 
     public Relation() {
     }
 
-    public Relation(Integer relationId, Integer menuId, Integer roleId) {
+    public Relation(Integer relationId, Integer menuId, Integer urisdictionId) {
         this.relationId = relationId;
         this.menuId = menuId;
-        this.roleId = roleId;
+        this.urisdictionId = urisdictionId;
     }
 
     public Integer getRelationId() {
@@ -31,20 +31,21 @@ public class Relation {
         this.menuId = menuId;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getUrisdictionId() {
+        return urisdictionId;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setUrisdictionId(Integer urisdictionId) {
+        this.urisdictionId = urisdictionId;
     }
+
 
     @Override
     public String toString() {
         return "Relation{" +
                 "relationId=" + relationId +
                 ", menuId=" + menuId +
-                ", roleId=" + roleId +
+                ", urisdictionId=" + urisdictionId +
                 '}';
     }
 }

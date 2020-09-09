@@ -30,7 +30,6 @@ public class LoginController {
     public String login(Admin admin, HttpServletRequest request) {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
-        System.out.println(account+" "+password);
         String str = null;
         Admin admin1=new Admin();
         admin1.setWorkerAccount(account);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.UserMapper">
+
+    <!--查询角色列表表格数据-->
+    <select id="selectRole" parameterType="java.util.Map" resultType="com.auc.pojo.Role">
+    select r.role_id,r.role_name,u.param_name urisdictionName  from t_role r,t_param u where r.urisdiction_id=u.param_value
+    <where>
+    <if test="roleName!=null and roleName!=''"> role_name like concat('%', #{roleName}, '%')  </if>
+        <if test="urisdiction!=null and urisdiction!='' ">urisdictionName like '%#{urisdiction}%'</if>
+    </where>
+    limit #{page},#{limit}
+    </select>
+    <!--删除管理员账号-->
+    <delete id="deleteRole" parameterType="java.lang.String">
+        delete from t_role where worker_account=#{workerAccount}
+    </delete>
+    <!--增加管理员账号-->
+    <insert id="addRole" parameterType="com.auc.pojo.Role">
+        insert into t_role (role_id,role_name,urisdiction_id) value (#{roleId},#{roleName},#{urisdictionId}
+    </insert>
+    <!--查询页码-->
+    <select id="queryRoleCount"  resultType="Integer">
+        select count(*) from t_role r,t_param u where r.urisdiction_id=u.param_value
+        <where>
+            <if test="roleName!=null and roleName!='' ">role_name like '%#{roleName}%'</if>
+            <if test="paramName!=null and paramName!='' ">role_name like '%#{paramName}%'</if>
+        </where>
+    </select>
+</mapper>

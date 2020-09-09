@@ -2,6 +2,7 @@ package com.auc.service;
 
 import com.auc.pojo.Admin;
 import com.auc.pojo.Menu;
+import com.auc.pojo.Role;
 
 import java.util.List;
 import java.util.Map;
@@ -13,4 +14,6 @@ public interface LoginService {
 
     //菜单显示
     public Map<String, List<Menu>> findMenus(Integer roleId);
+
+
 }

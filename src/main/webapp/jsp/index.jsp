@@ -10,7 +10,7 @@
 <html class="x-admin-sm">
 <head>
   <meta charset="UTF-8">
-  <title>主界面</title>
+  <title>智能停车场主界面</title>
   <meta name="renderer" content="webkit|ie-comp|ie-stand">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
@@ -36,7 +36,7 @@
 <!-- 顶部开始 -->
 <div class="container">
   <div class="logo">
-    <a href="./index.html">X-admin v2.2</a></div>
+    <a href="./index.html">智能停车场管理系统</a></div>
   <div class="left_open">
     <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
   </div>

@@ -3,6 +3,7 @@ package com.auc.service.impl;
 import com.auc.mapper.LoginMapper;
 import com.auc.pojo.Admin;
 import com.auc.pojo.Menu;
+import com.auc.pojo.Role;
 import com.auc.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,11 @@ public class LoginServiceImpl implements LoginService {
 //    @Log(operationType = "查询",operationName = "查询菜单")
     @Override
     public Map<String, List<Menu>> findMenus(Integer roleId) {
+        Role role=loginMapper.findRoot(roleId);
         HashMap<String,List<Menu>> menuMap=new HashMap();
-        List<Menu> pMenus= loginMapper.findMenusByPid(0,roleId);
+        List<Menu> pMenus= loginMapper.findMenusByPid(0,role.getUrisdictionId());
         for (Menu menu:pMenus){
-            List<Menu> sMenus=loginMapper.findMenusByPid(menu.getMenuId(),roleId);
+            List<Menu> sMenus=loginMapper.findMenusByPid(menu.getMenuId(),role.getUrisdictionId());
             menuMap.put(menu.getMenuName(),sMenus);
         };
         return menuMap;
