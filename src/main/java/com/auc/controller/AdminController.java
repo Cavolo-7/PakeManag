@@ -60,13 +60,26 @@ public class AdminController {
     @RequestMapping(value = "/deleteAdmin", produces = "text/plain;charset=utf-8")
     public String deleteAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String workerAccount=request.getParameter("workerAccount");
-        System.out.println("****"+workerAccount);
         String str = null;
         boolean flag=adminService.deleteAdmin(workerAccount);
         if (flag==true){
             str="删除成功";
         }else {
             str="删除失败";
+        }
+        return str;
+    }
+
+    //重置管理员密码
+    @RequestMapping(value = "/updateAdminPassword", produces = "text/plain;charset=utf-8")
+    public String updateAdminPassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String workerAccount=request.getParameter("workerAccount");
+        boolean flag=adminService.updateAdminPassword(workerAccount);
+        String str = null;
+        if (flag==true){
+            str="重置成功";
+        }else {
+            str="重置失败";
         }
         return str;
     }

@@ -22,4 +22,6 @@ public interface AdminMapper {
     //删除管理员账号
     public Integer deleteAdmin(String workerAccount);
 
+    //重置管理员密码
+    public Integer updateAdminPassword(String workerAccount);
 }

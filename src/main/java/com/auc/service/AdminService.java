@@ -12,4 +12,7 @@ public interface AdminService {
 
     //删除管理员账号
     public boolean deleteAdmin(String workerAccount);
+
+    //重置管理员密码
+    public boolean updateAdminPassword(String workerAccount);
 }
