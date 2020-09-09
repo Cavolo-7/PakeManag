@@ -52,7 +52,7 @@
                 </div>
               </form>
             </div>
-            <button class="layui-btn" data-type="reload" >搜索</button>
+            <button class="layui-btn" data-type="reload" id="search">搜索</button>
             <br><br><br>
             <button class="layui-btn" onclick="xadmin.open('添加产品','./AddProduce.jsp',450,270)"><i
                     class="layui-icon"></i>添加
@@ -67,8 +67,14 @@
   </div>
 </div>
 <script type="text/html" id="barDemo">
+
+  {{#  if(d.paramName=="启用"){   }}
   <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-  <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="produce_yes(this)">状态</button>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用" onclick="produce_yes(this)">禁用</a>
+  {{#  } else { }}
+  <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用" onclick="produce_yes(this)">启用</a>
+  {{#  } }}
+
 </script>
 </body>
 
@@ -161,15 +167,16 @@
         dataType:'text',
         method: 'post',
         data: {"produceId":$(obj).parent().parent().parent("tr").children("td").eq(1).children("div").text(),
-          "produceStatic":$(obj).parent().parent().parent("tr").children("td").eq(5).children("div").text()},
+          "produceStatic":$(obj).text(),
+        },
         success: function (data) {
           console.log(data)
           if (data == '启用') {
-            $(obj).parent().parent().parent("tr").children("td").eq(5).children("div").text("禁用");
-            layer.msg('操作成功!', {icon: 6, time: 1000});
+            $("#search").click();
+           layer.msg('操作成功!', {icon: 6, time: 1000});
           }else if(data == '禁用'){
-            $(obj).parent().parent().parent("tr").children("td").eq(5).children("div").text("启用");
-            layer.msg('操作成功!', {icon: 6, time: 1000});
+            $("#search").click();
+           layer.msg('操作成功!', {icon: 6, time: 1000});
           }else {
             layer.msg('操作失败!', {icon: 6, time: 1000});
           }

@@ -68,13 +68,40 @@ public class CarControl {
         String carNumber = carServiceImpl.carIn(accessToken, projectPath);//车辆入库业务
         LayuiData layuiData = new LayuiData();
         if ((carNumber != null) && (!carNumber.equals(""))) {
-            layuiData.setMsg("success&"+carNumber);
+            layuiData.setMsg("success&" + carNumber);
         } else {
             layuiData.setMsg("error");
         }
         layuiData.setCode(0);
         return layuiData;
     }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 无法识别车牌时输入车牌
+     * @Date: 2020/9/9
+     * @Param request:
+     * @Param file:
+     * @return: com.auc.util.LayuiData
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/inputCarIn")
+    public LayuiData inputCarIn(HttpServletRequest request) throws IOException {
+        System.out.println("inputCarIn");
+        String carNumber = request.getParameter("carNumber");
+        System.out.println("carNumber：" + carNumber);
+        carServiceImpl.inputCarIn(carNumber);
+        LayuiData layuiData = new LayuiData();
+        if ((carNumber != null) && (!carNumber.equals(""))) {
+            layuiData.setMsg("success&" + carNumber);
+        } else {
+            layuiData.setMsg("error");
+        }
+        layuiData.setCode(0);
+        return layuiData;
+    }
+
 
     /**
      * @Author: TheBigBlue

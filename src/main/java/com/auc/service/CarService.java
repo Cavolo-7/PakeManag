@@ -11,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
  **/
 public interface CarService {
 
-    public String carIn(String accessToken,String path);//车辆入库
+    public String carIn(String accessToken, String path);//车辆入场
+
+    public String inputCarIn(String carNumber);//无法识别车牌时输入车牌入场
 
     public WelcomeInfo noCarWelcome();//空闲时入场显示屏信息
 

@@ -73,15 +73,15 @@ public class CarServiceImpl implements CarService {
                     exemption.setExemptionName(vip.getVipName());//用户名
                     insertExemptionNum = carInMapper.insertExemption(exemption);//插入免检名单表
                 } else {
+                    //d。如果不存在白名单用户表或月缴用户表中，为临时用户
                     System.out.println("临时用户");
                 }
-                //d。如果不存在白名单用户表或月缴用户表中，为临时用户
                 //e。查询停车场车位表，将可使用车位随机分配一个车位给该用户
                 List<CarPort> carPortList = carInMapper.findCarPortList();
                 System.out.println("carPortList：" + carPortList);
                 List<CarPort> noUseCarPortList = new ArrayList<>();//未占用车位
                 for (int i = 0; i < carPortList.size(); i++) {
-                    if (carPortList.get(i).getCarportCarnumber() == null) {
+                    if (carPortList.get(i).getCarportCarnumber() == null || carPortList.get(i).getCarportCarnumber().equals("")) {
                         noUseCarPortList.add(carPortList.get(i));
                     }
                 }
@@ -109,6 +109,49 @@ public class CarServiceImpl implements CarService {
 
     /**
      * @Author: TheBigBlue
+     * @Description: 无法识别车牌时输入车牌
+     * @Date: 2020/9/9
+     * @Param accessToken:
+     * @return: java.lang.String
+     **/
+    @Transactional
+    @Override
+    public String inputCarIn(String carNumber) {
+        //b。根据车牌号查询白名单用户表，月缴用户表
+        White white = carInMapper.findWhite(carNumber);
+        Vip vip = carInMapper.findVip(carNumber);
+        //c。如果存在白名单用户表或月缴用户表中，获取数据，添加至免检用户表（用户名，车牌号，支付时间(临时用户缴费时添加)）
+        int insertExemptionNum = 0;
+        if (white != null) {
+            Exemption exemption = new Exemption();
+            exemption.setExemptionCarnumber(carNumber);//车牌号
+            exemption.setExemptionName(white.getWhiteName());//用户名
+            insertExemptionNum = carInMapper.insertExemption(exemption);//插入免检名单表
+        } else if (vip != null) {
+            Exemption exemption = new Exemption();
+            exemption.setExemptionCarnumber(carNumber);//车牌号
+            exemption.setExemptionName(vip.getVipName());//用户名
+            insertExemptionNum = carInMapper.insertExemption(exemption);//插入免检名单表
+        } else {
+            System.out.println("临时用户");
+        }
+        //e。查询停车场车位表，将可使用车位随机分配一个车位给该用户
+        List<CarPort> carPortList = carInMapper.findCarPortList();
+        List<CarPort> noUseCarPortList = new ArrayList<>();//未占用车位
+        for (int i = 0; i < carPortList.size(); i++) {
+            if (carPortList.get(i).getCarportCarnumber() == null || carPortList.get(i).getCarportCarnumber().equals("")) {
+                noUseCarPortList.add(carPortList.get(i));
+            }
+        }
+        int num = (int) (Math.random() * (noUseCarPortList.size()));
+        CarPort carPort = noUseCarPortList.get(num);//分配的停车位
+        //f。将车辆服务器中照片路径，车牌号，停车照片，开始停车时间（当前时间），插入停车车位表，车位id为e步骤中分配的车位id
+        carInMapper.updateCarPort(carNumber, null, carPort.getCarportId());//插入停车车位表
+        return carNumber;
+    }
+
+    /**
+     * @Author: TheBigBlue
      * @Description: 空闲时入场显示屏信息
      * @Date: 2020/9/8
      * @return: void
@@ -121,7 +164,7 @@ public class CarServiceImpl implements CarService {
         List<CarPort> carPortList = carInMapper.findCarPortList();//查询停车场车位表
         List<CarPort> useList = new ArrayList<>();
         for (int i = 0; i < carPortList.size(); i++) {
-            if ((carPortList.get(i).getCarportCarnumber() != null)&&(!carPortList.get(i).getCarportCarnumber().equals(""))) {
+            if ((carPortList.get(i).getCarportCarnumber() != null) && (!carPortList.get(i).getCarportCarnumber().equals(""))) {
                 useList.add(carPortList.get(i));
             }
         }
@@ -151,7 +194,7 @@ public class CarServiceImpl implements CarService {
         List<CarPort> carPortList = carInMapper.findCarPortList();//查询停车场车位表
         List<CarPort> useList = new ArrayList<>();
         for (int i = 0; i < carPortList.size(); i++) {
-            if ((carPortList.get(i).getCarportCarnumber() != null)&&(!carPortList.get(i).getCarportCarnumber().equals(""))) {
+            if ((carPortList.get(i).getCarportCarnumber() != null) && (!carPortList.get(i).getCarportCarnumber().equals(""))) {
                 useList.add(carPortList.get(i));
             }
         }

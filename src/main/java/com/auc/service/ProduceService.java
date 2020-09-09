@@ -1,7 +1,9 @@
 package com.auc.service;
 
 
-
+/**
+ * 产品管理接口
+ */
 import java.util.HashMap;
 
 public interface ProduceService {

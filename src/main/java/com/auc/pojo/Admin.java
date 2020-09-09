@@ -1,6 +1,9 @@
 package com.auc.pojo;
 
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Admin {
@@ -17,16 +20,17 @@ public class Admin {
    private String workerAge;//员工年龄
    private Integer workerSex;//员工性别
    private String workerAddress;//员工住址
-   private Date workerCreatetimr;//员工账号创建时间
+   private String workerCreatetimr;//员工账号创建时间
 
    private String roleName;//角色名称
    private String stateName;//状态名称
    private String sexName;//员工性别
+   private  String paramName;//参数名
 
    public Admin() {
    }
 
-   public Admin(Integer workerId, String workerAccount, String workerPassword, String workerName, Integer roleId, Integer workerState, String workerPhone, String workerAge, Integer workerSex, String workerAddress, Date workerCreatetimr, String roleName, String stateName, String sexName) {
+   public Admin(Integer workerId, String workerAccount, String workerPassword, String workerName, Integer roleId, Integer workerState, String workerPhone, String workerAge, Integer workerSex, String workerAddress, String workerCreatetimr, String roleName, String stateName, String sexName, String paramName) {
       this.workerId = workerId;
       this.workerAccount = workerAccount;
       this.workerPassword = workerPassword;
@@ -41,15 +45,25 @@ public class Admin {
       this.roleName = roleName;
       this.stateName = stateName;
       this.sexName = sexName;
+      this.paramName = paramName;
    }
 
-   public Date getWorkerCreatetimr() {
+   public String getWorkerCreatetimr() {
       return workerCreatetimr;
    }
 
-   public void setWorkerCreatetimr(Date workerCreatetimr) {
+//   public void setWorkerCreatetimr(Timestamp data) {
+//      String tsStr = "";
+//      DateFormat sdf = new SimpleDateFormat( "yyyy -MM-dd HH:mm:ss");
+//      tsStr=sdf.format(data);
+//      this.workerCreatetimr = tsStr;
+//
+//   }
+
+   public void setWorkerCreatetimr(String workerCreatetimr) {
       this.workerCreatetimr = workerCreatetimr;
    }
+
 
    public Integer getWorkerId() {
       return workerId;
@@ -155,6 +169,14 @@ public class Admin {
       this.sexName = sexName;
    }
 
+   public String getParamName() {
+      return paramName;
+   }
+
+   public void setParamName(String paramName) {
+      this.paramName = paramName;
+   }
+
    @Override
    public String toString() {
       return "Admin{" +
@@ -172,6 +194,7 @@ public class Admin {
               ", roleName='" + roleName + '\'' +
               ", stateName='" + stateName + '\'' +
               ", sexName='" + sexName + '\'' +
+              ", paramName='" + paramName + '\'' +
               '}';
    }
 }

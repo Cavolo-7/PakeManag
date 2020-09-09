@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.auc.pojo.Admin;
 import com.auc.pojo.LayuiData;
 import com.auc.service.AdminService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,21 +53,26 @@ public class AdminController {
         LayuiData<Admin> layuiData = adminService.selectAdminList(condition, curPage, pageSize);
 
 //        Gson gson = new Gson();
-//        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str = JSON.toJSONString(layuiData);
         return str;
     }
 
-    //删除管理员账号
-    @RequestMapping(value = "/deleteAdmin", produces = "text/plain;charset=utf-8")
-    public String deleteAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+   //管理员离职
+    @RequestMapping(value = "/updateDimission", produces = "text/plain;charset=utf-8")
+    public String updateDimission(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String workerAccount=request.getParameter("workerAccount");
+        String stateName=request.getParameter("stateName");
         String str = null;
-        boolean flag=adminService.deleteAdmin(workerAccount);
+        int workerState=adminService.selectWorkerParam(stateName);
+        Admin admin =new Admin();
+        admin.setWorkerAccount(workerAccount);
+        admin.setWorkerState(workerState);
+        boolean flag=adminService.updateDimission(admin);
         if (flag==true){
-            str="删除成功";
+            str="注销成功";
         }else {
-            str="删除失败";
+            str="注销失败";
         }
         return str;
     }
@@ -83,4 +90,137 @@ public class AdminController {
         }
         return str;
     }
+
+    //添加管理员
+    @RequestMapping(value = "/addAdmin", produces = "text/plain;charset=utf-8")
+    public String addAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String str=null;
+        String workerAccount=request.getParameter("workerAccount");
+        String workerName=request.getParameter("workerName");
+        String workerAge=request.getParameter("workerAge");
+        String sex=request.getParameter("sex");
+        String phone=request.getParameter("phone");
+        String workerAddress=request.getParameter("workerAddress");
+        String roleName=request.getParameter("roleName");
+        String stateName=request.getParameter("stateName");
+        String L_pass=request.getParameter("repass");
+
+        Admin admin2=adminService.selectAdminAccount(workerAccount);
+        Admin admin3=adminService.selectAdminPhone(phone);
+        if (admin2!=null) {
+            str="账号已经存在";
+        }else if (admin3!=null) {
+            str="电话号码已存在";
+        }else{
+            int sexValue = adminService.selectParam(sex);
+            int roleId = adminService.selectRoleId(roleName);
+            int stateValue = adminService.selectWorkerParam(stateName);
+
+            Admin admin = new Admin();
+            admin.setWorkerAccount(workerAccount);
+            admin.setWorkerName(workerName);
+            admin.setWorkerAge(workerAge);
+            admin.setWorkerSex(sexValue);
+            admin.setWorkerPhone(phone);
+            admin.setWorkerAddress(workerAddress);
+            admin.setRoleId(roleId);
+            admin.setWorkerState(stateValue);
+            admin.setWorkerPassword(L_pass);
+
+            boolean flag = adminService.addAdmin(admin);
+            if (flag == true) {
+                str = "增加成功";
+            } else {
+                str = "增加失败";
+            }
+        }
+        return str;
+    }
+
+    //修改管理员禁用/启用状态
+    @RequestMapping(value = "/updateAdminState", produces = "text/plain;charset=utf-8")
+    public String updateAdminState(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String workerAccount=request.getParameter("workerAccount");
+        String stateName=request.getParameter("stateName");
+        String str = null;
+        int workerState=adminService.selectWorkerParam(stateName);
+        Admin admin =new Admin();
+        admin.setWorkerAccount(workerAccount);
+        admin.setWorkerState(workerState);
+        boolean flag=adminService.updateDimission(admin);
+        if (flag==true){
+            str="修改成功";
+        }else {
+            str="修改失败";
+        }
+        return str;
+    }
+
+    //添加管理员
+    @RequestMapping(value = "/updateAdmin", produces = "text/plain;charset=utf-8")
+    public String updateAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String str=null;
+        String workerAccount=request.getParameter("workerAccount");
+        String workerName=request.getParameter("workerName");
+        String workerAge=request.getParameter("workerAge");
+        String sex=request.getParameter("sex");
+        String phone=request.getParameter("phone");
+        String workerAddress=request.getParameter("workerAddress");
+        String roleName=request.getParameter("roleName");
+        String stateName=request.getParameter("stateName");
+        String L_pass=request.getParameter("repass");
+
+        Admin admin2=adminService.selectAdminPhone(phone);
+        if (admin2!=null){
+            if (admin2.getWorkerAccount().equals(workerAccount)){
+                int sexValue = adminService.selectParam(sex);
+                int roleId = adminService.selectRoleId(roleName);
+                int stateValue = adminService.selectWorkerParam(stateName);
+
+                Admin admin = new Admin();
+                admin.setWorkerAccount(workerAccount);
+                admin.setWorkerName(workerName);
+                admin.setWorkerAge(workerAge);
+                admin.setWorkerSex(sexValue);
+                admin.setWorkerPhone(phone);
+                admin.setWorkerAddress(workerAddress);
+                admin.setRoleId(roleId);
+                admin.setWorkerState(stateValue);
+                admin.setWorkerPassword(L_pass);
+
+                boolean flag = adminService.updateAdmin(admin);
+                if (flag == true) {
+                    str = "修改成功";
+                } else {
+                    str = "修改失败";
+                }
+            }else {
+                str="该号码已存在";
+            }
+        }else {
+            int sexValue = adminService.selectParam(sex);
+            int roleId = adminService.selectRoleId(roleName);
+            int stateValue = adminService.selectWorkerParam(stateName);
+
+            Admin admin = new Admin();
+            admin.setWorkerAccount(workerAccount);
+            admin.setWorkerName(workerName);
+            admin.setWorkerAge(workerAge);
+            admin.setWorkerSex(sexValue);
+            admin.setWorkerPhone(phone);
+            admin.setWorkerAddress(workerAddress);
+            admin.setRoleId(roleId);
+            admin.setWorkerState(stateValue);
+            admin.setWorkerPassword(L_pass);
+
+            boolean flag = adminService.updateAdmin(admin);
+            if (flag == true) {
+                str = "修改成功";
+            } else {
+                str = "修改失败";
+            }
+        }
+            return str;
+    }
+
 }

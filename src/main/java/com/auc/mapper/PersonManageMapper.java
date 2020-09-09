@@ -1,11 +1,12 @@
 package com.auc.mapper;
-
+/**
+ * 人员管理类
+ */
 import com.auc.pojo.White;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Mapper

@@ -9,7 +9,7 @@
 <html class="x-admin-sm">
 <head>
   <meta charset="UTF-8">
-  <title>增加成品</title>
+  <title>增加产品</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
@@ -61,7 +61,6 @@
         <button class="layui-btn" onclick="closeAdd()">
           退出
         </button>
-      </div>
     </form>
   </div>
 </div>

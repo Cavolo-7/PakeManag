@@ -73,7 +73,8 @@
 </body>
 
 <script>
-  layui.use(['form', 'table'], function () {
+
+    layui.use(['form', 'table'], function () {
     var table = layui.table
     var form = layui.form;
     var util = layui.util;
@@ -99,11 +100,7 @@
         , {field: 'whiteAccount', width: '20%', title: '账号', align: 'center'}
         , {field: 'whiteCarnumber', width: '10%', title: '车牌号', align: 'center', edit: true}
         , {field: 'whitePhone', width: '10%', title: '手机', align: 'center', edit: true}
-        , {
-          field: 'whiteCreatetime', width: '15%', title: '创建时间', align: 'center', templet: function (d) {
-            return util.toDateString(d.whiteCreatetime, "yyyy-MM-dd")
-          }
-        }
+        , {field: 'whiteCreatetime', width: '15%', title: '创建时间', align: 'center'}
         , {field: 'workerName', width: '10%', title: '操作人', align: 'center'}
         , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
       ]]

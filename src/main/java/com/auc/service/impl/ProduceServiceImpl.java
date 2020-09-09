@@ -3,7 +3,6 @@ package com.auc.service.impl;
 import com.auc.mapper.ProduceMapper;
 import com.auc.pojo.Param;
 import com.auc.pojo.Produce;
-import com.auc.pojo.White;
 import com.auc.service.ProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 产品管理实现类
+ */
 @Service
 public class ProduceServiceImpl implements ProduceService {
 
@@ -40,12 +42,12 @@ public class ProduceServiceImpl implements ProduceService {
         boolean fal=false;
         int num=0;
         if (produceStatic.equals("启用")){
-            produceStatic="禁用";
-        }else{
             produceStatic="启用";
+        }else{
+            produceStatic="禁用";
         }
         Param param=produceMapper.queryProduceStatic(produceStatic);
-        num=produceMapper.delProduce(produceId,param.getParamValue());
+        num=produceMapper.delProduce(Integer.parseInt(produceId),param.getParamValue());
         if (num>0){
             fal=true;
         }
