@@ -1,6 +1,5 @@
 package com.auc.pojo;
 
-import java.util.Date;
 /**
  * 白名单实体类
  */
@@ -11,7 +10,7 @@ public class White {
     private String whitePassword;
     private String whiteCarnumber;
     private String whitePhone;
-    private Date whiteCreatetime;
+    private String whiteCreatetime;
     private Integer workerId;
     private String workerName;
 
@@ -27,7 +26,7 @@ public class White {
         this.workerId = workerId;
     }
 
-    public White(Integer whiteId, String whiteName, String whiteAccount, String whitePassword, String whiteCarnumber, String whitePhone, Date whiteCreatetime, Integer workerId, String workerName) {
+    public White(Integer whiteId, String whiteName, String whiteAccount, String whitePassword, String whiteCarnumber, String whitePhone, String whiteCreatetime, Integer workerId, String workerName) {
         this.whiteId = whiteId;
         this.whiteName = whiteName;
         this.whiteAccount = whiteAccount;
@@ -95,11 +94,11 @@ public class White {
         this.whitePhone = whitePhone;
     }
 
-    public Date getWhiteCreatetime() {
+    public String getWhiteCreatetime() {
         return whiteCreatetime;
     }
 
-    public void setWhiteCreatetime(Date whiteCreatetime) {
+    public void setWhiteCreatetime(String whiteCreatetime) {
         this.whiteCreatetime = whiteCreatetime;
     }
 

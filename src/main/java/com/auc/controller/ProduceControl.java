@@ -1,11 +1,8 @@
 package com.auc.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.auc.pojo.Param;
 import com.auc.pojo.Produce;
-import com.auc.pojo.White;
 import com.auc.service.ProduceService;
-import com.auc.service.impl.ProduceServiceImpl;
 import com.auc.util.LayuiData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

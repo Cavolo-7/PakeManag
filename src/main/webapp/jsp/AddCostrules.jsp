@@ -9,7 +9,7 @@
 <html class="x-admin-sm">
 <head>
   <meta charset="UTF-8">
-  <title>增加产品</title>
+  <title>增加计费规则</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
@@ -29,40 +29,31 @@
   <div class="layui-row">
     <form class="layui-form">
       <div class="layui-form-item">
-        <label for="produceName" class="layui-form-label">
-          <span class="x-red">*</span>套餐名
+        <label for="costrulesTime" class="layui-form-label">
+          <span class="x-red">*</span>计费时长
         </label>
         <div class="layui-input-inline">
-          <input type="text" id="produceName" name="produceName" required="" lay-verify="required"
+          <input type="text" id="costrulesTime" name="costrulesTime" required="" lay-verify="required"
                  autocomplete="off" class="layui-input">
         </div>
       </div>
       <div class="layui-form-item">
-        <label for="produceDescribe" class="layui-form-label">
-          <span class="x-red">*</span>套餐描述
+        <label for="costrulesMoney" class="layui-form-label">
+          <span class="x-red">*</span>计费价格
         </label>
         <div class="layui-input-inline">
-          <input type="text" id="produceDescribe" name="produceDescribe" required="" lay-verify="required"
+          <input type="text" id="costrulesMoney" name="costrulesMoney" required="" lay-verify="money"
                  autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="produceMoney" class="layui-form-label">
-          <span class="x-red">*</span>套餐价格
-        </label>
-        <div class="layui-input-inline">
-          <input type="text" id="produceMoney" name="produceMoney" required="" lay-verify="money"
-                 autocomplete="off" class="layui-input">
-        </div>
-      </div>
-        <button class="layui-btn" lay-submit lay-filter="add" style="margin-left: 150px">
-          增加
-        </button>
-        <button class="layui-btn" onclick="closeAdd()">
-          退出
-        </button>
-    </form>
-  </div>
+      <button class="layui-btn" lay-submit lay-filter="add" style="margin-left: 150px">
+        增加
+      </button>
+      <button class="layui-btn" onclick="closeAdd()">
+        退出
+      </button>
+  </form>
+</div>
 </div>
 <script>
 
@@ -94,7 +85,7 @@
     form.on('submit(add)', function (data) {
       console.log(data);
       $.ajax({
-        url: "/produce/add",
+        url: "/costrules/add",
         data: data.field,
         dataType: 'text',
         method: 'post',

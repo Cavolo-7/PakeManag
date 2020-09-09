@@ -21,14 +21,14 @@
             and w.worker_account like concat('%',#{condition.account},'%')
         </if>
         <if test="condition.phone !=null and condition.phone!=''">
-        and  w.worker_phone like concat('%',#{condition.phone},'%')
+            and w.worker_phone like concat('%',#{condition.phone},'%')
         </if>
         <if test="curPage !=null and pageSize !=''">
             limit #{curPage},#{pageSize};
         </if>
     </select>
 
-<!--    查询计算管理员数据相关条数-->
+    <!--    查询计算管理员数据相关条数-->
     <select id="selectAdminCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(worker_id) from t_worker as w where 1=1
 
@@ -39,16 +39,52 @@
             and w.worker_account like concat('%',#{condition.account},'%')
         </if>
         <if test="condition.phone !=null and condition.phone!=''">
-            and  w.worker_phone like concat('%',#{condition.phone},'%')
+            and w.worker_phone like concat('%',#{condition.phone},'%')
         </if>
     </select>
-<!--    删除管理员账号-->
-    <delete id="deleteAdmin" parameterType="java.lang.String">
-        delete from t_worker where worker_account=#{workerAccount}
-    </delete>
 
-<!--    修改密码-->
+    <!--    查询角色id-->
+    <select id="selectRoleId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select role_id from t_role where role_name=#{roleName}
+    </select>
+
+    <!--    查询参数表-->
+    <select id="selectParam" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select param_value from t_param where param_name=#{stateName}
+    </select>
+
+    <!--    查询参数表-->
+    <select id="selectWorkerParam" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select param_value from t_param where param_name=#{stateName} and param_type='workerState'
+    </select>
+
+    <!--    管理员离职-->
+    <update id="updateDimission" parameterType="com.auc.pojo.Admin">
+  update t_worker as w  set w.worker_state=#{workerState} where w.worker_account=#{workerAccount}
+    </update>
+
+    <!--    修改密码-->
     <update id="updateAdminPassword" parameterType="java.lang.String">
   update t_worker as w  set w.worker_password='123456' where w.worker_account=#{workerAccount}
+    </update>
+
+    <!--    添加管理员-->
+    <insert id="addAdmin" parameterType="com.auc.pojo.Admin">
+    insert into t_worker (worker_account,worker_password,worker_name,role_id,worker_state,worker_phone,worker_age,worker_sex,worker_address) values (#{workerAccount},#{workerPassword},#{workerName},#{roleId},#{workerState},#{workerPhone},#{workerAge},#{workerSex},#{workerAddress})
+    </insert>
+
+<!--    查询管理员账号是否存在-->
+    <select id="selectAdminAccount" resultType="com.auc.pojo.Admin" parameterType="java.lang.String">
+        select * from t_worker as w where w.worker_account=#{workerAccount}
+    </select>
+
+    <!--    查询管理员手机号码是否存在-->
+    <select id="selectAdminPhone" resultType="com.auc.pojo.Admin" parameterType="java.lang.String">
+        select * from t_worker as w where w.worker_phone=#{workerPhone}
+    </select>
+
+<!--    修改管理员-->
+    <update id="updateAdmin"  parameterType="com.auc.pojo.Admin">
+    update t_worker  set worker_password=#{workerPassword},worker_name=#{workerName},role_id=#{roleId},worker_state=#{workerState},worker_phone=#{workerPhone},worker_age=#{workerAge},worker_sex=#{workerSex},worker_address=#{workerAddress} where worker_account=#{workerAccount}
     </update>
 </mapper>

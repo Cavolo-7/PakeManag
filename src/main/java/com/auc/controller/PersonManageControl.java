@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.auc.pojo.White;
 import com.auc.service.PersonManageService;
 import com.auc.util.LayuiData;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +51,10 @@ public class PersonManageControl {
         layuiData.setCount(num);
         layuiData.setMsg("查无此数据");
         layuiData.setData(list);
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str= JSON.toJSONString(layuiData);
+
         return str;
     }
 

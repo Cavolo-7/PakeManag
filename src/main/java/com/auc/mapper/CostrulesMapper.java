@@ -1,0 +1,31 @@
+package com.auc.mapper;
+
+import com.auc.pojo.Costrules;
+import com.auc.pojo.Param;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * 计费规则类
+ */
+
+@Mapper
+@Repository
+public interface CostrulesMapper {
+
+    public List<Costrules> queryCostrules(Integer page, Integer limit);  //查询计费规则
+
+    public Integer queryCostrulesCount(); //查询计费规则总页码
+
+    public Integer delCostrules(Integer costrulesId);  //计费规则删除
+
+    public Integer updCostrules(Integer costrulesId,Integer costrulesMoney);  //计费规则修改
+
+    public Integer addCostrules(Costrules costrules);  //计费规则增加
+
+    public Integer UpdStatic(Integer costrulesId,Integer costrulesState); //计费规则禁用-启用
+
+    public Param queryCostrulesStatic(String paramName); //通过查找参数表找到对应的value值
+}

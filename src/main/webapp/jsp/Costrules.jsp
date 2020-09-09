@@ -9,7 +9,7 @@
 <html class="x-admin-sm">
 <head>
   <meta charset="UTF-8">
-  <title>白名单</title>
+  <title>计费规则</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
@@ -37,52 +37,57 @@
       <div class="layui-card">
         <div class="layui-card-body ">
           <div class="demoTable">
-            <div class="layui-inline">
-              <input class="layui-input" name="carnumber" placeholder="请输入车牌号" id="carnumber" autocomplete="off">
-            </div>
-            <div class="layui-inline">
-              <input class="layui-input" name="username" placeholder="请输入用户名" id="username" autocomplete="off">
-            </div>
-            <div class="layui-inline">
-              <input class="layui-input" name="account" placeholder="请输入账号" id="account" autocomplete="off">
-            </div>
-            <div class="layui-inline">
-              <input class="layui-input" name="phone" placeholder="请输入手机号码" id="phone" autocomplete="off">
-            </div>
-            <div class="layui-inline">
-              <input class="layui-input" name="worker" placeholder="请输入操作人" id="worker" autocomplete="off">
-            </div>
-            <button class="layui-btn" data-type="reload">搜索</button>
-            <br><br><br>
-            <button class="layui-btn" onclick="xadmin.open('添加用户','./AddWhite.jsp',600,470)"><i
+<%--            <div class="layui-inline">--%>
+<%--              <input class="layui-input" name="produceName" placeholder="请输入套餐名" id="produceName" autocomplete="off">--%>
+<%--            </div>--%>
+<%--            <div class="layui-inline">--%>
+<%--              <form class="layui-form">--%>
+<%--                <label class="layui-form-label">产品状态：</label>--%>
+<%--                <div class="layui-input-inline" style="margin-top: 5px">--%>
+<%--                  <select name="produceStatic" id="produceStatic" lay-verify="required">--%>
+<%--                    <option value=""></option>--%>
+<%--                    <option value="启用">启用</option>--%>
+<%--                    <option value="禁用">禁用</option>--%>
+<%--                  </select>--%>
+<%--                </div>--%>
+<%--              </form>--%>
+<%--            </div>--%>
+            <button class="layui-btn" data-type="reload" id="search" >搜索</button>
+            <button class="layui-btn" onclick="xadmin.open('添加产品','./AddCostrules.jsp',450,270)"><i
                     class="layui-icon"></i>添加
             </button>
           </div>
         </div>
         <div class="layui-card-body ">
-          <table class="layui-hide" id="whiteTable" lay-filter="whiteTable"></table>
+          <table class="layui-hide" id="costrulesTable" lay-filter="costrulesTable"></table>
         </div>
       </div>
     </div>
   </div>
 </div>
 <script type="text/html" id="barDemo">
+  {{#  if(d.paramName=="启用"){   }}
   <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用" onclick="produce_yes(this)">禁用</a>
+  {{#  } else { }}
+  <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用" onclick="produce_yes(this)">启用</a>
+  {{#  } }}
+ </script>
 </body>
 
 <script>
 
-    layui.use(['form', 'table'], function () {
+
+
+  layui.use(['form', 'table'], function () {
     var table = layui.table
     var form = layui.form;
     var util = layui.util;
     var laydate = layui.laydate;
     table.render({
-      elem: '#whiteTable'
-      , id: 'whiteTable'
-      , url: '/personManage/white'
+      elem: '#costrulesTable'
+      , id: 'costrulesTable'
+      , url: '/costrules/query'
       , cellMinWidth: 80
       // 限制每页的条数
       , limit: 10
@@ -96,23 +101,21 @@
       , cols: [[
         //序号
         , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
-        , {field: 'whiteName', width: '10%', title: '名字', align: 'center', edit: true}
-        , {field: 'whiteAccount', width: '20%', title: '账号', align: 'center'}
-        , {field: 'whiteCarnumber', width: '10%', title: '车牌号', align: 'center', edit: true}
-        , {field: 'whitePhone', width: '10%', title: '手机', align: 'center', edit: true}
-        , {field: 'whiteCreatetime', width: '15%', title: '创建时间', align: 'center'}
-        , {field: 'workerName', width: '10%', title: '操作人', align: 'center'}
+        , {field: 'costrulesId', width: '10%', title: '套餐编号',hide:true}
+        , {field: 'costrulesTime', width: '20%', title: '计费时长', align: 'center'}
+        , {field: 'costrulesMoney', width: '20%', title: '计费价钱', align: 'center', edit: true}
+        , {field: 'paramName', width: '20%', title: '计费状态', align: 'center'}
         , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
       ]]
       , id: 'testReload'
     })
-    table.on('tool(whiteTable)', function (obj) {
+    table.on('tool(costrulesTable)', function (obj) {
       var data = obj.data;
       if (obj.event === 'edit') {
-        layer.confirm('真的要修改么', function (index) {
+        layer.confirm('真的要修改该套餐么', function (index) {
           $.ajax({
-            url: "/personManage/edit",
-            data: {'whiteAccount': data.whiteAccount,'whiteName': data.whiteName,'whiteCarnumber': data.whiteCarnumber,'whitePhone': data.whitePhone},
+            url: "/costrules/edit",
+            data: {"costrulesId":data.costrulesId,'costrulesMoney': data.costrulesMoney},
             method: 'post',
             dataType: 'text',
             success: function (data) {
@@ -124,12 +127,11 @@
             }
           })
         });
-
-      } else if (obj.event === 'del') {
+      }else if (obj.event === 'del') {
         layer.confirm('真的删除行么', function (index) {
           $.ajax({
-            url: "/personManage/del",
-            data: {'whiteAccount': data.whiteAccount},
+            url: "/costrules/del",
+            data: {'costrulesId': data.costrulesId},
             method: "post",
             dataType: "text",
             success: function (data) {
@@ -148,11 +150,8 @@
 
     var $ = layui.$, active = {
       reload: function () {
-        var username = $('#username');
-        var account = $('#account');
-        var phone = $('#phone');
-        var carnumber = $('#carnumber');
-        var worker = $('#worker');
+        var produceStatic = $('#produceStatic');
+        var produceName = $('#produceName');
         //执行重载
         table.reload('testReload', {
           page: {
@@ -160,11 +159,8 @@
           }
           , where: {
             key: {
-              username: username.val(),
-              account: account.val(),
-              phone: phone.val(),
-              worker:worker.val(),
-              carnumber:carnumber.val(),
+              produceStatic: produceStatic.val(),
+              produceName: produceName.val(),
             }
           }
         }, 'data');
@@ -175,15 +171,33 @@
       var type = $(this).data('type');
       active[type] ? active[type].call(this) : '';
     });
-
-    // var $ = layui.$, active = {
-    //   getCheckData: function () { //获取选中数据
-    //     var checkStatus = table.checkStatus('testReload')
-    //         , data = checkStatus.data;
-    //     layer.alert(JSON.stringify(data));
-    //   }
-    // };
-
   });
+
+  function produce_yes(obj) {
+    layer.confirm('确认要修改状态吗？', function (index) {
+      console.log()
+      $.ajax({
+        url: '/costrules/updstatic',
+        dataType:'text',
+        method: 'post',
+        data: {"costrulesId":$(obj).parent().parent().parent("tr").children("td").eq(1).children("div").text(),
+          "costrulesState":$(obj).text(),
+        },
+        success: function (data) {
+          console.log(data)
+          if (data == '启用') {
+            $("#search").click();
+            layer.msg('操作成功!', {icon: 6, time: 1000});
+          }else if(data == '禁用'){
+            $("#search").click();
+            layer.msg('操作成功!', {icon: 6, time: 1000});
+          }else {
+            layer.msg('操作失败!', {icon: 6, time: 1000});
+          }
+        }
+      })
+    });
+  }
+
 </script>
 </html>
