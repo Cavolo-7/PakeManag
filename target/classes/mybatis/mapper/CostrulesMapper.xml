@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.CostrulesMapper">
+    <select id="queryCostrules" resultType="com.auc.pojo.Costrules">
+        select p.costrules_id,p.costrules_time,p.costrules_money,a.param_name from t_costrules p,t_param a
+        <where>
+            and p.costrules_state=a.param_value
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="queryCostrulesCount" resultType="Integer">
+        select count(*) from t_costrules p,t_param a
+        <where>
+            and  p.costrules_state=a.param_value
+        </where>
+    </select>
+
+    <select id="queryCostrulesStatic" resultType="com.auc.pojo.Param">
+        select param_id,param_name,param_type,param_value from t_param
+        <where>
+            and param_name=#{paramName}
+            and param_type='costrulesState'
+        </where>
+    </select>
+
+    <update id="UpdStatic">
+        update t_costrules
+        <set>
+            <if test="costrulesState!=null and costrulesState !='' ">costrules_state =#{costrulesState},</if>
+        </set>
+        <where>
+            costrules_id=#{costrulesId}
+        </where>
+    </update>
+
+    <insert id="addCostrules" parameterType="com.auc.pojo.Costrules">
+        insert into t_costrules (costrules_time,costrules_money,costrules_state) VALUES (#{costrulesTime},#{costrulesMoney},#{costrulesState})
+    </insert>
+
+    <delete id="delCostrules" parameterType="java.lang.String">
+        delete from t_costrules
+        <where>
+            costrules_id=#{costrulesId}
+        </where>
+    </delete>
+
+    <update id="updCostrules" parameterType="java.lang.String">
+        update t_costrules
+        <set>
+            <if test="costrulesMoney!=null and costrulesMoney !='' ">costrules_money =#{costrulesMoney},</if>
+        </set>
+        <where>
+            costrules_id=#{costrulesId}
+        </where>
+    </update>
+
+</mapper>
