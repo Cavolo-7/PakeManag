@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,16 +45,17 @@ public class LoginController {
         }
         return str;
     }
-
+    //显示菜单
     @RequestMapping(value = "/userMenus")
-    public String userMenus(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+    public ModelAndView userMenus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Admin admin = (Admin) request.getSession().getAttribute("admin");
         System.out.println(admin);
         Map<String, List<Menu>> MenuMap = loginService.findMenus(admin.getRoleId());//根据角色id显示不同的菜单
-//        ModelAndView modelAndView=new ModelAndView();
-        model.addAttribute("MenuMap",MenuMap);
-//        modelAndView.addObject("MenuMap",MenuMap);
-//        modelAndView.setViewName("/jsp/UserMenu.jsp");
-        return "/jsp/UserMenu.jsp";
+        ModelAndView modelAndView=new ModelAndView();
+        System.out.println(MenuMap.toString());
+//        model.addAttribute("MenuMap",MenuMap);
+        modelAndView.addObject("MenuMap",MenuMap);
+        modelAndView.setViewName("/jsp/index.jsp");
+        return modelAndView;
     }
 }
