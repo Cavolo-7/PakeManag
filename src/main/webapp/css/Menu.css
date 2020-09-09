@@ -1,0 +1,21 @@
+.layui-body{
+    width: 80%;
+    height: 630px;
+    float: right;
+    background-color: white;
+    box-sizing: border-box;
+}
+.menu_ul {
+    /*display: none;*/
+    list-style-type: none;
+    text-align: center;
+
+}
+h2{
+    text-align: center;
+    background-color: lightslategray;
+}
+#iframe{
+    width: 100%;
+    height: 100%;
+}
