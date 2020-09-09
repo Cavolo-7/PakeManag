@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
-// 白名单管理
+/**
+ * 白名单控制类
+ */
 @Controller
 @RequestMapping("/personManage")
-public class PersonManageMapperControl {
+public class PersonManageControl {
 
     @Autowired
     PersonManageService personManageService;
@@ -39,8 +41,6 @@ public class PersonManageMapperControl {
         hashMap.put("phone", phone);
         hashMap.put("worker", worker);
         hashMap.put("carnumber", carnumber);
-        System.out.println(pages);
-        System.out.println(limit);
         HashMap hs = personManageService.queryWhite(hashMap);
         List<White> list = (List<White>) hs.get("list");
         int num = (int) hs.get("num");
@@ -57,25 +57,36 @@ public class PersonManageMapperControl {
     @ResponseBody
     public String AddWhite(String username, String account,String phone, String carnumber, String pass){
         System.out.println("增加白名单");
-        White white=new White(username,account,pass,carnumber,phone,5);
-        System.out.println(white);
-        personManageService.addWhite(white);
-        return "增加成功";
+        White white=new White(username,account,pass,carnumber,phone,6);
+        boolean fal=personManageService.addWhite(white);
+        if (fal) {
+            return "增加成功";
+        }else{
+            return "增加失败";
+        }
     }
 
     @RequestMapping("/del")
     @ResponseBody
-    public String DelWhite(String username, String account,String phone, String carnumber,String like, String pass){
+    public String DelWhite(String whiteAccount){
         System.out.println("删除白名单");
-
-        return "删除成功";
+        boolean fal=personManageService.delWhite(whiteAccount);
+        if (fal) {
+            return "删除成功";
+        }else{
+            return "删除失败";
+        }
     }
 
     @RequestMapping("/edit")
     @ResponseBody
-    public String UpdWhite(String username, String account,String phone, String carnumber,String like, String pass){
+    public String UpdWhite(String whiteAccount,String whiteName,String whiteCarnumber, String whitePhone){
         System.out.println("修改白名单");
-
-        return "编辑成功";
+        boolean fal=personManageService.updWhite(whiteAccount,whiteName,whiteCarnumber,whitePhone);
+        if (fal) {
+            return "编辑成功";
+        }else{
+            return "编辑失败";
+        }
     }
 }

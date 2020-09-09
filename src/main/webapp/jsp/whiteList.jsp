@@ -54,7 +54,6 @@
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
             <br><br><br>
-            <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>
             <button class="layui-btn" onclick="xadmin.open('添加用户','./AddWhite.jsp',600,470)"><i
                     class="layui-icon"></i>添加
             </button>
@@ -95,10 +94,9 @@
       , page: true
       , cols: [[
         //序号
-        {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
         , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
-        , {field: 'whiteName', width: '5%', title: '名字', align: 'center', edit: true}
-        , {field: 'whiteAccount', width: '20%', title: '账号', align: 'center', edit: true}
+        , {field: 'whiteName', width: '10%', title: '名字', align: 'center', edit: true}
+        , {field: 'whiteAccount', width: '20%', title: '账号', align: 'center'}
         , {field: 'whiteCarnumber', width: '10%', title: '车牌号', align: 'center', edit: true}
         , {field: 'whitePhone', width: '10%', title: '手机', align: 'center', edit: true}
         , {
@@ -111,13 +109,13 @@
       ]]
       , id: 'testReload'
     })
-    table.on('tool(mangerTable)', function (obj) {
+    table.on('tool(whiteTable)', function (obj) {
       var data = obj.data;
       if (obj.event === 'edit') {
         layer.confirm('真的要修改么', function (index) {
           $.ajax({
             url: "/personManage/edit",
-            data: {'data': JSON.stringify(data)},
+            data: {'whiteAccount': data.whiteAccount,'whiteName': data.whiteName,'whiteCarnumber': data.whiteCarnumber,'whitePhone': data.whitePhone},
             method: 'post',
             dataType: 'text',
             success: function (data) {
@@ -134,7 +132,7 @@
         layer.confirm('真的删除行么', function (index) {
           $.ajax({
             url: "/personManage/del",
-            data: {'data': JSON.stringify(data)},
+            data: {'whiteAccount': data.whiteAccount},
             method: "post",
             dataType: "text",
             success: function (data) {
