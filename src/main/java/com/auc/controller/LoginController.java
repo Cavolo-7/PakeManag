@@ -29,7 +29,6 @@ public class LoginController {
     @ResponseBody
     public String login(Admin admin, HttpServletRequest request) {
         String account = request.getParameter("account");
-
         String password = request.getParameter("password");
         System.out.println(account+" "+password);
         String str = null;
@@ -49,10 +48,8 @@ public class LoginController {
     @RequestMapping(value = "/userMenus")
     public ModelAndView userMenus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Admin admin = (Admin) request.getSession().getAttribute("admin");
-        System.out.println(admin);
         Map<String, List<Menu>> MenuMap = loginService.findMenus(admin.getRoleId());//根据角色id显示不同的菜单
         ModelAndView modelAndView=new ModelAndView();
-        System.out.println(MenuMap.toString());
 //        model.addAttribute("MenuMap",MenuMap);
         modelAndView.addObject("MenuMap",MenuMap);
         modelAndView.setViewName("/jsp/index.jsp");

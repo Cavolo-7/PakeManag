@@ -1,5 +1,4 @@
 function jqAjax() {
-    alert("我进来了")
     var account = $("#account").val();//获取账号
 
     var password = $("#password").val();//获取密码

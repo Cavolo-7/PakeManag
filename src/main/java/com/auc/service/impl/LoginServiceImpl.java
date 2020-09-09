@@ -15,11 +15,9 @@ public class LoginServiceImpl implements LoginService {
     //显示菜单
     @Autowired
     public LoginMapper loginMapper;
-
 //    @Log(operationType = "查询",operationName = "查询菜单")
     @Override
     public Map<String, List<Menu>> findMenus(Integer roleId) {
-        System.out.println("我进来了000");
         HashMap<String,List<Menu>> menuMap=new HashMap();
         List<Menu> pMenus= loginMapper.findMenusByPid(0,roleId);
         for (Menu menu:pMenus){
