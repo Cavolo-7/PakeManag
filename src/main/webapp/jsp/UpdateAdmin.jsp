@@ -36,7 +36,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="workerAccount" name="workerAccount" required="" lay-verify="workerAccount"
-                           autocomplete="off" class="layui-input">
+                           autocomplete="off" disabled="false" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>将会成为您唯一的登入名
@@ -49,7 +49,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="workerName" name="workerName" required="" lay-verify="workerName"
-                           autocomplete="off" class="layui-input">
+                           autocomplete="off" disabled="false" class="layui-input">
                 </div>
             </div>
 
@@ -64,11 +64,12 @@
             </div>
 
             <div class="layui-form-item">
-                <label fro="sex" class="layui-form-label">
+                <label for="sex" class="layui-form-label">
                     <span class="x-red">*</span>性别
                 </label>
-                <div class="layui-input-block">
-                    <input name="sex" type="radio" value="男" checked>男 &nbsp; &nbsp; <input name="sex" type="radio" value="女">女
+                <div class="layui-input-inline">
+                    <input type="text" id="sex" name="sex" required="" lay-verify="sex"
+                           autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -141,7 +142,7 @@
                 <label for="L_repass" class="layui-form-label">
                 </label>
                 <button class="layui-btn" lay-filter="add" lay-submit="">
-                    增加
+                  修改
                 </button>
                 <button class="layui-btn" lay-filter="quit" onclick="quit(this)">
                     取消
@@ -174,7 +175,7 @@
 
             workerAge:[ /^([1-9]\d?|1[01]\d|120)$/,'年龄填写错误'],
 
-            phone:[/^([1]\d{10}|([\(（]?0[0-9]{2,3}[）\)]?[-]?)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?)$/,'手机号码格式错误'],
+            // phone:[/^([1]\d{10}|([\(（]?0[0-9]{2,3}[）\)]?[-]?)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?)$/,'手机号码格式错误'],
 
             workerAddress:function(value){
               if (value==''){
@@ -193,30 +194,32 @@
         //监听提交
         form.on('submit(add)', function (data) {
             $.ajax({
-                url: "/admin/addAdmin",
+                url: "/admin/updateAdmin",
                 data: data.field,
                 dataType: 'text',
                 method: 'post',
                 success: function (data) {
-                    if (data == "增加成功") {
-                        layer.msg("增加成功!")
+                    if (data == "修改成功") {
+                        layer.msg("修改成功!")
                         // //关闭当前frame
                         setTimeout(function () {
                             xadmin.close();
-                        }, 20000);
+                        }, 2000000);
                         // // 可以对父窗口进行刷新
                         xadmin.father_reload();
-                    } else if(data == "增加失败"){
-                        layer.msg("增加失败!")
-                    }else if (data == "账号已存在"){
-                        layer.msg("该账号已经存在!")
-                    }else if (data=="电话号码已存在"){
-                        layer.msg("电话号码已存在!")
+                    } else if(data == "修改失败"){
+                        layer.msg("修改失败!")
+                    }else if (data == "该号码已存在"){
+                        layer.msg("该号码已存在!")
                     }
                 }
             })
             return false;
             });
+
+
+
+
     });
 function quit(node) {
     setTimeout(function () {

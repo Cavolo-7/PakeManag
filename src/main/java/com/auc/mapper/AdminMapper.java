@@ -19,9 +19,30 @@ public interface AdminMapper {
     //查询计算
     public Integer selectAdminCount(@Param("condition") Map<String, String> condition);
 
-    //删除管理员账号
-    public Integer deleteAdmin(String workerAccount);
+    //管理员离职
+    public Integer updateDimission(Admin admin);
+
+    //查询参数id
+    public Integer selectParam(String paramName);
+
+    //查询员工参数id
+    public Integer selectWorkerParam(String paramName);
 
     //重置管理员密码
     public Integer updateAdminPassword(String workerAccount);
+
+    //添加管理员账号
+    public Integer addAdmin(Admin admin);
+
+    //查询角色id
+    public Integer selectRoleId(String roleName);
+
+    //查询管理员账号是否存在
+    public Admin selectAdminAccount(String workerAccount);
+
+    //查询管理员手机号码是否存在
+    public  Admin selectAdminPhone(String workerPhoe);
+
+    //修改管理员
+    public Integer updateAdmin(Admin admin);
 }

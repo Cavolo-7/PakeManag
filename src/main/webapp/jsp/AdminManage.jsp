@@ -27,7 +27,8 @@
             <a>
               <cite>导航元素</cite></a>
           </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()"
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       onclick="location.reload()"
        title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 </div>
@@ -38,18 +39,20 @@
                 <div class="layui-card-body ">
                     <div class="demoTable">
                         <div class="layui-inline">
-                            <input class="layui-input" name="adminName" placeholder="请输入管理员姓名" id="adminName" autocomplete="off">
+                            <input class="layui-input" name="adminName" placeholder="请输入管理员姓名" id="adminName"
+                                   autocomplete="off">
                         </div>
                         <div class="layui-inline">
-                            <input class="layui-input" name="account" placeholder="请输入管理员账号" id="account" autocomplete="off">
+                            <input class="layui-input" name="account" placeholder="请输入管理员账号" id="account"
+                                   autocomplete="off">
                         </div>
                         <div class="layui-inline">
                             <input class="layui-input" name="phone" placeholder="请输入电话号码" id="phone" autocomplete="off">
                         </div>
-                        <button class="layui-btn" data-type="reload">搜索</button>
+                        <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
-                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>
-                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddWhite.jsp',600,470)"><i
+                        <%--                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>--%>
+                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddAdmin.jsp',600,470)"><i
                                 class="layui-icon"></i>添加
                         </button>
                     </div>
@@ -62,9 +65,16 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{#  if(d.stateName!="注销"){ }}
+    {{#  if(d.stateName=="启用"){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="updateAdmin(this)">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">注销</a>
     <a class="layui-btn layui-btn-xs" lay-event="detail">重置密码</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用">禁用</a>
+    {{#  } else { }}
+    <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用">启用</a>
+    {{#  } }}
+    {{#  }}}
 </script>
 </body>
 
@@ -90,20 +100,18 @@
             , page: true
             , cols: [[
                 //序号
-                {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
-                , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
+                // {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
+                {type: 'numbers', width: '5%', title: '序号', align: 'center'}
                 , {field: 'workerAccount', title: '账号', width: '5%'}
                 , {field: 'workerName', title: '用户名', width: '10%'}
-                , {field: 'sexName', title: '性别', width: '5%', }
-                , {field: 'workerAge', title: '年龄', width: '5%', }
-                , {field: 'workerPhone', title: '电话', width: '10%', }
-                , {field: 'workerAddress', title: '住址', width: '10%', }
-                , {field: 'roleName', title: '角色', width: '10%', }
+                , {field: 'sexName', title: '性别', width: '5%',}
+                , {field: 'workerAge', title: '年龄', width: '5%',}
+                , {field: 'workerPhone', title: '电话', width: '10%',}
+                , {field: 'workerAddress', title: '住址', width: '10%',}
+                , {field: 'roleName', title: '角色', width: '10%',}
                 , {field: 'stateName', title: '账号状态', width: '5%',}
-                ,{ field: 'workerCreatetimr', width: '10%', title: '创建时间', align: 'center', templet: function (d) {
-                        return util.toDateString(d.workerCreatetimr, "yyyy-MM-dd")
-                    }
-                }
+                , {field: 'workerCreatetimr', width: '10%', title: '创建时间', align: 'center'}
+                , {field: 'workerPassword', title: '密码', width: '5%',hidden:true}
                 , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
             ]]
             , id: 'testReload'
@@ -111,42 +119,56 @@
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
-                layer.confirm('真的要修改么', function (index) {
-                    // $.ajax({
-                    //   url: "../HeadsServlet?methodName=UpData",
-                    //   data: {'data': JSON.stringify(data)},
-                    //   method: 'post',
-                    //   dataType: 'json',
-                    //   success: function (data) {
-                    //     if (data == "编辑成功") {
-                    //       layer.msg("编辑成功")
-                    //     } else {
-                    //       layer.msg("编辑失败")
-                    //     }
-                    //   }
-                    // })
+                layer.open({
+                    // anim: 1,
+                    type: 2,//Page层类型
+                    area: ['500px', '500px'],
+                    title: '添加类型',
+                    shadeClose: true,
+                    shade: false,
+                    id: 'alterp',
+                    shade: 0.6, //遮罩透明度,
+                    maxmin: true, //允许全屏最小化,
+                    anim: 1, //0-6的动画形式，-1不开启,
+                    content: ['/jsp/UpdateAdmin.jsp'],
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        body.contents().find("#workerAccount").val(data.workerAccount)
+                        body.contents().find("#workerName").val(data.workerName)
+                        body.contents().find("#workerAge").val(data.workerAge)
+                        body.contents().find("#sex").val(data.sexName)
+                        body.contents().find("#phone").val(data.workerPhone)
+                        body.contents().find("#workerAddress").val(data.workerAddress)
+                        body.contents().find("#L_pass").val(data.workerPassword)
+                        body.contents().find("#L_repass").val(data.workerPassword)
+                    },
+                    end: function () {
+                        $("#search").click();
+                    }
                 });
 
+
             } else if (obj.event === 'del') {
-                layer.confirm('真的要删除吗？', function (index) {
+                var stateName = "注销"
+                layer.confirm('确定要注销吗？', function (index) {
                     $.ajax({
-                      url: "/admin/deleteAdmin",
-                      data: {workerAccount: data.workerAccount},
-                      method: "post",
-                      dataType: "text",
-                      success: function (data) {
-                        if (data == "删除成功") {
-                          layer.msg("删除成功!")
-                          obj.del();
-                          layer.close(index);
-                        } else {
-                          layer.msg("删除失败!")
+                        url: "/admin/updateDimission",
+                        data: {workerAccount: data.workerAccount, stateName: stateName},
+                        method: "post",
+                        dataType: "text",
+                        success: function (data) {
+                            if (data == "注销成功") {
+                                layer.msg("注销成功!")
+                                // layer.close(index);
+                                $("#search").click();
+                            } else {
+                                layer.msg("注销失败!")
+                            }
                         }
-                      }
                     })
 
                 });
-            }else if (obj.event === 'detail'){
+            } else if (obj.event === 'detail') {
                 layer.confirm('确定要重置密码吗？', function (index) {
                     $.ajax({
                         url: "/admin/updateAdminPassword",
@@ -163,8 +185,47 @@
                         }
                     })
                 });
+            } else if (obj.event === 'disable') {
+                var stateName = "禁用"
+                layer.confirm('确定要禁用？', function (index) {
+                    $.ajax({
+                        url: "/admin/updateAdminState",
+                        data: {workerAccount: data.workerAccount, stateName: stateName},
+                        method: "post",
+                        dataType: "text",
+                        success: function (data) {
+                            if (data == "修改成功") {
+                                layer.alert("禁用成功！")
+                                $("#search").click();
+                                // layer.close(index);
+                            } else {
+                                layer.msg("禁用失败!")
+                            }
+                        }
+                    })
+                });
+            } else if (obj.event === 'enabled') {
+                var stateName = "启用"
+                layer.confirm('确定要启用？', function (index) {
+                    $.ajax({
+                        url: "/admin/updateAdminState",
+                        data: {workerAccount: data.workerAccount, stateName: stateName},
+                        method: "post",
+                        dataType: "text",
+                        success: function (data) {
+                            if (data == "修改成功") {
+                                layer.alert("启用成功！")
+                                $("#search").click();
+                                // layer.close(index);
+                            } else {
+                                layer.msg("启用失败!")
+                            }
+                        }
+                    })
+                });
             }
         });
+
 
         var $ = layui.$, active = {
             reload: function () {
@@ -201,6 +262,8 @@
         // };
 
     });
+
+
 </script>
 </html>
 

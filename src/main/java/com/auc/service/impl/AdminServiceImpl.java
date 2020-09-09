@@ -32,13 +32,21 @@ public class AdminServiceImpl implements AdminService {
 
     //删除管理员账号
     @Override
-    public boolean deleteAdmin(String workerAccount) {
+    public boolean updateDimission(Admin admin) {
         boolean flag = false;
-        int a = adminMapper.deleteAdmin(workerAccount);
+        int a = adminMapper.updateDimission(admin);
         if (a > 0) {
             flag = true;
         }
         return flag;
+    }
+
+    //查询参数id
+    @Override
+    public Integer selectParam(String paramName) {
+        int n=adminMapper.selectParam(paramName);
+
+        return n;
     }
 
     //重置管理员密码
@@ -46,6 +54,56 @@ public class AdminServiceImpl implements AdminService {
     public boolean updateAdminPassword(String workerAccount) {
         boolean flag=false;
         int n=adminMapper.updateAdminPassword(workerAccount);
+        if (n>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    //添加管理员账号
+    @Override
+    public boolean addAdmin(Admin admin) {
+        boolean flag=false;
+        int n=adminMapper.addAdmin(admin);
+        if (n>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    //查询角色id
+    @Override
+    public Integer selectRoleId(String roleName) {
+        int n=adminMapper.selectRoleId(roleName);
+        return n;
+    }
+
+    //查询员工参数id
+    @Override
+    public Integer selectWorkerParam(String paramName) {
+        int n=adminMapper.selectWorkerParam(paramName);
+        return n;
+    }
+
+    @Override
+    public Admin selectAdminAccount(String workerAccount) {
+        Admin admin=null;
+        admin=adminMapper.selectAdminAccount(workerAccount);
+        return admin;
+    }
+
+    @Override
+    public Admin selectAdminPhone(String workerPhoe) {
+        Admin admin=null;
+        admin=adminMapper.selectAdminPhone(workerPhoe);
+
+        return admin;
+    }
+
+    @Override
+    public boolean updateAdmin(Admin admin) {
+        boolean flag=false;
+        int n=adminMapper.updateAdmin(admin);
         if (n>0){
             flag=true;
         }
