@@ -13,13 +13,15 @@
     </where>
     limit #{page},#{limit}
     </select>
+
     <!--查询关系表中的参数值值-->
     <select id="inquireUser" resultType="com.auc.pojo.Param">
         select param_value from t_param where param_name=#{paramName} and param_type='roleurisdiction'
     </select>
+
     <!--增加管理员账号-->
     <insert id="addRole" parameterType="com.auc.pojo.Role">
-     insert into t_role (role_name,urisdiction_id) value (#{roleName},#{urisdictionId})
+     insert into t_role (role_name,urisdiction_id,role_state) value (#{roleName},#{urisdictionId},#{roleState})
     </insert>
     <!--禁用启用管理员账号-->
 

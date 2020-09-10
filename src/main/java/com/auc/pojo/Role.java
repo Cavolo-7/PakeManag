@@ -4,16 +4,26 @@ public class Role {
     private Integer roleId;//角色id
     private String roleName;//角色名字
     private Integer urisdictionId;//权限id
+    private Integer roleState;//权限id
     private String urisdictionName;//权限名
 
     public Role() {
     }
 
-    public Role(Integer roleId, String roleName, Integer urisdictionId, String urisdictionName) {
+    public Role(Integer roleId, String roleName, Integer urisdictionId, Integer roleState, String urisdictionName) {
         this.roleId = roleId;
         this.roleName = roleName;
         this.urisdictionId = urisdictionId;
+        this.roleState = roleState;
         this.urisdictionName = urisdictionName;
+    }
+
+    public Integer getRoleState() {
+        return roleState;
+    }
+
+    public void setRoleState(Integer roleState) {
+        this.roleState = roleState;
     }
 
     public Integer getRoleId() {
@@ -54,6 +64,7 @@ public class Role {
                 "roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
                 ", urisdictionId=" + urisdictionId +
+                ", roleState=" + roleState +
                 ", urisdictionName='" + urisdictionName + '\'' +
                 '}';
     }

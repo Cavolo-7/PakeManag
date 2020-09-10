@@ -22,5 +22,5 @@ public interface UserMapper {
      public Param inquireUser(String paramName);
 
     //增加管理员账号
-    public Integer addRole(Integer urisdictionId,String roleName);
+     public Integer addRole(Integer urisdictionId,String roleName,Integer roleState);
 }
