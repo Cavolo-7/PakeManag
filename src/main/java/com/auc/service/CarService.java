@@ -19,4 +19,6 @@ public interface CarService {
 
     public WelcomeInfo carWelcome(String carNumber);//车辆入场时显示屏信息
 
+    public String carOut(String accessToken, String path);//车辆出场
+
 }

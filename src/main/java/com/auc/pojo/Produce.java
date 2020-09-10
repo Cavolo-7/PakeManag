@@ -10,16 +10,17 @@ public class Produce {
     private Integer produceMoney;//月缴产品价格
     private Integer produceStatic;//月缴产品状态
     private String paramName;//月缴产品状态(参数表)
+    private Integer roduceMonths;
 
     public Produce() {
     }
 
-
-    public Produce(String produceName, String produceDescribe, Integer produceMoney, Integer produceStatic) {
+    public Produce(String produceName, String produceDescribe, Integer produceMoney, Integer produceStatic, Integer roduceMonths) {
         this.produceName = produceName;
         this.produceDescribe = produceDescribe;
         this.produceMoney = produceMoney;
         this.produceStatic = produceStatic;
+        this.roduceMonths = roduceMonths;
     }
 
     public Produce(Integer produceId, String produceName, String produceDescribe, Integer produceMoney, Integer produceStatic, String paramName) {
@@ -29,6 +30,14 @@ public class Produce {
         this.produceMoney = produceMoney;
         this.produceStatic = produceStatic;
         this.paramName = paramName;
+    }
+
+    public Integer getRoduceMonths() {
+        return roduceMonths;
+    }
+
+    public void setRoduceMonths(Integer roduceMonths) {
+        this.roduceMonths = roduceMonths;
     }
 
     public String getParamName() {
@@ -88,6 +97,7 @@ public class Produce {
                 ", produceMoney=" + produceMoney +
                 ", produceStatic=" + produceStatic +
                 ", paramName='" + paramName + '\'' +
+                ", roduceMonths=" + roduceMonths +
                 '}';
     }
 }

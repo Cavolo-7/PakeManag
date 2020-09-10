@@ -10,82 +10,82 @@ import java.util.Date;
  **/
 public class History {
 
-    private Integer historyId;//历史记录id
-    private String historyCarnumber;//车牌号
-    private Date historyStartime;//开始停车时间
-    private Date historyEndtime;//结束时间
-    private Integer historyMoney;//费用
-    private String historyPhoto;//照片
+    private Integer historId;//历史记录id
+    private String historCarnumber;//车牌号
+    private Date historStartime;//开始停车时间
+    private Date historEndtime;//结束时间
+    private Integer historMoney;//费用
+    private String historPhoto;//照片
 
     public History() {
     }
 
-    public History(Integer historyId, String historyCarnumber, Date historyStartime, Date historyEndtime, Integer historyMoney, String historyPhoto) {
-        this.historyId = historyId;
-        this.historyCarnumber = historyCarnumber;
-        this.historyStartime = historyStartime;
-        this.historyEndtime = historyEndtime;
-        this.historyMoney = historyMoney;
-        this.historyPhoto = historyPhoto;
+    public History(Integer historId, String historCarnumber, Date historStartime, Date historEndtime, Integer historMoney, String historPhoto) {
+        this.historId = historId;
+        this.historCarnumber = historCarnumber;
+        this.historStartime = historStartime;
+        this.historEndtime = historEndtime;
+        this.historMoney = historMoney;
+        this.historPhoto = historPhoto;
     }
 
-    public Integer getHistoryId() {
-        return historyId;
+    public Integer getHistorId() {
+        return historId;
     }
 
-    public void setHistoryId(Integer historyId) {
-        this.historyId = historyId;
+    public void setHistorId(Integer historId) {
+        this.historId = historId;
     }
 
-    public String getHistoryCarnumber() {
-        return historyCarnumber;
+    public String getHistorCarnumber() {
+        return historCarnumber;
     }
 
-    public void setHistoryCarnumber(String historyCarnumber) {
-        this.historyCarnumber = historyCarnumber;
+    public void setHistorCarnumber(String historCarnumber) {
+        this.historCarnumber = historCarnumber;
     }
 
-    public Date getHistoryStartime() {
-        return historyStartime;
+    public Date getHistorStartime() {
+        return historStartime;
     }
 
-    public void setHistoryStartime(Date historyStartime) {
-        this.historyStartime = historyStartime;
+    public void setHistorStartime(Date historStartime) {
+        this.historStartime = historStartime;
     }
 
-    public Date getHistoryEndtime() {
-        return historyEndtime;
+    public Date getHistorEndtime() {
+        return historEndtime;
     }
 
-    public void setHistoryEndtime(Date historyEndtime) {
-        this.historyEndtime = historyEndtime;
+    public void setHistorEndtime(Date historEndtime) {
+        this.historEndtime = historEndtime;
     }
 
-    public Integer getHistoryMoney() {
-        return historyMoney;
+    public Integer getHistorMoney() {
+        return historMoney;
     }
 
-    public void setHistoryMoney(Integer historyMoney) {
-        this.historyMoney = historyMoney;
+    public void setHistorMoney(Integer historMoney) {
+        this.historMoney = historMoney;
     }
 
-    public String getHistoryPhoto() {
-        return historyPhoto;
+    public String getHistorPhoto() {
+        return historPhoto;
     }
 
-    public void setHistoryPhoto(String historyPhoto) {
-        this.historyPhoto = historyPhoto;
+    public void setHistorPhoto(String historPhoto) {
+        this.historPhoto = historPhoto;
     }
 
     @Override
     public String toString() {
         return "History{" +
-                "historyId=" + historyId +
-                ", historyCarnumber='" + historyCarnumber + '\'' +
-                ", historyStartime=" + historyStartime +
-                ", historyEndtime=" + historyEndtime +
-                ", historyMoney=" + historyMoney +
-                ", historyPhoto='" + historyPhoto + '\'' +
+                "historId=" + historId +
+                ", historCarnumber='" + historCarnumber + '\'' +
+                ", historStartime=" + historStartime +
+                ", historEndtime=" + historEndtime +
+                ", historMoney=" + historMoney +
+                ", historPhoto='" + historPhoto + '\'' +
                 '}';
     }
 }

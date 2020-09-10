@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
@@ -49,6 +50,19 @@
                         <div class="layui-inline">
                             <input class="layui-input" name="phone" placeholder="请输入电话号码" id="phone" autocomplete="off">
                         </div>
+                        <div class="layui-inline">
+                            <select id="roleNames" name="roleNames" class="valid">
+                                <option value=" ">请选择</option>
+<%--                                <c:if test="${not empty roleNameList}">--%>
+<%--                                    <c:forEach items="${roleNameList}" var="role">--%>
+<%--                                        <option value="${role.roleName}" >${role.roleName}</option>--%>
+<%--                                    </c:forEach>--%>
+<%--                                </c:if>--%>
+                                <option value="收费员">收费员</option>
+                                <option value="管理员">管理员</option>
+                                <option value="超级管理员">超级管理员</option>
+                            </select>
+                        </div>
                         <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
                         <%--                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>--%>
@@ -67,7 +81,7 @@
 <script type="text/html" id="barDemo">
     {{#  if(d.stateName!="注销"){ }}
     {{#  if(d.stateName=="启用"){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="updateAdmin(this)">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">注销</a>
     <a class="layui-btn layui-btn-xs" lay-event="detail">重置密码</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用">禁用</a>
@@ -102,16 +116,17 @@
                 //序号
                 // {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
                 {type: 'numbers', width: '5%', title: '序号', align: 'center'}
-                , {field: 'workerAccount', title: '账号', width: '5%'}
-                , {field: 'workerName', title: '用户名', width: '10%'}
-                , {field: 'sexName', title: '性别', width: '5%',}
-                , {field: 'workerAge', title: '年龄', width: '5%',}
-                , {field: 'workerPhone', title: '电话', width: '10%',}
-                , {field: 'workerAddress', title: '住址', width: '10%',}
-                , {field: 'roleName', title: '角色', width: '10%',}
-                , {field: 'stateName', title: '账号状态', width: '5%',}
-                , {field: 'workerCreatetimr', width: '10%', title: '创建时间', align: 'center'}
-                , {field: 'workerPassword', title: '密码', width: '5%',hidden:true}
+                , {field: 'workerId', title: 'ID', width: '5%',align: 'center',hide: true}
+                , {field: 'workerAccount', title: '账号', width: '5%',align: 'center'}
+                , {field: 'workerName', title: '用户名', width: '10%',align: 'center'}
+                , {field: 'sexName', title: '性别', width: '5%',align: 'center'}
+                , {field: 'workerAge', title: '年龄', width: '5%',align: 'center'}
+                , {field: 'workerPhone', title: '电话', width: '10%',align: 'center'}
+                , {field: 'workerAddress', title: '住址', width: '10%',align: 'center'}
+                , {field: 'roleName', title: '角色', width: '10%',align: 'center'}
+                , {field: 'stateName', title: '账号状态', width: '5%',align: 'center'}
+                , {field: 'workerCreatetimr', width: '13%', title: '创建时间', align: 'center',hide: true}
+                , {field: 'workerPassword', title: '密码', width: '5%',hide: true,align: 'center'}
                 , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
             ]]
             , id: 'testReload'
@@ -119,34 +134,35 @@
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
-                layer.open({
-                    // anim: 1,
-                    type: 2,//Page层类型
-                    area: ['500px', '500px'],
-                    title: '添加类型',
-                    shadeClose: true,
-                    shade: false,
-                    id: 'alterp',
-                    shade: 0.6, //遮罩透明度,
-                    maxmin: true, //允许全屏最小化,
-                    anim: 1, //0-6的动画形式，-1不开启,
-                    content: ['/jsp/UpdateAdmin.jsp'],
-                    success: function (layero, index) {
-                        var body = layer.getChildFrame('body', index);
-                        body.contents().find("#workerAccount").val(data.workerAccount)
-                        body.contents().find("#workerName").val(data.workerName)
-                        body.contents().find("#workerAge").val(data.workerAge)
-                        body.contents().find("#sex").val(data.sexName)
-                        body.contents().find("#phone").val(data.workerPhone)
-                        body.contents().find("#workerAddress").val(data.workerAddress)
-                        body.contents().find("#L_pass").val(data.workerPassword)
-                        body.contents().find("#L_repass").val(data.workerPassword)
-                    },
-                    end: function () {
-                        $("#search").click();
-                    }
+                layer.confirm('确定要修改吗？', function (index) {
+                    layer.open({
+                        // anim: 1,
+                        type: 2,//Page层类型
+                        area: ['500px', '500px'],
+                        title: '修改管理员信息',
+                        shadeClose: true,
+                        shade: false,
+                        id: 'alterp',
+                        shade: 0.6, //遮罩透明度,
+                        maxmin: true, //允许全屏最小化,
+                        anim: 1, //0-6的动画形式，-1不开启,
+                        content: ['/jsp/UpdateAdmin.jsp'],
+                        success: function (layero, index) {
+                            var body = layer.getChildFrame('body', index);
+                            body.contents().find("#workerAccount").val(data.workerAccount)
+                            body.contents().find("#workerName").val(data.workerName)
+                            body.contents().find("#workerAge").val(data.workerAge)
+                            body.contents().find("#sex").val(data.sexName)
+                            body.contents().find("#phone").val(data.workerPhone)
+                            body.contents().find("#workerAddress").val(data.workerAddress)
+                            body.contents().find("#L_pass").val(data.workerPassword)
+                            body.contents().find("#L_repass").val(data.workerPassword)
+                        },
+                        end: function () {
+                            $("#search").click();
+                        }
+                    });
                 });
-
 
             } else if (obj.event === 'del') {
                 var stateName = "注销"
@@ -232,6 +248,7 @@
                 var adminName = $('#adminName').val();
                 var account = $('#account').val();
                 var phone = $('#phone').val();
+                var roleNames=$('#roleNames').val();
                 //执行重载
                 table.reload('testReload', {
                     page: {
@@ -242,6 +259,7 @@
                             adminName: adminName,
                             account: account,
                             phone: phone,
+                            roleNames:roleNames,
                         }
                     }
                 }, 'data');

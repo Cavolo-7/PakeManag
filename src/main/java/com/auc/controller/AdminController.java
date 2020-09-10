@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,6 +29,8 @@ public class AdminController {
         String adminName = request.getParameter("key[adminName]");
         String account = request.getParameter("key[account]");
         String phone = request.getParameter("key[phone]");
+        String roleNames=request.getParameter("key[roleNames]");
+        System.out.println(roleNames+"****");
         String curPageStr = request.getParameter("page");
         String pageSizeStr = request.getParameter("limit");
         Integer pageSize = 5;
@@ -43,7 +46,10 @@ public class AdminController {
         if (null != phone && !"".equalsIgnoreCase(phone)) {
             condition.put("phone", phone);
         }
-
+        if (null != roleNames && !"".equalsIgnoreCase(roleNames)) {
+            int n=adminService.selectRoleId(roleNames);
+            condition.put("n", n+" ");
+        }
         if (null != curPageStr && !"".equalsIgnoreCase(curPageStr)
                 && null != pageSizeStr && !"".equalsIgnoreCase(pageSizeStr)) {
             curPage = Integer.parseInt(curPageStr);
@@ -51,7 +57,8 @@ public class AdminController {
             curPage = (curPage - 1) * pageSize;
         }
         LayuiData<Admin> layuiData = adminService.selectAdminList(condition, curPage, pageSize);
-
+//        List<Admin> roleNameList=adminService.selectRoleList();
+//        request.setAttribute("roleNameList",roleNameList);
 //        Gson gson = new Gson();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str = JSON.toJSONString(layuiData);
@@ -156,7 +163,7 @@ public class AdminController {
         return str;
     }
 
-    //添加管理员
+    //修改管理员信息
     @RequestMapping(value = "/updateAdmin", produces = "text/plain;charset=utf-8")
     public String updateAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String str=null;

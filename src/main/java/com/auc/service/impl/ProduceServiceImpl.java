@@ -66,11 +66,11 @@ public class ProduceServiceImpl implements ProduceService {
     }
 
     @Override
-    public boolean addProduce(String produceName, String produceDescribe,String produceMoney) {
+    public boolean addProduce(String produceName, String produceDescribe,String produceMoney,String produceTime) {
         boolean fal=false;
         int num=0;
         Param param=produceMapper.queryProduceStatic("启用");
-        Produce produce=new Produce(produceName,produceDescribe,Integer.parseInt(produceMoney),param.getParamValue());
+        Produce produce=new Produce(produceName,produceDescribe,Integer.parseInt(produceMoney),param.getParamValue(),Integer.parseInt(produceTime));
         num=produceMapper.addProduce(produce);
         if (num>0){
             fal=true;
