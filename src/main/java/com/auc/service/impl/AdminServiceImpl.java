@@ -7,6 +7,7 @@ import com.auc.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +86,7 @@ public class AdminServiceImpl implements AdminService {
         return n;
     }
 
+    //查询管理员账号是否存在
     @Override
     public Admin selectAdminAccount(String workerAccount) {
         Admin admin=null;
@@ -92,6 +94,7 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
+    //查询管理员电话是否存在
     @Override
     public Admin selectAdminPhone(String workerPhoe) {
         Admin admin=null;
@@ -100,6 +103,7 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
+    //修改管理员信息
     @Override
     public boolean updateAdmin(Admin admin) {
         boolean flag=false;
@@ -109,6 +113,16 @@ public class AdminServiceImpl implements AdminService {
         }
         return flag;
     }
+
+    //查询角色名字集合
+//    @Override
+//    public List selectRoleList() {
+//        List list=new ArrayList();
+//
+//       String str=adminMapper.selectRoleNameList();
+//        list.add(str);
+//        return list;
+//    }
 
 
 }

@@ -45,4 +45,7 @@ public interface AdminMapper {
 
     //修改管理员
     public Integer updateAdmin(Admin admin);
+
+    //查询角色名字集合
+//    public String selectRoleNameList();
 }

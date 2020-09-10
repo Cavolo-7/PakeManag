@@ -3,6 +3,7 @@ package com.auc.service;
 import com.auc.pojo.Admin;
 import com.auc.pojo.LayuiData;
 
+import java.util.List;
 import java.util.Map;
 
 public interface AdminService {
@@ -36,4 +37,7 @@ public interface AdminService {
 
     //修改管理员
     public boolean updateAdmin(Admin admin);
+
+    //查询角色名字集合
+//    public List selectRoleList();
 }
