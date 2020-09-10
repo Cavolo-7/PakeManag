@@ -38,10 +38,12 @@ public class CostruleServiceImpl implements CostruleService {
     }
 
     @Override
-    public boolean delCostrule(Integer costrulesId) {
+    public boolean delCostrule(String costrulesName) {
+        Param param=costrulesMapper.queryCostrulesStatic("禁用");
+        int n=costrulesMapper.getCostrulesStatic(costrulesName,param.getParamValue());
         boolean fal=false;
         int num=0;
-        num=costrulesMapper.delCostrules(costrulesId);
+        num=costrulesMapper.delCostrules(costrulesName);
         if (num>0){
             fal=true;
         }
@@ -49,7 +51,7 @@ public class CostruleServiceImpl implements CostruleService {
     }
 
     @Override
-    public boolean UpdStatic(String produceId, String produceStatic) {
+    public boolean UpdStatic(String costrulesName, String produceStatic) {
         boolean fal=false;
         int num=0;
         if (produceStatic.equals("启用")){
@@ -58,7 +60,7 @@ public class CostruleServiceImpl implements CostruleService {
             produceStatic="禁用";
         }
         Param param=costrulesMapper.queryCostrulesStatic(produceStatic);
-        num=costrulesMapper.UpdStatic(Integer.parseInt(produceId),param.getParamValue());
+        num=costrulesMapper.UpdStatic(costrulesName,param.getParamValue());
         if (num>0){
             fal=true;
         }
@@ -66,10 +68,10 @@ public class CostruleServiceImpl implements CostruleService {
     }
 
     @Override
-    public boolean updCostrule(Integer costrulesId,Integer costrulesMoney) {
+    public boolean updCostrule(Integer costrulesId,String costrulesDescribe,Integer costrulesBasemoney,Integer costrulesAddmoney) {
         boolean fal=false;
         int num=0;
-        num=costrulesMapper.updCostrules(costrulesId,costrulesMoney);
+        num=costrulesMapper.updCostrules(costrulesId,costrulesDescribe,costrulesBasemoney,costrulesAddmoney);
         if (num>0){
             fal=true;
         }
@@ -77,12 +79,25 @@ public class CostruleServiceImpl implements CostruleService {
     }
 
     @Override
-    public boolean addCostrule(String costrulesTime, Integer costrulesMoney) {
+    public boolean addCostrule(String costrulesName
+            ,String costrulesBasemoney,String costrulesAddmoney,String costrulesDescribe
+            ,String costrulesBasemoney1,String costrulesAddmoney1,String costrulesDescribe1
+            ,String costrulesBasemoney2,String costrulesAddmoney2,String costrulesDescribe2
+            ,String costrulesBasemoney3,String costrulesAddmoney3,String costrulesDescribe3
+            ,String costrulesBasemoney4,String costrulesAddmoney4,String costrulesDescribe4) {
         Param param=costrulesMapper.queryCostrulesStatic("启用");
         boolean fal=false;
         int num=0;
-        Costrules costrules=new Costrules(costrulesTime,costrulesMoney,param.getParamValue());
+        Costrules costrules=new Costrules(costrulesName,0f,0.5f,costrulesDescribe,Integer.parseInt(costrulesBasemoney),Integer.parseInt(costrulesAddmoney),param.getParamValue());
+        Costrules costrules1=new Costrules(costrulesName,0.5f,3f,costrulesDescribe1,Integer.parseInt(costrulesBasemoney1),Integer.parseInt(costrulesAddmoney1),param.getParamValue());
+        Costrules costrules2=new Costrules(costrulesName,3f,5f,costrulesDescribe2,Integer.parseInt(costrulesBasemoney2),Integer.parseInt(costrulesAddmoney2),param.getParamValue());
+        Costrules costrules3=new Costrules(costrulesName,5f,8f,costrulesDescribe3,Integer.parseInt(costrulesBasemoney3),Integer.parseInt(costrulesAddmoney3),param.getParamValue());
+        Costrules costrules4=new Costrules(costrulesName,8f,costrulesDescribe4,Integer.parseInt(costrulesBasemoney4),Integer.parseInt(costrulesAddmoney4),param.getParamValue());
         num=costrulesMapper.addCostrules(costrules);
+        num=costrulesMapper.addCostrules(costrules1);
+        num=costrulesMapper.addCostrules(costrules2);
+        num=costrulesMapper.addCostrules(costrules3);
+        num=costrulesMapper.addCostrulesdemo(costrules4);
         if (num>0){
             fal=true;
         }

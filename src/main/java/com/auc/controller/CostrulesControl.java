@@ -46,9 +46,22 @@ public class CostrulesControl {
 
     @RequestMapping("/add")
     @ResponseBody
-    public String AddCostrules(String costrulesTime, Integer costrulesMoney){
+    public String AddCostrules(String costrulesName
+            ,String costrulesBasemoney,String costrulesAddmoney,String costrulesDescribe
+            ,String costrulesBasemoney1,String costrulesAddmoney1,String costrulesDescribe1
+            ,String costrulesBasemoney2,String costrulesAddmoney2,String costrulesDescribe2
+            ,String costrulesBasemoney3,String costrulesAddmoney3,String costrulesDescribe3
+            ,String costrulesBasemoney4,String costrulesAddmoney4,String costrulesDescribe4
+    ){
         System.out.println("增加计费规则");
-        boolean fal=costruleService.addCostrule(costrulesTime,costrulesMoney);
+
+        boolean fal=costruleService.addCostrule(costrulesName
+                ,costrulesBasemoney,costrulesAddmoney,costrulesDescribe
+                ,costrulesBasemoney1,costrulesAddmoney1,costrulesDescribe1
+                ,costrulesBasemoney2,costrulesAddmoney2,costrulesDescribe2
+                ,costrulesBasemoney3,costrulesAddmoney3,costrulesDescribe3
+                ,costrulesBasemoney4,costrulesAddmoney4,costrulesDescribe4
+        );
         if (fal) {
             return "增加成功";
         }else{
@@ -58,9 +71,9 @@ public class CostrulesControl {
 
     @RequestMapping("/del")
     @ResponseBody
-    public String DelCostrules(Integer costrulesId){
+    public String DelCostrules(String costrulesName){
         System.out.println("删除计费规则");
-        boolean fal=costruleService.delCostrule(costrulesId);
+        boolean fal=costruleService.delCostrule(costrulesName);
         if (fal) {
             return "删除成功";
         }else{
@@ -70,9 +83,9 @@ public class CostrulesControl {
 
     @RequestMapping("/edit")
     @ResponseBody
-    public String UpdCostrules(Integer costrulesId,Integer costrulesMoney){
+    public String UpdCostrules(Integer costrulesId,String costrulesDescribe,Integer costrulesBasemoney,Integer costrulesAddmoney){
         System.out.println("修改计费规则");
-        boolean fal=costruleService.updCostrule(costrulesId,costrulesMoney);
+        boolean fal=costruleService.updCostrule(costrulesId,costrulesDescribe,costrulesBasemoney,costrulesAddmoney);
         if (fal) {
             return "编辑成功";
         }else{
@@ -82,9 +95,9 @@ public class CostrulesControl {
 
     @RequestMapping("/updstatic")
     @ResponseBody
-    public String UpdStatic(String costrulesId,String costrulesState){
+    public String UpdStatic(String costrulesName,String costrulesState){
         System.out.println("计费规则禁用和启用");
-        boolean fal=costruleService.UpdStatic(costrulesId,costrulesState);
+        boolean fal=costruleService.UpdStatic(costrulesName,costrulesState);
         if (fal) {
             return costrulesState;
         }else{

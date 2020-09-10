@@ -29,20 +29,161 @@
   <div class="layui-row">
     <form class="layui-form">
       <div class="layui-form-item">
-        <label for="costrulesTime" class="layui-form-label">
-          <span class="x-red">*</span>计费时长
+        <label for="costrulesName" class="layui-form-label">
+          <span class="x-red">*</span>规则名字
         </label>
         <div class="layui-input-inline">
-          <input type="text" id="costrulesTime" name="costrulesTime" required="" lay-verify="required"
+          <input type="text" id="costrulesName" name="costrulesName" required="" lay-verify="required"
                  autocomplete="off" class="layui-input">
         </div>
       </div>
       <div class="layui-form-item">
-        <label for="costrulesMoney" class="layui-form-label">
-          <span class="x-red">*</span>计费价格
+        <label><span class="x-red" style="font-size: 10px">0 - 0.5小时：设置相关数据</span></label>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesBasemoney" class="layui-form-label">
+          <span class="x-red">*</span>基础价钱
         </label>
         <div class="layui-input-inline">
-          <input type="text" id="costrulesMoney" name="costrulesMoney" required="" lay-verify="money"
+          <input type="text" id="costrulesBasemoney" name="costrulesBasemoney" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesAddmoney" class="layui-form-label">
+          <span class="x-red">*</span>增量价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesAddmoney" name="costrulesAddmoney" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesDescribe" class="layui-form-label">
+          <span class="x-red">*</span>规则描述
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesDescribe" name="costrulesDescribe" required="" lay-verify="required"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+         <label><span class="x-red" style="font-size: 10px">0.5 - 3小时：设置相关数据</span></label>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesBasemoney1" class="layui-form-label">
+          <span class="x-red">*</span>基础价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesBasemoney1" name="costrulesBasemoney1" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesAddmoney1" class="layui-form-label">
+          <span class="x-red">*</span>增量价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesAddmoney1" name="costrulesAddmoney1" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesDescribe1" class="layui-form-label">
+          <span class="x-red">*</span>规则描述
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesDescribe1" name="costrulesDescribe1" required="" lay-verify="required"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label><span class="x-red" style="font-size: 10px">3 - 5小时：设置相关数据</span></label>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesBasemoney2" class="layui-form-label">
+          <span class="x-red">*</span>基础价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesBasemoney2" name="costrulesBasemoney2" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesAddmoney2" class="layui-form-label">
+          <span class="x-red">*</span>增量价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesAddmoney2" name="costrulesAddmoney2" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesDescribe2" class="layui-form-label">
+          <span class="x-red">*</span>规则描述
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesDescribe2" name="costrulesDescribe2" required="" lay-verify="required"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label><span class="x-red" style="font-size: 10px">5 - 8小时：设置相关数据</span></label>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesBasemoney3" class="layui-form-label">
+          <span class="x-red">*</span>基础价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesBasemoney3" name="costrulesBasemoney3" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesAddmoney3" class="layui-form-label">
+          <span class="x-red">*</span>增量价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesAddmoney3" name="costrulesAddmoney3" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesDescribe3" class="layui-form-label">
+          <span class="x-red">*</span>规则描述
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesDescribe3" name="costrulesDescribe3" required="" lay-verify="required"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label><span class="x-red" style="font-size: 10px">8 - 小时：设置相关数据</span></label>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesBasemoney4" class="layui-form-label">
+          <span class="x-red">*</span>基础价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesBasemoney4" name="costrulesBasemoney4" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesAddmoney4" class="layui-form-label">
+          <span class="x-red">*</span>增量价钱
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesAddmoney4" name="costrulesAddmoney4" required="" lay-verify="money"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label for="costrulesDescribe4" class="layui-form-label">
+          <span class="x-red">*</span>规则描述
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="costrulesDescribe4" name="costrulesDescribe4" required="" lay-verify="required"
                  autocomplete="off" class="layui-input">
         </div>
       </div>

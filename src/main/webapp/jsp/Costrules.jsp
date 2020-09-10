@@ -37,23 +37,8 @@
       <div class="layui-card">
         <div class="layui-card-body ">
           <div class="demoTable">
-<%--            <div class="layui-inline">--%>
-<%--              <input class="layui-input" name="produceName" placeholder="请输入套餐名" id="produceName" autocomplete="off">--%>
-<%--            </div>--%>
-<%--            <div class="layui-inline">--%>
-<%--              <form class="layui-form">--%>
-<%--                <label class="layui-form-label">产品状态：</label>--%>
-<%--                <div class="layui-input-inline" style="margin-top: 5px">--%>
-<%--                  <select name="produceStatic" id="produceStatic" lay-verify="required">--%>
-<%--                    <option value=""></option>--%>
-<%--                    <option value="启用">启用</option>--%>
-<%--                    <option value="禁用">禁用</option>--%>
-<%--                  </select>--%>
-<%--                </div>--%>
-<%--              </form>--%>
-<%--            </div>--%>
             <button class="layui-btn" data-type="reload" id="search" >搜索</button>
-            <button class="layui-btn" onclick="xadmin.open('添加产品','./AddCostrules.jsp',450,270)"><i
+            <button class="layui-btn" onclick="xadmin.open('添加产品','./AddCostrules.jsp',380,500)"><i
                     class="layui-icon"></i>添加
             </button>
           </div>
@@ -71,6 +56,7 @@
   <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用" onclick="produce_yes(this)">禁用</a>
   {{#  } else { }}
   <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用" onclick="produce_yes(this)">启用</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   {{#  } }}
  </script>
 </body>
@@ -101,10 +87,14 @@
       , cols: [[
         //序号
         , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
-        , {field: 'costrulesId', width: '10%', title: '套餐编号',hide:true}
-        , {field: 'costrulesTime', width: '20%', title: '计费时长', align: 'center'}
-        , {field: 'costrulesMoney', width: '20%', title: '计费价钱', align: 'center', edit: true}
-        , {field: 'paramName', width: '20%', title: '计费状态', align: 'center'}
+        , {field: 'costrulesId', title: '规则编号',hide:true}
+        , {field: 'costrulesName', width: '10%',title: '规则名字', align: 'center',hide:false}
+        , {field: 'costrulesMin', width: '7%', title: '起始时间', align: 'center'}
+        , {field: 'costrulesMax', width: '7%', title: '截止时间', align: 'center'}
+        , {field: 'costrulesDescribe', width: '30%', title: '规则描述', align: 'center', edit: true}
+        , {field: 'costrulesBasemoney', width: '9%', title: '基础价钱 元/小时', align: 'center', edit: true}
+        , {field: 'costrulesAddmoney', width: '9%', title: '增量价钱 元/小时', align: 'center', edit: true}
+        , {field: 'paramName', width: '8%', title: '计费状态', align: 'center'}
         , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
       ]]
       , id: 'testReload'
@@ -115,7 +105,7 @@
         layer.confirm('真的要修改该套餐么', function (index) {
           $.ajax({
             url: "/costrules/edit",
-            data: {"costrulesId":data.costrulesId,'costrulesMoney': data.costrulesMoney},
+            data: {"costrulesId":data.costrulesId,"costrulesDescribe":data.costrulesDescribe,"costrulesBasemoney":data.costrulesBasemoney,"costrulesAddmoney":data.costrulesAddmoney},
             method: 'post',
             dataType: 'text',
             success: function (data) {
@@ -131,13 +121,13 @@
         layer.confirm('真的删除行么', function (index) {
           $.ajax({
             url: "/costrules/del",
-            data: {'costrulesId': data.costrulesId},
+            data: {'costrulesName': data.costrulesName},
             method: "post",
             dataType: "text",
             success: function (data) {
               if (data == "删除成功") {
                 layer.msg("删除成功")
-                obj.del();
+                $("#search").click();
                 layer.close(index);
               } else {
                 layer.msg("删除失败")
@@ -180,7 +170,7 @@
         url: '/costrules/updstatic',
         dataType:'text',
         method: 'post',
-        data: {"costrulesId":$(obj).parent().parent().parent("tr").children("td").eq(1).children("div").text(),
+        data: {"costrulesName":$(obj).parent().parent().parent("tr").children("td").eq(2).children("div").text(),
           "costrulesState":$(obj).text(),
         },
         success: function (data) {

@@ -54,7 +54,7 @@
             </div>
             <button class="layui-btn" data-type="reload" id="search">搜索</button>
             <br><br><br>
-            <button class="layui-btn" onclick="xadmin.open('添加产品','./AddProduce.jsp',450,270)"><i
+            <button class="layui-btn" onclick="xadmin.open('添加产品','./AddProduce.jsp',480,320)"><i
                     class="layui-icon"></i>添加
             </button>
           </div>
