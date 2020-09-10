@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,10 @@ public interface CarInMapper {
     public String findWelcomeMsg();//查询欢迎信息
 
     public CarPort findCarPort(String carNumber);//根据车牌查询停车位
+
+    public Exemption findExemption(String carNumber);//根据车牌查询免检名单表
+
+
 
 
 }

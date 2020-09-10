@@ -31,7 +31,7 @@
 
     <!--  插入历史汇总表  -->
     <insert id="insertHistory" parameterType="com.auc.pojo.History">
-          INSERT into t_histor(history_carnumber,history_photo) VALUES(#{historyCarnumber},#{historyPhoto})
+          INSERT into t_histor(histor_carnumber,histor_photo) VALUES(#{historCarnumber},#{historPhoto})
     </insert>
 
     <!--  查询欢迎信息  -->
@@ -43,5 +43,12 @@
     <select id="findCarPort" resultType="com.auc.pojo.CarPort">
          SELECT carport_id,carport_number,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport where carport_carnumber=#{carNumber}
     </select>
+
+    <!--  根据车牌查询免检名单表  -->
+    <select id="findExemption" parameterType="java.lang.String" resultType="com.auc.pojo.Exemption">
+         select exemption_id,exemption_name,exemption_carnumber,exemption_paytime from t_exemption where exemption_carnumber=#{carNumber}
+    </select>
+
+
 
 </mapper>
