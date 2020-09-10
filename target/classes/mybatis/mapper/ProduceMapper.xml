@@ -31,7 +31,7 @@
     </select>
 
     <insert id="addProduce" parameterType="com.auc.pojo.Produce">
-        insert into t_produce (produce_name,produce_describe,produce_money,produce_static) VALUES (#{produceName},#{produceDescribe},#{produceMoney},#{produceStatic})
+        insert into t_produce (produce_name,produce_describe,produce_money,produce_static,produce_months) VALUES (#{produceName},#{produceDescribe},#{produceMoney},#{produceStatic},#{roduceMonths})
     </insert>
 
     <update id="delProduce" parameterType="java.lang.String">

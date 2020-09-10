@@ -19,13 +19,17 @@ public interface CostrulesMapper {
 
     public Integer queryCostrulesCount(); //查询计费规则总页码
 
-    public Integer delCostrules(Integer costrulesId);  //计费规则删除
+    public Integer delCostrules(String costrulesName);  //计费规则删除
 
-    public Integer updCostrules(Integer costrulesId,Integer costrulesMoney);  //计费规则修改
+    public Integer updCostrules(Integer costrulesId,String costrulesDescribe,Integer costrulesBasemoney,Integer costrulesAddmoney);  //计费规则修改
 
     public Integer addCostrules(Costrules costrules);  //计费规则增加
 
-    public Integer UpdStatic(Integer costrulesId,Integer costrulesState); //计费规则禁用-启用
+    public Integer addCostrulesdemo(Costrules costrules);  //计费规则增加(增加8时区)
+
+    public Integer UpdStatic(String costrulesName,Integer costrulesState); //计费规则禁用-启用
 
     public Param queryCostrulesStatic(String paramName); //通过查找参数表找到对应的value值
+
+    public Integer getCostrulesStatic(String costrulesName,Integer costrulesState); //查询计费规则状态是否禁用--和删除一起使用
 }

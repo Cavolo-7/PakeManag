@@ -49,9 +49,9 @@ public class ProduceControl {
 
     @RequestMapping("/add")
     @ResponseBody
-    public String AddProduce(String produceName, String produceDescribe,String produceMoney){
+    public String AddProduce(String produceName, String produceDescribe,String produceMoney,String produceTime){
         System.out.println("增加产品管理");
-        boolean fal=produceService.addProduce(produceName,produceDescribe,produceMoney);
+        boolean fal=produceService.addProduce(produceName,produceDescribe,produceMoney,produceTime);
         if (fal) {
             return "增加成功";
         }else{

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.auc.mapper.CostrulesMapper">
     <select id="queryCostrules" resultType="com.auc.pojo.Costrules">
-        select p.costrules_id,p.costrules_time,p.costrules_money,a.param_name from t_costrules p,t_param a
+        select p.costrules_id,p.costrules_name,p.costrules_min,p.costrules_max,p.costrules_basemoney,p.costrules_addmoney,p.costrules_describe,p.costrules_state,a.param_name from t_costrules p,t_param a
         <where>
             and p.costrules_state=a.param_value
         </where>
@@ -32,29 +32,43 @@
             <if test="costrulesState!=null and costrulesState !='' ">costrules_state =#{costrulesState},</if>
         </set>
         <where>
-            costrules_id=#{costrulesId}
+            costrules_name=#{costrulesName}
         </where>
     </update>
 
     <insert id="addCostrules" parameterType="com.auc.pojo.Costrules">
-        insert into t_costrules (costrules_time,costrules_money,costrules_state) VALUES (#{costrulesTime},#{costrulesMoney},#{costrulesState})
+        insert into t_costrules (costrules_name,costrules_min,costrules_max,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state) VALUES (#{costrulesName},#{costrulesMin},#{costrulesMax},#{costrulesDescribe},#{costrulesBasemoney},#{costrulesAddmoney},#{costrulesState})
+    </insert>
+
+    <insert id="addCostrulesdemo" parameterType="com.auc.pojo.Costrules">
+        insert into t_costrules (costrules_name,costrules_min,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state) VALUES (#{costrulesName},#{costrulesMin},#{costrulesDescribe},#{costrulesBasemoney},#{costrulesAddmoney},#{costrulesState})
     </insert>
 
     <delete id="delCostrules" parameterType="java.lang.String">
         delete from t_costrules
         <where>
-            costrules_id=#{costrulesId}
+            costrules_name=#{costrulesName}
         </where>
     </delete>
 
     <update id="updCostrules" parameterType="java.lang.String">
         update t_costrules
         <set>
-            <if test="costrulesMoney!=null and costrulesMoney !='' ">costrules_money =#{costrulesMoney},</if>
+            <if test="costrulesDescribe!=null and costrulesDescribe !='' ">costrules_describe =#{costrulesDescribe},</if>
+            <if test="costrulesBasemoney!=null and costrulesBasemoney !='' ">costrules_basemoney =#{costrulesBasemoney},</if>
+            <if test="costrulesAddmoney!=null and costrulesAddmoney !='' ">costrules_addmoney =#{costrulesAddmoney},</if>
         </set>
         <where>
             costrules_id=#{costrulesId}
         </where>
     </update>
+
+    <select id="getCostrulesStatic" resultType="Integer">
+        select count(*) from t_costrules
+        <where>
+            and  costrules_name=#{costrulesName}
+            and  costrules_state=#{costrulesState}
+        </where>
+    </select>
 
 </mapper>

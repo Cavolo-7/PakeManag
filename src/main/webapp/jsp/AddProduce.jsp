@@ -47,6 +47,15 @@
         </div>
       </div>
       <div class="layui-form-item">
+        <label for="produceTime" class="layui-form-label">
+          <span class="x-red">*</span>套装时间
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="produceTime" name="produceTime" required="" lay-verify="times"
+                 autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
         <label for="produceMoney" class="layui-form-label">
           <span class="x-red">*</span>套餐价格
         </label>
@@ -83,6 +92,11 @@
           return '昵称至少得5个字符啊';
         }
       },
+
+      times: [
+        /^[0-9]*[1-9][0-9]*$/,
+        '输入合法的月份'
+      ],
 
       money: [
         /^[0-9]*[1-9][0-9]*$/,
