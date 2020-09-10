@@ -3,6 +3,7 @@ package com.auc.service.impl;
 import com.auc.mapper.UserMapper;
 import com.auc.pojo.Admin;
 import com.auc.pojo.LayuiData;
+import com.auc.pojo.Param;
 import com.auc.pojo.Role;
 import com.auc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,19 @@ public class UserServiceImpl implements UserService {
     public Integer queryRoleCount() {
         int count = userMapper.queryRoleCount();
         return count;
+    }
+    //查询关系表中的参数值值
+
+    //增加管理员账号
+    @Override
+    public boolean addRole(String paramName,String roleName) {
+       boolean flag=false;
+       Param param =userMapper.inquireUser(paramName);
+       int n=userMapper.addRole(param.getParamValue(),roleName);
+       if (n>0){
+           flag=true;
+       }
+        return flag;
     }
     //查询所有用户
 

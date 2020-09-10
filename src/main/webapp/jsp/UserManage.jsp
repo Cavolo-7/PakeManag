@@ -46,7 +46,7 @@
             </div>
             <button class="layui-btn" data-type="reload" id="sou">搜索</button>
             <br><br><br>
-            <button class="layui-btn" onclick="xadmin.open('添加用户','./AddWhite.jsp',600,470)"><i
+            <button class="layui-btn" onclick="xadmin.open('添加用户','./AddUser.jsp',450,270)"><i
                     class="layui-icon"></i>添加
             </button>
           </div>
@@ -76,7 +76,7 @@
       , url: '/userControl/selectRole'
       , cellMinWidth: 80
       // 限制每页的条数
-      , limit: 3
+      , limit: 10
       , limits: [10]
       //数据没有时显示
       , text: {
@@ -86,10 +86,10 @@
       , page: true
       , cols: [[
         //序号
-        , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
-        , {field: 'roleName', width: '10%', title: '管理员名字', align: 'center', edit: true}
-        , {field: 'urisdictionName', width: '10%', title: '权限级别', align: 'center', edit: true}
-        , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
+        , {type: 'numbers', width: '10%', title: '序号', align: 'center'}
+        , {field: 'roleName', width: '30%', title: '管理员名字', align: 'center', edit: true}
+        , {field: 'urisdictionName', width: '30%', title: '权限级别', align: 'center', edit: true}
+        , {field: 'right', width: '32%',title: '操作', toolbar: '#barDemo', align: 'center'}
       ]]
       , id: 'testReload'
     })
