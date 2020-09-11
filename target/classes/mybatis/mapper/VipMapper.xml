@@ -67,11 +67,14 @@
 
     <!--    添加vip用户-->
     <insert id="addVip" parameterType="com.auc.pojo.Vip">
-    insert into t_vip (vip_account,vip_password,vip_name,vip_phone,vip_age,vip_sex,vip_address,vip_carnumber,produce_id,vip_endtime,worker_id,)
-    values (#{vipAccount},#{vipPassword},#{vipName},#{vipPhone},#{vipAge},#{vipSex},#{vipAddress},#{vipCarNumber},add_months(#{vipEndTime},#{produceM}) from dual,#{workerId})
+    insert into t_vip (vip_account,vip_password,vip_name,vip_phone,vip_age,vip_sex,vip_address,vip_carnumber,produce_id,vip_endtime,worker_id,vip_recharge)
+    values (#{vipAccount},#{vipPassword},#{vipName},#{vipPhone},#{vipAge},#{vipSex},#{vipAddress},#{vipCarNumber},#{produceId},#{vipEndTime},#{workerId},#{vipRecharge})
     </insert>
 
-
+<!--    查询月份添加-->
+<select id="selectEndTime" resultType="java.util.Date" parameterType="com.auc.pojo.Vip">
+     select  Date_Add( #{vipEndTime},INTERVAL #{produceMonths} month ) strTime from dual
+</select>
     <!--    查询vip参数表-->
     <select id="selectVipParam" resultType="java.lang.Integer" parameterType="java.lang.String">
     select param_value from t_param where param_name=#{sexName} and param_type='vipSex'
@@ -99,15 +102,30 @@
 
     <!--    vip续费-->
     <update id="updateVipProduce" parameterType="com.auc.pojo.Vip">
-        update t_vip as v  set vip_endtime=add_months(#{vipEndTime},#{produceM}) from dual where v.vip_account=#{vipAccount}
+        update t_vip as v  set vip_endtime=#{vipEndTime} where v.vip_account=#{vipAccount}
     </update>
 
     <!--    明细报表插入-->
-    <!--    <insert id="addDetail" parameterType="com.auc.pojo.Detail">-->
-    <!--        insert into t_detail(detail_carnumber,detail_event,produce_id,detail_money,worker_id) values (#{detailCarNumber},#{detail_Event},#{produceId},#{detailMoney},#{workerId})-->
-    <!--    </insert>-->
+        <insert id="addDetail" parameterType="com.auc.pojo.Detail">
+            insert into t_detail(detail_carnumber,detail_event,produce_id,detail_money,worker_id) values (#{detailCarnumber},#{detailEvent},#{produceId},#{detailMoney},#{workerId})
+        </insert>
 
     <!--    退费-->
+
+
+<!--    查询月缴包名称集合-->
+    <select id="selectProduceNameList" resultType="com.auc.pojo.Produce">
+        select produce_name produceName from t_produce
+    </select>
+<!--查询月缴包名称集合状态-->
+    <select id="selectProduceStateName" resultType="com.auc.pojo.Produce">
+        select produce_name produceName from t_produce where produce_static=(select p.param_value from t_param as p where p.param_type='produceState' and p.param_name='启用')
+    </select>
+
+<!--    修改vip用户总消费金额-->
+    <update id="updateVipRecharge" parameterType="java.lang.Integer">
+        update t_vip set vip_recharge=#{vipRecharge} where vip_account={vipAccount}
+    </update>
 
 
 </mapper>

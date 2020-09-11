@@ -2,7 +2,9 @@ package com.auc.service.impl;
 
 import com.auc.mapper.AdminMapper;
 import com.auc.pojo.Admin;
+import com.auc.pojo.Detail;
 import com.auc.pojo.LayuiData;
+import com.auc.pojo.Role;
 import com.auc.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -115,14 +117,21 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询角色名字集合
-//    @Override
-//    public List selectRoleList() {
-//        List list=new ArrayList();
-//
-//       String str=adminMapper.selectRoleNameList();
-//        list.add(str);
-//        return list;
-//    }
+    @Override
+    public List<Role> selectRoleList() {
+        List<Role> list=new ArrayList<Role>();
+
+       list=adminMapper.selectRoleNameList();
+        return list;
+    }
+
+    @Override
+    public List<Role> selectRoleStateName() {
+        List<Role> list=new ArrayList<Role>();
+
+        list=adminMapper.selectRoleStateName();
+        return list;
+    }
 
 
 }

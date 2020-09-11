@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -138,15 +139,35 @@ public class CarControl {
         System.out.println("carOut");
         String projectPath = FileUtil.uploadFile(request, file);
         String accessToken = authServiceImpl.getAuth();//获取accessToken，调用车牌识别接口
-        carServiceImpl.carOut(accessToken,projectPath);
+        HashMap hashMap = carServiceImpl.carOut(accessToken, projectPath);
+        System.out.println("hashmap:" + hashMap);
         LayuiData layuiData = new LayuiData();
-//        if ((carNumber != null) && (!carNumber.equals(""))) {
-//            layuiData.setMsg("success&" + carNumber);
-//        } else {
-//            layuiData.setMsg("error");
-//        }
-//        layuiData.setCode(0);
+        if (hashMap.containsKey("success")) {
+            int money = (int) hashMap.get("money");
+            int minute = (int) hashMap.get("minute");
+            String carNumber = (String) hashMap.get("carNumber");
+            layuiData.setMsg("success&" + money + "&" + minute+ "&" + carNumber);
+            System.out.println(layuiData);
+        } else {
+            layuiData.setMsg("error");
+        }
+        layuiData.setCode(0);
         return layuiData;
+    }
+
+
+
+    /**
+      * @Author: TheBigBlue
+      * @Description:  车辆出场现金支付
+      * @Date: 2020/9/11
+      * @Param request:
+      * @return: com.auc.util.LayuiData
+      **/
+    @ResponseBody
+    @RequestMapping(value = "/carOut")
+    public void payMoney(HttpServletRequest request) throws IOException {
+
     }
 
 

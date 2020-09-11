@@ -8,33 +8,22 @@
     </select>
 
 
-<!--    <select id="querySecond" resultType="com.auc.pojo.Produce">-->
-<!--        select p.produce_id,p.produce_name,p.produce_describe,p.produce_money,a.param_name from t_produce p,t_param a-->
-<!--        <where>-->
-<!--            and p.produce_static=a.param_value-->
-<!--        </where>-->
-<!--        limit #{page},#{limit}-->
-<!--    </select>-->
+    <select id="querySecond" resultType="com.auc.pojo.Detail">
+        SELECT p.produce_name as detail_event,SUM(detail_money) AS detail_money FROM t_detail d,t_produce p
+        WHERE d.produce_id=p.produce_id AND d.detail_event ='月缴用户' GROUP BY p.produce_name
+    </select>
 
-<!--    <select id="querySecondCount" resultType="Integer">-->
-<!--        select count(*) from t_produce p,t_param a-->
-<!--        <where>-->
-<!--            and p.produce_static=a.param_value-->
-<!--        </where>-->
-<!--    </select>-->
 
     <select id="queryThird" resultType="com.auc.pojo.Detail">
         SELECT detail_event,SUM(detail_money) AS detail_money FROM t_detail WHERE detail_event ='自助缴费'  GROUP BY detail_event
     </select>
 
-<!--    <select id="queryFourth" resultType="com.auc.pojo.Detail">-->
-<!--        select p.produce_id,p.produce_name,p.produce_describe,p.produce_money,a.param_name from t_produce p,t_param a-->
-<!--        <where>-->
-<!--            and p.produce_static=a.param_value-->
-<!--        </where>-->
-<!--        limit #{page},#{limit}-->
-<!--    </select>-->
+    <select id="queryFourth" resultType="Integer">
+        SELECT SUM(detail_money)  FROM t_detail
+    </select>
 
-
+    <select id="queryCar" resultType="Integer">
+        SELECT count(histor_id)  FROM t_histor
+    </select>
 
 </mapper>

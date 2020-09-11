@@ -28,7 +28,7 @@
             <a>
               <cite>导航元素</cite></a>
           </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+    <a id="dian" class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()"
        title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -50,19 +50,22 @@
                         <div class="layui-inline">
                             <input class="layui-input" name="phone" placeholder="请输入电话号码" id="phone" autocomplete="off">
                         </div>
+
                         <div class="layui-inline">
-                            <select id="roleNames" name="roleNames" class="valid">
-                                <option value=" ">请选择</option>
-<%--                                <c:if test="${not empty roleNameList}">--%>
-<%--                                    <c:forEach items="${roleNameList}" var="role">--%>
-<%--                                        <option value="${role.roleName}" >${role.roleName}</option>--%>
-<%--                                    </c:forEach>--%>
-<%--                                </c:if>--%>
-                                <option value="收费员">收费员</option>
-                                <option value="管理员">管理员</option>
-                                <option value="超级管理员">超级管理员</option>
-                            </select>
+                            <form class="layui-form">
+                                <div class="layui-input-inline" style="margin-top: 5px">
+                                    <select name="roleNames" id="roleNames" lay-verify="required">
+                                        <option value="">请选择</option>
+                                        <c:if test="${not empty roleNameList}">
+                                            <c:forEach items="${roleNameList}" var="r">
+                                                <option value="${r.roleName}" >${r.roleName}</option>
+                                            </c:forEach>
+                                        </c:if>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
+
                         <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
                         <%--                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>--%>
@@ -130,6 +133,8 @@
                 , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
             ]]
             , id: 'testReload'
+
+
         })
         table.on('tool(demo)', function (obj) {
             var data = obj.data;

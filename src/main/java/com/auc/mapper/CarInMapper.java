@@ -38,7 +38,11 @@ public interface CarInMapper {
 
     public Exemption findExemption(String carNumber);//根据车牌查询免检名单表
 
+    public Integer findTime(@Param("carNumber")String carNumber,@Param("nowDate") String nowDate);//查询停车时长
 
+    public List<Costrules> findCostRules();//查询收费规则
+
+    public Integer insertDetail(Detail detail);//插入支付明细表
 
 
 }

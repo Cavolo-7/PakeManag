@@ -1,10 +1,9 @@
 package com.auc.service;
 
-import com.auc.pojo.Admin;
-import com.auc.pojo.LayuiData;
-import com.auc.pojo.Produce;
-import com.auc.pojo.Vip;
+import com.auc.pojo.*;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public interface VipService {
@@ -35,4 +34,19 @@ public interface VipService {
 
     //vip套餐续费
     public boolean updateVipProduce(Vip vip);
+
+    //添加明细
+    public boolean addDetail(Detail detail);
+
+    //查询计算好的时间
+    public Date selectEndTime(Vip vip);
+
+    //查询月缴产品名字集合
+    public List<Produce> selectProduceNameList();
+
+    //查询月缴产品名字集合状态
+    public List<Produce> selectProduceStateName();
+
+    //修改vip用户总消费记录
+    public boolean updateVipRecharge(Integer vipRecharge);
 }

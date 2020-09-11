@@ -20,23 +20,13 @@ layui.use(['upload'], function () {
     var path = $("#path").val();
     var files;
 
-    //选完文件后不自动上传
-    var uploadInst = upload.render({
+    upload.render({
         elem: '#choseFile'
         , url: path + '/car/carIn'
         , auto: true
         , accept: 'images'
         , bindAction: '#upload'
         , choose: function (obj) {
-            //将每次选择的文件追加到文件队列
-            files = obj.pushFile();
-            //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
-            obj.preview(function (index, file, result) {
-                var name = file.name;//文件名wenjian
-                var size = file.size;//文件大小
-                console.log(name)
-                console.log(size)
-            });
         }
         , before: function () {
             layer.load(); //上传loading
@@ -47,7 +37,6 @@ layui.use(['upload'], function () {
                 layer.msg('识别成功');
                 var arr = res.msg.split("&");
                 var carNumber = arr[1];
-                console.log(carNumber)
                 location.href = path + "/car/carWelcome?carNumber=" + carNumber;//车入场信息
             } else {
                 openInput();
@@ -62,10 +51,49 @@ layui.use(['upload'], function () {
         }
     });
 
+
+    //选完文件后不自动上传
+    upload.render({
+        elem: '#choseOutFile'
+        , url: path + '/car/carOut'
+        , auto: true
+        , accept: 'images'
+        , bindAction: '#upload'
+        , choose: function (obj) {
+        }
+        , before: function () {
+            layer.load(); //上传loading
+        }
+        , done: function (res, index, upload) {
+            layer.closeAll('loading'); //关闭loading
+            if (res.msg.indexOf('success') != -1) {
+                layer.msg('识别成功');
+                var arr = res.msg.split("&");
+                var money = arr[1];
+                var minute = arr[2];
+                var carNumber = arr[3];
+                xadmin.open('出场缴费', path + '/jsp/CarOut.jsp?money=' + money + "&minute=" + minute + "&carNumber=" + carNumber, 600, 400);//打开编辑弹出层并传参数
+            } else {
+                openInput();
+                layer.msg('抱歉识别失败,请手动输入车牌号');
+            }
+            delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+        }
+        , error: function (res, index, upload) {
+            layer.closeAll('loading'); //关闭loading
+            layer.msg('上传失败');
+            delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+        }
+    });
 });
 
 function openInput() {
     var path = $("#path").val();
     xadmin.open('输入车牌号', path + '/jsp/CarNumberInput.jsp', 600, 400);//打开编辑弹出层并传参数
+}
+
+//车辆出场现金支付
+function payMoney() {
+
 }
 

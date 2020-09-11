@@ -49,6 +49,19 @@
          select exemption_id,exemption_name,exemption_carnumber,exemption_paytime from t_exemption where exemption_carnumber=#{carNumber}
     </select>
 
+    <!--  查询停车时长(分)  -->
+    <select id="findTime" resultType="java.lang.Integer">
+         SELECT TIMESTAMPDIFF(MINUTE,carport_starttime,#{nowDate}) from t_carport where carport_carnumber=#{carNumber}
+    </select>
 
+    <!--  查询收费规则  -->
+    <select id="findCostRules" resultType="com.auc.pojo.Costrules">
+         select costrules_id,costrules_name,costrules_min,costrules_max,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state from t_costrules where costrules_state=3
+    </select>
+
+    <!--  插入支付明细表  -->
+    <insert id="insertDetail" parameterType="com.auc.pojo.Detail">
+          INSERT INTO t_detail(detail_carnumber,detail_event,produce_id,detail_money) VALUES(#{detailCarnumber},#{detailEvent},#{produceId},#{detailMoney})
+    </insert>
 
 </mapper>

@@ -3,14 +3,13 @@ package com.auc.service.impl;
 
 
 import com.auc.mapper.VipMapper;
-import com.auc.pojo.Admin;
-import com.auc.pojo.LayuiData;
-import com.auc.pojo.Produce;
-import com.auc.pojo.Vip;
+import com.auc.pojo.*;
 import com.auc.service.VipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -98,6 +97,50 @@ public class VipServiceImpl implements VipService {
 
         boolean flag=false;
         int n=vipMapper.updateVipProduce(vip);
+        if (n>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    //添加明细
+    @Override
+    public boolean addDetail(Detail detail) {
+        boolean flag=false;
+        int n=vipMapper.addDetail(detail);
+        if (n>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    @Override
+    public Date selectEndTime(Vip vip) {
+        Date date=vipMapper.selectEndTime(vip);
+
+        return date;
+    }
+
+    @Override
+    public List<Produce> selectProduceNameList() {
+        List<Produce> list=new ArrayList<Produce>();
+
+        list=vipMapper.selectProduceNameList();
+        return list;
+    }
+
+    @Override
+    public List<Produce> selectProduceStateName() {
+        List<Produce> list=new ArrayList<Produce>();
+
+        list=vipMapper.selectProduceStateName();
+        return list;
+    }
+
+    @Override
+    public boolean updateVipRecharge(Integer vipRecharge) {
+        boolean flag=false;
+        int n=vipMapper.updateVipRecharge(vipRecharge);
         if (n>0){
             flag=true;
         }

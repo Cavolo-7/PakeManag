@@ -26,12 +26,13 @@ public class Vip {
     private String sexName;//性别名称
     private String produceName;//产品名称
     private String workerName;//收费员操作姓名
-    private Integer produceM;//产品月份
+    private Integer produceMonths;//产品月份
+    private Date strTime;//获取计算好的月份时间
 
     public Vip() {
     }
 
-    public Vip(Integer vipId, String vipName, String vipAccount, String vipPassword, String vipCarNumber, Integer vipSex, Integer vipAge, String vipPhone, String vipAddress, Integer vipRecharge, Integer vipScore, Integer produceId, String vipStarTime, String vipEndTime, Integer workerId, String sexName, String produceName, String workerName, Integer produceM) {
+    public Vip(Integer vipId, String vipName, String vipAccount, String vipPassword, String vipCarNumber, Integer vipSex, Integer vipAge, String vipPhone, String vipAddress, Integer vipRecharge, Integer vipScore, Integer produceId, String vipStarTime, String vipEndTime, Integer workerId, String sexName, String produceName, String workerName, Integer produceMonths, Date strTime) {
         this.vipId = vipId;
         this.vipName = vipName;
         this.vipAccount = vipAccount;
@@ -50,7 +51,8 @@ public class Vip {
         this.sexName = sexName;
         this.produceName = produceName;
         this.workerName = workerName;
-        this.produceM = produceM;
+        this.produceMonths = produceMonths;
+        this.strTime = strTime;
     }
 
     public Integer getVipId() {
@@ -198,12 +200,20 @@ public class Vip {
         this.workerName = workerName;
     }
 
-    public Integer getProduceM() {
-        return produceM;
+    public Integer getProduceMonths() {
+        return produceMonths;
     }
 
-    public void setProduceM(Integer produceM) {
-        this.produceM = produceM;
+    public void setProduceMonths(Integer produceM) {
+        this.produceMonths = produceM;
+    }
+
+    public Date getStrTime() {
+        return strTime;
+    }
+
+    public void setStrTime(Date strTime) {
+        this.strTime = strTime;
     }
 
     @Override
@@ -227,7 +237,8 @@ public class Vip {
                 ", sexName='" + sexName + '\'' +
                 ", produceName='" + produceName + '\'' +
                 ", workerName='" + workerName + '\'' +
-                ", produceM=" + produceM +
+                ", produceMonths=" + produceMonths +
+                ", strTime='" + strTime + '\'' +
                 '}';
     }
 }
