@@ -1,5 +1,6 @@
 package com.auc.service;
 
+import com.auc.pojo.Result;
 import com.auc.pojo.WelcomeInfo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +22,8 @@ public interface CarService {
 
     public WelcomeInfo carWelcome(String carNumber);//车辆入场时显示屏信息
 
-    public HashMap<String,Object> carOut(String accessToken, String path);//车辆出场
+    public HashMap<String, Object> carOut(Result carInfo);//车辆出场
 
-    public boolean insertDetail(String accessToken, String path);//车辆出场现金支付
+    public boolean insertDetail(Integer money, String carNumber);//车辆出场现金支付
 
 }

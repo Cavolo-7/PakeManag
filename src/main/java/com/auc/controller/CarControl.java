@@ -1,6 +1,7 @@
 package com.auc.controller;
 
 
+import com.auc.pojo.Result;
 import com.auc.pojo.WelcomeInfo;
 import com.auc.service.impl.AuthServiceImpl;
 import com.auc.service.impl.CarServiceImpl;
@@ -136,38 +137,40 @@ public class CarControl {
     @ResponseBody
     @RequestMapping(value = "/carOut")
     public LayuiData carOut(HttpServletRequest request, MultipartFile file) throws IOException {
-        System.out.println("carOut");
         String projectPath = FileUtil.uploadFile(request, file);
-        String accessToken = authServiceImpl.getAuth();//获取accessToken，调用车牌识别接口
-        HashMap hashMap = carServiceImpl.carOut(accessToken, projectPath);
-        System.out.println("hashmap:" + hashMap);
+        String accessToken = authServiceImpl.getAuth();//获取accessToken
+        Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
         LayuiData layuiData = new LayuiData();
-        if (hashMap.containsKey("success")) {
-            int money = (int) hashMap.get("money");
-            int minute = (int) hashMap.get("minute");
-            String carNumber = (String) hashMap.get("carNumber");
-            layuiData.setMsg("success&" + money + "&" + minute+ "&" + carNumber);
-            System.out.println(layuiData);
-        } else {
+        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {
             layuiData.setMsg("error");
+        } else {
+            layuiData.setMsg("success");
         }
         layuiData.setCode(0);
         return layuiData;
     }
 
 
-
     /**
-      * @Author: TheBigBlue
-      * @Description:  车辆出场现金支付
-      * @Date: 2020/9/11
-      * @Param request:
-      * @return: com.auc.util.LayuiData
-      **/
+     * @Author: TheBigBlue
+     * @Description: 车辆出场现金支付
+     * @Date: 2020/9/11
+     * @Param request:
+     * @return: com.auc.util.LayuiData
+     **/
     @ResponseBody
-    @RequestMapping(value = "/carOut")
-    public void payMoney(HttpServletRequest request) throws IOException {
-
+    @RequestMapping(value = "/payMoney")
+    public String payMoney(HttpServletRequest request) throws IOException {
+        String payMoney = request.getParameter("payMoney");//应付金额
+        String carNumber = request.getParameter("carNumber");//车牌号
+        boolean flag = carServiceImpl.insertDetail(new Integer(payMoney), carNumber);
+        String result = "";
+        if (flag == true) {
+            result = "success";
+        } else {
+            result = "error";
+        }
+        return result;
     }
 
 

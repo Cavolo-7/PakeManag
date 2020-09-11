@@ -215,67 +215,60 @@ public class CarServiceImpl implements CarService {
 
     /**
      * @Author: TheBigBlue
-     * @Description: 车辆出场
+     * @Description: 车辆出场(扫描识别成功)
      * @Date: 2020/9/10
      * @Param accessToken:
      * @Param path:
      * @return: java.lang.String
      **/
     @Override
-    public HashMap<String, Object> carOut(String accessToken, String path) {
-        Result carInfo = FileUtil.getCarNumber(path, accessToken);//1.调用车牌识别接口扫描车牌
+    public HashMap<String, Object> carOut(Result carInfo) {
         HashMap hashMap = new HashMap();
-        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//识别失败
-            System.out.println("车牌识别失败");
-            hashMap.put("error", "error");
-        } else {//识别成功
-            Exemption exemption = carInMapper.findExemption(carInfo.getWords_result().getNumber());//（2）查询免检名单表
-            if (exemption != null) {
-                System.out.println("免检用户，已缴费");
-            } else {//临时用户：收取费用
-                System.out.println("临时用户：收取费用");
-                //1）根据车牌查询车库信息表，数据库时间计算函数计算停车时长
-                String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                int minute = carInMapper.findTime(carInfo.getWords_result().getNumber(), nowDate);//停车时长(分)
-                int result = minute % 60;//取余
-                int hour = 0;
-                if (result == 0) {
-                    hour = minute / 60;//停车多少小时
-                } else {
-                    hour = (minute - result) / 60;//停车整小时
-                }
-                int money = 0;
-                List<Costrules> rulesList = carInMapper.findCostRules();//查询收费规则
-                if (rulesList != null) {
-                    for (int i = 0; i < rulesList.size(); i++) {
-                        if (rulesList.get(i).getCostrulesMin() != null && rulesList.get(i).getCostrulesMax() != null) {
-                            if (rulesList.get(i).getCostrulesMin() <= hour && hour < rulesList.get(i).getCostrulesMax()) {
-                                float baseHour = rulesList.get(i).getCostrulesMin();//基础时长
-                                float lastHour = hour - rulesList.get(i).getCostrulesMin();//超出时长
-                                int baseMoney = rulesList.get(i).getCostrulesBasemoney();//基础费用：元/小时
-                                int lastMoney = rulesList.get(i).getCostrulesAddmoney();//增值费用：元/小时
-                                money = (int) (baseMoney * baseHour + lastMoney * lastHour);//总费用
-                                System.out.println("停车时长：" + minute + "分,总费用：" + money);
-                                break;
-                            }
-                        } else if (rulesList.get(i).getCostrulesMax() == null) {
-                            if (rulesList.get(i).getCostrulesMin() <= hour) {
-                                float baseHour = rulesList.get(i).getCostrulesMin();//基础时长
-                                float lastHour = hour - rulesList.get(i).getCostrulesMin();//超出时长
-                                int baseMoney = rulesList.get(i).getCostrulesBasemoney();//基础费用：元/小时
-                                int lastMoney = rulesList.get(i).getCostrulesAddmoney();//增值费用：元/小时
-                                money = (int) (baseMoney * baseHour + lastMoney * lastHour);//总费用
-                                System.out.println("停车时长：" + minute + "分,总费用：" + money);
-                                break;
-                            }
+        Exemption exemption = carInMapper.findExemption(carInfo.getWords_result().getNumber());//（2）查询免检名单表
+        if (exemption != null) {
+            System.out.println("免检用户，已缴费");
+        } else {//临时用户：收取费用
+            System.out.println("临时用户：收取费用");
+            //1）根据车牌查询车库信息表，数据库时间计算函数计算停车时长
+            String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            int minute = carInMapper.findTime(carInfo.getWords_result().getNumber(), nowDate);//停车时长(分)
+            int result = minute % 60;//取余
+            int hour = 0;
+            if (result == 0) {
+                hour = minute / 60;//停车多少小时
+            } else {
+                hour = (minute - result) / 60;//停车整小时
+            }
+            int money = 0;
+            List<Costrules> rulesList = carInMapper.findCostRules();//查询收费规则
+            if (rulesList != null) {
+                for (int i = 0; i < rulesList.size(); i++) {
+                    if (rulesList.get(i).getCostrulesMin() != null && rulesList.get(i).getCostrulesMax() != null) {
+                        if (rulesList.get(i).getCostrulesMin() <= hour && hour < rulesList.get(i).getCostrulesMax()) {
+                            float baseHour = rulesList.get(i).getCostrulesMin();//基础时长
+                            float lastHour = hour - rulesList.get(i).getCostrulesMin();//超出时长
+                            int baseMoney = rulesList.get(i).getCostrulesBasemoney();//基础费用：元/小时
+                            int lastMoney = rulesList.get(i).getCostrulesAddmoney();//增值费用：元/小时
+                            money = (int) (baseMoney * baseHour + lastMoney * lastHour);//总费用
+                            System.out.println("停车时长：" + minute + "分,总费用：" + money);
+                            break;
+                        }
+                    } else if (rulesList.get(i).getCostrulesMax() == null) {
+                        if (rulesList.get(i).getCostrulesMin() <= hour) {
+                            float baseHour = rulesList.get(i).getCostrulesMin();//基础时长
+                            float lastHour = hour - rulesList.get(i).getCostrulesMin();//超出时长
+                            int baseMoney = rulesList.get(i).getCostrulesBasemoney();//基础费用：元/小时
+                            int lastMoney = rulesList.get(i).getCostrulesAddmoney();//增值费用：元/小时
+                            money = (int) (baseMoney * baseHour + lastMoney * lastHour);//总费用
+                            System.out.println("停车时长：" + minute + "分,总费用：" + money);
+                            break;
                         }
                     }
                 }
-                hashMap.put("success", "success");
-                hashMap.put("carNumber", carInfo.getWords_result().getNumber());
-                hashMap.put("money", money);
-                hashMap.put("minute", minute);
             }
+            hashMap.put("carNumber", carInfo.getWords_result().getNumber());
+            hashMap.put("money", money);
+            hashMap.put("minute", minute);
         }
         return hashMap;
     }
@@ -290,10 +283,18 @@ public class CarServiceImpl implements CarService {
      * @return: boolean
      **/
     @Override
-    public boolean insertDetail(String accessToken, String path) {
+    public boolean insertDetail(Integer money, String carNumber) {
         Detail detail = new Detail();
-        carInMapper.insertDetail(detail);
-        return false;
+        detail.setDetailCarnumber(carNumber);
+        detail.setDetailMoney(money);
+        detail.setDetailEvent("临时缴费");
+        detail.setProduceId(new Integer(0));
+        boolean flag = false;
+        int num = carInMapper.insertDetail(detail);
+        if (num > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
 

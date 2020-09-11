@@ -18,9 +18,17 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/amazeui.min.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css" />
+    <script src="${pageContext.request.contextPath}/js/CarOut.js"></script>
 </head>
 
 <body>
+<input type="hidden" id="path" value="${pageContext.request.contextPath}">
+<%--车牌号--%>
+<input type="hidden" id="carNumber" value="${param.carNumber}">
+<%--应付金额--%>
+<input type="hidden" id="money" value="${param.money}">
+
+
 <div class="pay">
     <div class="tr_recharge">
         <form action="" class="am-form" id="doc-vld-msg">
@@ -35,7 +43,7 @@
                     </p>
                 </div>
                 <div class="tr_rechcho am-form-group">
-                    <input type="number" min="0" max="100000" value="12.00元" class="othbox" />
+                    <input type="text" class="othbox" id="payMoney"/>
                     <span style="margin-left: -15px">现金缴费</span>
                     <label class="am-radio" style="margin-right:30px;">
                         <input type="checkbox" name="radio1" style="margin-right: 12px"><img src="${pageContext.request.contextPath}/imags/zfbpay.png"/>
@@ -47,13 +55,12 @@
                 </div>
             </div>
             <div class="tr_paybox">
-                <input type="submit" value="确认支付" class="tr_pay am-btn" />
+                <input type="button" value="确认支付" class="tr_pay am-btn" onclick="payMoney()"/>
             </div>
         </form>
     </div>
 </div>
 
-<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 </body>
 
 </html>

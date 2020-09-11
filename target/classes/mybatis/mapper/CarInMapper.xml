@@ -59,4 +59,9 @@
          select costrules_id,costrules_name,costrules_min,costrules_max,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state from t_costrules where costrules_state=3
     </select>
 
+    <!--  插入支付明细表  -->
+    <insert id="insertDetail" parameterType="com.auc.pojo.Detail">
+          INSERT INTO t_detail(detail_carnumber,detail_event,produce_id,detail_money) VALUES(#{detailCarnumber},#{detailEvent},#{produceId},#{detailMoney})
+    </insert>
+
 </mapper>

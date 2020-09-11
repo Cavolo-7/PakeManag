@@ -42,12 +42,10 @@ layui.use(['upload'], function () {
                 openInput();
                 layer.msg('抱歉识别失败,请手动输入车牌号');
             }
-            delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
         }
         , error: function (res, index, upload) {
             layer.closeAll('loading'); //关闭loading
             layer.msg('上传失败');
-            delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
         }
     });
 
@@ -77,12 +75,10 @@ layui.use(['upload'], function () {
                 openInput();
                 layer.msg('抱歉识别失败,请手动输入车牌号');
             }
-            delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
         }
         , error: function (res, index, upload) {
             layer.closeAll('loading'); //关闭loading
             layer.msg('上传失败');
-            delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
         }
     });
 });
@@ -92,8 +88,5 @@ function openInput() {
     xadmin.open('输入车牌号', path + '/jsp/CarNumberInput.jsp', 600, 400);//打开编辑弹出层并传参数
 }
 
-//车辆出场现金支付
-function payMoney() {
 
-}
 
