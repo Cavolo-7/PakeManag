@@ -11,11 +11,12 @@ public class Detail {
     private Integer detailMoney;
     private Integer workerId;
     private String workerName;
+    private String detailType; //支付类型
 
     public Detail() {
     }
 
-    public Detail(Integer detailId, String detailCarnumber, String detailEvent, Integer produceId, String detailTime, Integer detailMoney, Integer workerId, String workerName) {
+    public Detail(Integer detailId, String detailCarnumber, String detailEvent, Integer produceId, String detailTime, Integer detailMoney, Integer workerId, String workerName, String detailType) {
         this.detailId = detailId;
         this.detailCarnumber = detailCarnumber;
         this.detailEvent = detailEvent;
@@ -24,6 +25,7 @@ public class Detail {
         this.detailMoney = detailMoney;
         this.workerId = workerId;
         this.workerName = workerName;
+        this.detailType = detailType;
     }
 
     public Integer getDetailId() {
@@ -90,6 +92,14 @@ public class Detail {
         this.workerName = workerName;
     }
 
+    public String getDetailType() {
+        return detailType;
+    }
+
+    public void setDetailType(String detailType) {
+        this.detailType = detailType;
+    }
+
     @Override
     public String toString() {
         return "Detail{" +
@@ -101,6 +111,7 @@ public class Detail {
                 ", detailMoney=" + detailMoney +
                 ", workerId=" + workerId +
                 ", workerName='" + workerName + '\'' +
+                ", detailType='" + detailType + '\'' +
                 '}';
     }
 }
