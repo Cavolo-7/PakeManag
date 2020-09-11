@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,8 @@ public class UserControl {
         String limit = request.getParameter("limit");
         String roleName = request.getParameter("roleName");
         String urisdiction = request.getParameter("urisdiction");
-        List<Role> roleList = userService.selectRole(new Integer(page), new Integer(limit), roleName, urisdiction);
+        String roleState =request.getParameter("roleState");
+        List<Role> roleList = userService.selectRole(new Integer(page), new Integer(limit), roleName, urisdiction,roleState);
         int count = userService.queryRoleCount();
         LayuiData layuiData = new LayuiData();
         layuiData.setCode(0);
@@ -54,5 +56,19 @@ public class UserControl {
         }else {
             return  "增加失败";
         }
+    }
+
+    @RequestMapping(value = "/updRole", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String updRole(String roleId,String roleName,String urisdictionName){
+        System.out.println("我来打江聪了111111");
+        System.out.println("我是:"+roleId);
+        boolean flag=userService.updRole(roleId,roleName,urisdictionName);
+        if (flag){
+            return "编辑成功";
+        }else{
+            return "编辑失败";
+        }
+
     }
 }

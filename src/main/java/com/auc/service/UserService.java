@@ -15,7 +15,7 @@ import java.util.Map;
 public interface UserService {
 
     //查询所有用户
-    public List<Role> selectRole(Integer page, Integer limit , String roleName,String urisdiction);
+    public List<Role> selectRole(Integer page, Integer limit , String roleName,String urisdiction ,String roleState);
 
     //查询总页数
     public Integer queryRoleCount();
@@ -25,4 +25,7 @@ public interface UserService {
 
 //    //增加管理员账号
     public boolean addRole(String paramName,String roleName);
+
+    //修改
+    public boolean updRole(String roleId,String roleName,String urisdictionName);
 }
