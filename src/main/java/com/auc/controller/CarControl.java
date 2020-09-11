@@ -157,18 +157,18 @@ public class CarControl {
 
 
 
-    /**
-      * @Author: TheBigBlue
-      * @Description:  车辆出场现金支付
-      * @Date: 2020/9/11
-      * @Param request:
-      * @return: com.auc.util.LayuiData
-      **/
-    @ResponseBody
-    @RequestMapping(value = "/carOut")
-    public void payMoney(HttpServletRequest request) throws IOException {
-
-    }
+//    /**
+//      * @Author: TheBigBlue
+//      * @Description:  车辆出场现金支付
+//      * @Date: 2020/9/11
+//      * @Param request:
+//      * @return: com.auc.util.LayuiData
+//      **/
+//    @ResponseBody
+//    @RequestMapping(value = "/carOut")
+//    public void payMoney(HttpServletRequest request) throws IOException {
+//
+//    }
 
 
 }
