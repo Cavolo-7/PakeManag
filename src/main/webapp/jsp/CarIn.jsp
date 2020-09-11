@@ -127,7 +127,7 @@
                                 <div class="ms-service-box rounded text-center position-relative mb-0">
                                     <img class="img-fluid pb-3 ms-main-img" src="${pageContext.request.contextPath}/imags/22.png" alt="Service Image"/>
                                     <p class="ms-font-lato font-weight-bold">车辆出场</p>
-                                    <div class="ms-service-box-hover position-absolute rounded">
+                                    <div class="ms-service-box-hover position-absolute rounded" id="choseOutFile">
                                         <img class="img-fluid pb-3" src="${pageContext.request.contextPath}/imags/27.png" alt="Service Hover Image"/>
                                         <p class="ms-font-lato font-weight-bold">车辆出场</p>
                                     </div>
