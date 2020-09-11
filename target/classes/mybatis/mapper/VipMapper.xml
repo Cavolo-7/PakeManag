@@ -102,7 +102,7 @@
 
     <!--    vip续费-->
     <update id="updateVipProduce" parameterType="com.auc.pojo.Vip">
-        update t_vip as v  set vip_endtime=add_months(#{vipEndTime},#{produceM}) from dual where v.vip_account=#{vipAccount}
+        update t_vip as v  set vip_endtime=#{vipEndTime} where v.vip_account=#{vipAccount}
     </update>
 
     <!--    明细报表插入-->
@@ -121,4 +121,11 @@
     <select id="selectProduceStateName" resultType="com.auc.pojo.Produce">
         select produce_name produceName from t_produce where produce_static=(select p.param_value from t_param as p where p.param_type='produceState' and p.param_name='启用')
     </select>
+
+<!--    修改vip用户总消费金额-->
+    <update id="updateVipRecharge" parameterType="java.lang.Integer">
+        update t_vip set vip_recharge=#{vipRecharge} where vip_account={vipAccount}
+    </update>
+
+
 </mapper>
