@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
     public UserMapper userMapper;
     //查询所有用户
     @Override
-    public List<Role> selectRole(Integer page, Integer limit ,String roleName,String urisdiction) {
+    public List<Role> selectRole(Integer page, Integer limit ,String roleName,String urisdiction,String roleState) {
         page=(page-1)*limit;
-        List<Role> roleList = userMapper.selectRole(page, limit,roleName,urisdiction);
+        List<Role> roleList = userMapper.selectRole(page, limit,roleName,urisdiction,roleState);
         return roleList;
     }
     //查询总页数
@@ -44,6 +44,18 @@ public class UserServiceImpl implements UserService {
        if (n>0){
            flag=true;
        }
+        return flag;
+    }
+    //修改
+    @Override
+    public boolean updRole(String roleId,String roleName,String urisdictionName) {
+        boolean flag=false;
+        int num=0;
+        Param param=userMapper.inquireUser(urisdictionName);
+        num=userMapper.updRole(roleId,roleName,param.getParamValue());
+        if (num>0){
+            flag=true;
+        }
         return flag;
     }
     //查询所有用户

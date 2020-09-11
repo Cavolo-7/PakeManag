@@ -13,7 +13,7 @@ import java.util.Map;
 @Repository  //将这个类注入spring容器
 public interface UserMapper {
     //查询所有用户
-    public  List<Role> selectRole(Integer page,Integer limit, String roleName,String urisdiction);
+    public  List<Role> selectRole(Integer page,Integer limit, String roleName,String urisdiction,String roleState);
 
     //查询页码
     public Integer queryRoleCount();
@@ -23,4 +23,6 @@ public interface UserMapper {
 
     //增加管理员账号
      public Integer addRole(Integer urisdictionId,String roleName,Integer roleState);
+     //修改
+    public  Integer updRole(String roleId,String roleName,Integer urisdictionName);
 }

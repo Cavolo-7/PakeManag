@@ -59,8 +59,14 @@
   </div>
 </div>
 <script type="text/html" id="barDemo">
+  {{#  if(d.stateName!="注销"){ }}
+  {{#  if(d.stateName=="启用"){ }}
   <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用">禁用</a>
+  {{#  } else { }}
+  <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用">启用</a>
+  {{#  } }}
+  {{#  }}}
 </script>
 </body>
 
@@ -86,11 +92,11 @@
       , page: true
       , cols: [[
         //序号
-        , {type: 'numbers', width: '10%', title: '序号', align: 'center'}
+         {type: 'numbers', width: '10%', title: '序号', align: 'center'}
         , {field: 'roleName', width: '20%', title: '管理员名字', align: 'center', edit: true}
         , {field: 'urisdictionName', width: '20%', title: '权限级别', align: 'center', edit: true}
-        , {field: 'roleState', width: '20%', title: '状态', align: 'center', edit: true}
-        , {field: 'right', width: '32%',title: '操作', toolbar: '#barDemo', align: 'center'}
+        , {field: 'stateName', width: '20%', title: '状态', align: 'center', edit: true}
+        , {field: 'right',title: '操作', toolbar: '#barDemo', align: 'center'}
       ]]
       , id: 'testReload'
     })
@@ -98,19 +104,41 @@
       var data = obj.data;
       if (obj.event === 'edit') {
         layer.confirm('真的要修改么', function (index) {
-          $.ajax({
-            url: "/personManage/edit",
-            data: {'whiteAccount': data.whiteAccount,'whiteName': data.whiteName,'whiteCarnumber': data.whiteCarnumber,'whitePhone': data.whitePhone},
-            method: 'post',
-            dataType: 'text',
-            success: function (data) {
-              if (data == "编辑成功") {
-                layer.msg("编辑成功")
-              } else {
-                layer.msg("编辑失败")
-              }
+          layer.open({
+            // anim: 1,
+            type: 2,//Page层类型
+            area: ['400px', '250px'],
+            title: '修改管理员信息',
+            shadeClose: true,
+            shade: false,
+            id: 'alterp',
+            shade: 0.6, //遮罩透明度,
+            maxmin: true, //允许全屏最小化,
+            anim: 1, //0-6的动画形式，-1不开启,
+            content: ['/jsp/UpdateRole.jsp'],
+            success: function (layero, index) {
+              var body = layer.getChildFrame('body', index);
+              body.contents().find("#roleId").val(data.roleId)
+              body.contents().find("#roleName").val(data.roleName)
+              body.contents().find("#urisdictionName").val(data.urisdictionName)
+            },
+            end: function () {
+              $("#search").click();
             }
-          })
+          });
+          // $.ajax({
+          //   url: "/userControl/updRole",
+          //   data: {'roleName': data.roleName,'urisdictionName': data.urisdictionName},
+          //   method: 'post',
+          //   dataType: 'text',
+          //   success: function (data) {
+          //     if (data == "编辑成功") {
+          //       layer.msg("编辑成功")
+          //     } else {
+          //       layer.msg("编辑失败")
+          //     }
+          //   }
+          // })
         });
 
       }
