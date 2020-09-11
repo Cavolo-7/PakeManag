@@ -114,8 +114,8 @@
       , cols: [[
         //序号
         {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'whiteName', width: 300, title: '套餐类型', align: 'center', edit: true}
-        , {field: 'whiteAccount', title: '收入', align: 'center'}
+        , {field: 'detailEvent', width: 300, title: '套餐类型', align: 'center', edit: true}
+        , {field: 'detailMoney', title: '收入', align: 'center'}
       ]]
       , id: 'testReload'
     })
@@ -160,8 +160,8 @@
       , cols: [[
         //序号
          {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'whiteName', width: 300, title: '总收入', align: 'center', edit: true}
-        , {field: 'whiteAccount', title: '停放总次数', align: 'center'}
+        , {field: 'detailEvent', width: 300, title: '停放总次数', align: 'center', edit: true}
+        , {field: 'detailMoney', title: '总收入', align: 'center'}
       ]]
       , id: 'testReload'
     })
