@@ -1,12 +1,11 @@
 package com.auc.mapper;
 
-import com.auc.pojo.Admin;
-import com.auc.pojo.Produce;
-import com.auc.pojo.Vip;
+import com.auc.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,5 +44,17 @@ public interface VipMapper {
     public Integer updateVipProduce(Vip vip);
 
     //添加明细表
-//    public Integer addDetail(Detail detail);
+    public Integer addDetail(Detail detail);
+
+    //查询计算好的时间
+    public Date selectEndTime(Vip vip);
+
+    //查询月缴产品名字集合
+    public List<Produce> selectProduceNameList();
+
+    //查询月缴产品名字集合状态
+    public List<Produce> selectProduceStateName();
+
+    //修改vip用户总消费记录
+    public Integer updateVipRecharge(Integer vipRecharge);
 }

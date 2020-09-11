@@ -2,6 +2,7 @@ package com.auc.mapper;
 
 
 import com.auc.pojo.Admin;
+import com.auc.pojo.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,8 @@ public interface AdminMapper {
     public Integer updateAdmin(Admin admin);
 
     //查询角色名字集合
-//    public String selectRoleNameList();
+    public List<Role> selectRoleNameList();
+
+    //查询角色名字集合状态
+    public List<Role> selectRoleStateName();
 }

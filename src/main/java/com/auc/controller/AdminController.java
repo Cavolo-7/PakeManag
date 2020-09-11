@@ -3,6 +3,7 @@ package com.auc.controller;
 import com.alibaba.fastjson.JSON;
 import com.auc.pojo.Admin;
 import com.auc.pojo.LayuiData;
+import com.auc.pojo.Role;
 import com.auc.service.AdminService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,7 +47,7 @@ public class AdminController {
         if (null != phone && !"".equalsIgnoreCase(phone)) {
             condition.put("phone", phone);
         }
-        if (null != roleNames && !"".equalsIgnoreCase(roleNames)) {
+        if (roleNames!=null&&!"".equalsIgnoreCase(roleNames)) {
             int n=adminService.selectRoleId(roleNames);
             condition.put("n", n+" ");
         }
@@ -57,8 +58,6 @@ public class AdminController {
             curPage = (curPage - 1) * pageSize;
         }
         LayuiData<Admin> layuiData = adminService.selectAdminList(condition, curPage, pageSize);
-//        List<Admin> roleNameList=adminService.selectRoleList();
-//        request.setAttribute("roleNameList",roleNameList);
 //        Gson gson = new Gson();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str = JSON.toJSONString(layuiData);

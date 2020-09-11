@@ -8,25 +8,29 @@
     <select id="selectRole" parameterType="java.util.Map" resultType="com.auc.pojo.Role">
     select r.role_id,r.role_name,u.param_name urisdictionName  from t_role r,t_param u where r.urisdiction_id=u.param_value
     <where>
-    <if test="roleName!=null and roleName!=''"> role_name like concat('%', #{roleName}, '%')  </if>
-        <if test="urisdiction!=null and urisdiction!='' ">urisdictionName like '%#{urisdiction}%'</if>
+        <if test="roleName!=null and roleName!=''"> and r.role_name=#{roleName}  </if>
+        <if test="urisdiction!=null and urisdiction!='' "> and urisdictionName=#{urisdiction}</if>
     </where>
     limit #{page},#{limit}
     </select>
-    <!--删除管理员账号-->
-    <delete id="deleteRole" parameterType="java.lang.String">
-        delete from t_role where worker_account=#{workerAccount}
-    </delete>
+
+    <!--查询关系表中的参数值值-->
+    <select id="inquireUser" resultType="com.auc.pojo.Param">
+        select param_value from t_param where param_name=#{paramName} and param_type='roleurisdiction'
+    </select>
+
     <!--增加管理员账号-->
     <insert id="addRole" parameterType="com.auc.pojo.Role">
-        insert into t_role (role_id,role_name,urisdiction_id) value (#{roleId},#{roleName},#{urisdictionId}
+     insert into t_role (role_name,urisdiction_id,role_state) value (#{roleName},#{urisdictionId},#{roleState})
     </insert>
+    <!--禁用启用管理员账号-->
+
     <!--查询页码-->
     <select id="queryRoleCount"  resultType="Integer">
         select count(*) from t_role r,t_param u where r.urisdiction_id=u.param_value
         <where>
-            <if test="roleName!=null and roleName!='' ">role_name like '%#{roleName}%'</if>
-            <if test="paramName!=null and paramName!='' ">role_name like '%#{paramName}%'</if>
+            <if test="roleName!=null and roleName!='' "> and r.role_name=#{roleName}</if>
+            <if test="urisdiction!=null and urisdiction!='' "> and u.urisdictionName=#{urisdiction}</if>
         </where>
     </select>
 </mapper>
