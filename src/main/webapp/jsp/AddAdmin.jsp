@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -92,28 +93,35 @@
                 </div>
             </div>
 
-
             <div class="layui-form-item">
-                <label for="roleName" class="layui-form-label">
-                    <span class="x-red">*</span>角色</label>
-                <div class="layui-input-inline">
-                    <select id="roleName" name="roleName" class="valid">
-                        <option value="收费员">收费员</option>
-                        <option value="管理员">管理员</option>
-                        <option value="超级管理员">超级管理员</option>
-                    </select>
-                </div>
+                <label for="roleNames" class="layui-form-label">
+                    <span class="x-red">*</span>角色
+                </label>
+                <form class="layui-form">
+                    <div class="layui-input-inline" style="margin-top: 5px">
+                        <select name="roleNames" id="roleNames" lay-verify="required">
+                            <c:if test="${not empty roleNameList2}">
+                                <c:forEach items="${roleNameList2}" var="r">
+                                    <option value="${r.roleName}" >${r.roleName}</option>
+                                </c:forEach>
+                            </c:if>
+                        </select>
+                    </div>
+                </form>
             </div>
 
             <div class="layui-form-item">
                 <label for="stateName" class="layui-form-label">
-                    <span class="x-red">*</span>状态</label>
-                <div class="layui-input-inline">
-                    <select id="stateName" name="stateName" class="valid">
-                        <option value="启用">启用</option>
-                        <option value="禁用">禁用</option>
-                    </select>
-                </div>
+                    <span class="x-red">*</span>状态
+                </label>
+                <form class="layui-form">
+                    <div class="layui-input-inline" style="margin-top: 5px">
+                        <select name="stateName" id="stateName" lay-verify="required">
+                            <option value="启用">启用</option>
+                            <option value="禁用">禁用</option>
+                        </select>
+                    </div>
+                </form>
             </div>
 
             <div class="layui-form-item">
@@ -137,6 +145,8 @@
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+
+
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>

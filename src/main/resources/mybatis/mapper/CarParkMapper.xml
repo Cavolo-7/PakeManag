@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.CarParkMapper">
+    <!--    停车位查询管理sql-->
+
+<!--    总车位查询-->
+    <select id="selectAllPark" resultType="com.auc.pojo.CarPort">
+        select count(c.carport_id) allPark,
+    (select count(c2.carport_id) from t_carport as c2 where c2.carport_carnumber!='')employPark,
+    (select count(c3.carport_id) from t_carport as c3 where c3.carport_carnumber='')leisurePark
+    from t_carport as c
+    </select>
+
+<!--    分区车位统计查询-->
+    <select id="selectSubareaPark" resultType="com.auc.pojo.CarPort">
+        select c.carport_area carportNumber,count(c.carport_area)allSubarea,sum(c.carport_carnumber!='')subarEaemploy,sum(c.carport_carnumber='')subarLeisure
+        from t_carport as c  GROUP BY c.carport_area
+    </select>
+</mapper>

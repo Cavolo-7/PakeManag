@@ -95,7 +95,12 @@
     </update>
 
     <!--    查询角色名字集合-->
-<!--    <select id="selectRoleNameList" resultType="java.lang.String">-->
-<!--        select * from t_role-->
-<!--    </select>-->
+    <select id="selectRoleNameList" resultType="com.auc.pojo.Role">
+        select role_name roleName from t_role
+    </select>
+
+    <!--    查询角色名字集合判断状态-->
+    <select id="selectRoleStateName" resultType="com.auc.pojo.Role">
+        select role_name roleName from t_role where role_state=(select p.param_value from t_param as p where p.param_type='roleurisdiction' and p.param_name='启用')
+    </select>
 </mapper>

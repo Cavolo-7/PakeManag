@@ -17,10 +17,17 @@ public class CarPort {
     private Date carportStarttime;//入场时间
     private Integer carportState;//车位状态（考虑后期预约停车）
 
+    private Integer allPark;//总车位数
+    private Integer employPark;//已用车位数
+    private Integer leisurePark;//空闲车位数
+
+    private Integer allSubarea;//分区总车位数
+    private Integer subarEaemploy;//分区已用车位数
+    private Integer subarLeisure;//分区空闲车位数
     public CarPort() {
     }
 
-    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState) {
+    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure) {
         this.carportId = carportId;
         this.carportArea = carportArea;
         this.carportNumber = carportNumber;
@@ -28,6 +35,12 @@ public class CarPort {
         this.carportPhoto = carportPhoto;
         this.carportStarttime = carportStarttime;
         this.carportState = carportState;
+        this.allPark = allPark;
+        this.employPark = employPark;
+        this.leisurePark = leisurePark;
+        this.allSubarea = allSubarea;
+        this.subarEaemploy = subarEaemploy;
+        this.subarLeisure = subarLeisure;
     }
 
     public Integer getCarportId() {
@@ -86,6 +99,54 @@ public class CarPort {
         this.carportState = carportState;
     }
 
+    public Integer getAllPark() {
+        return allPark;
+    }
+
+    public void setAllPark(Integer allPark) {
+        this.allPark = allPark;
+    }
+
+    public Integer getEmployPark() {
+        return employPark;
+    }
+
+    public void setEmployPark(Integer employPark) {
+        this.employPark = employPark;
+    }
+
+    public Integer getLeisurePark() {
+        return leisurePark;
+    }
+
+    public void setLeisurePark(Integer leisurePark) {
+        this.leisurePark = leisurePark;
+    }
+
+    public Integer getAllSubarea() {
+        return allSubarea;
+    }
+
+    public void setAllSubarea(Integer allSubarea) {
+        this.allSubarea = allSubarea;
+    }
+
+    public Integer getSubarEaemploy() {
+        return subarEaemploy;
+    }
+
+    public void setSubarEaemploy(Integer subarEaemploy) {
+        this.subarEaemploy = subarEaemploy;
+    }
+
+    public Integer getSubarLeisure() {
+        return subarLeisure;
+    }
+
+    public void setSubarLeisure(Integer subarLeisure) {
+        this.subarLeisure = subarLeisure;
+    }
+
     @Override
     public String toString() {
         return "CarPort{" +
@@ -96,6 +157,12 @@ public class CarPort {
                 ", carportPhoto='" + carportPhoto + '\'' +
                 ", carportStarttime=" + carportStarttime +
                 ", carportState=" + carportState +
+                ", allPark=" + allPark +
+                ", employPark=" + employPark +
+                ", leisurePark=" + leisurePark +
+                ", allSubarea=" + allSubarea +
+                ", subarEaemploy=" + subarEaemploy +
+                ", subarLeisure=" + subarLeisure +
                 '}';
     }
 }

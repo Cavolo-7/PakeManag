@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -104,15 +105,17 @@
             <div class="layui-form-item">
                 <label for="produceName" class="layui-form-label">
                     <span class="x-red">*</span>月缴产品</label>
-                <div class="layui-input-inline">
-                    <select id="produceName" name="produceName" class="valid">
-                        <option value="普通套餐">普通套餐</option>
-                        <option value="黄金套餐">黄金套餐</option>
-                        <option value="白金套餐">白金套餐</option>
-                        <option value="钻石套餐">钻石套餐</option>
-                        <option value="至尊套餐">至尊套餐</option>
-                    </select>
-                </div>
+                <form class="layui-form">
+                    <div class="layui-input-inline" style="margin-top: 5px">
+                        <select name="produceName" id="produceName" lay-verify="required">
+                            <c:if test="${not empty produceList2}">
+                                <c:forEach items="${produceList2}" var="p">
+                                    <option value="${p.produceName}" >${p.produceName}</option>
+                                </c:forEach>
+                            </c:if>
+                        </select>
+                    </div>
+                </form>
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">
