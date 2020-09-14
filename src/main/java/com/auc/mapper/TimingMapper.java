@@ -1,6 +1,5 @@
 package com.auc.mapper;
 
-import com.auc.pojo.Vip;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

@@ -14,16 +14,12 @@ import java.util.HashMap;
  **/
 public interface CarService {
 
-    public String carIn(String accessToken, String path);//车辆入场
-
-    public String inputCarIn(String carNumber);//无法识别车牌时输入车牌入场
+    public WelcomeInfo carIn(String carNumber, String path);//车辆入场
 
     public WelcomeInfo noCarWelcome();//空闲时入场显示屏信息
 
-    public WelcomeInfo carWelcome(String carNumber);//车辆入场时显示屏信息
+    public WelcomeInfo carOut(String carNumber);//车辆出场
 
-    public HashMap<String, Object> carOut(Result carInfo);//车辆出场
-
-    public boolean insertDetail(Integer money, String carNumber);//车辆出场现金支付
+    public boolean insertDetail(Integer money, String carNumber,Integer carportId);//车辆出场现金支付
 
 }

@@ -1,6 +1,6 @@
 package com.auc.pojo;
 
-import javax.xml.crypto.Data;
+import java.util.Date;
 
 /**
  * @基本功能: 出入场显示屏信息实体类
@@ -16,17 +16,19 @@ public class WelcomeInfo {
     private Integer noNum;//当前空车位数
     private String carNumber;//车牌号
     private String carPort;//停车位
-    private Data startTime;//入场时间
-    private Data endTime;//出场时间
+    private String startTime;//入场时间
+    private String endTime;//出场时间
     private String longTime;//停放时长
     private String carType;//车辆类型（临时车辆，月缴车辆...）
     private Integer money;//应缴费用
     private String payState;//是否缴费信息（当收费完成，显示已缴费）
 
+    private Integer carportId;//车位id
+
     public WelcomeInfo() {
     }
 
-    public WelcomeInfo(String welcomeMsg, Integer allNum, Integer useNum, Integer noNum, String carNumber, String carPort, Data startTime, Data endTime, String longTime, String carType, Integer money, String payState) {
+    public WelcomeInfo(String welcomeMsg, Integer allNum, Integer useNum, Integer noNum, String carNumber, String carPort, String startTime, String endTime, String longTime, String carType, Integer money, String payState, Integer carportId) {
         this.welcomeMsg = welcomeMsg;
         this.allNum = allNum;
         this.useNum = useNum;
@@ -39,6 +41,7 @@ public class WelcomeInfo {
         this.carType = carType;
         this.money = money;
         this.payState = payState;
+        this.carportId = carportId;
     }
 
     public String getWelcomeMsg() {
@@ -89,19 +92,19 @@ public class WelcomeInfo {
         this.carPort = carPort;
     }
 
-    public Data getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Data startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Data getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Data endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -137,6 +140,14 @@ public class WelcomeInfo {
         this.payState = payState;
     }
 
+    public Integer getCarportId() {
+        return carportId;
+    }
+
+    public void setCarportId(Integer carportId) {
+        this.carportId = carportId;
+    }
+
     @Override
     public String toString() {
         return "WelcomeInfo{" +
@@ -146,12 +157,13 @@ public class WelcomeInfo {
                 ", noNum=" + noNum +
                 ", carNumber='" + carNumber + '\'' +
                 ", carPort='" + carPort + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 ", longTime='" + longTime + '\'' +
                 ", carType='" + carType + '\'' +
                 ", money=" + money +
                 ", payState='" + payState + '\'' +
+                ", carportId=" + carportId +
                 '}';
     }
 }

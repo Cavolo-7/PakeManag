@@ -9,10 +9,6 @@
         select white_id,white_name,white_account,white_password,white_carnumber,white_phone,white_createtime,worker_id from t_white where white_carnumber=#{whiteCarnumber}
     </select>
 
-    <!--  根据车牌号查询月缴用户表  -->
-    <select id="findVip" parameterType="java.lang.String" resultType="com.auc.pojo.Vip">
-         SELECT vip_id,vip_name,vip_account,vip_password,vip_carnumber,vip_sex,vip_age,vip_phone,vip_address,vip_recharge,vip_score,produce_id,vip_startime,vip_endtime,worker_id from t_vip where vip_carnumber=#{vipCarnumber}
-    </select>
 
     <!--  添加至免检用户表  -->
     <insert id="insertExemption" parameterType="com.auc.pojo.Exemption">
@@ -25,8 +21,8 @@
     </select>
 
     <!--  修改停车车位表  -->
-    <update id="updateCarPort" parameterType="com.auc.pojo.CarPort">
-          update t_carport set carport_carnumber=#{carportCarnumber},carport_photo=#{carportPhoto} where carport_id = #{carportId}
+    <update id="updateCarPort">
+          update t_carport set carport_carnumber=#{carportCarnumber},carport_photo=#{carportPhoto},carport_starttime=#{carportStarttime},carport_state=#{carportState} where carport_id = #{carportId}
     </update>
 
     <!--  插入历史汇总表  -->
@@ -36,7 +32,7 @@
 
     <!--  查询欢迎信息  -->
     <select id="findWelcomeMsg" resultType="java.lang.String">
-         select param_name from t_param where param_type='welcomeMsg' and param_value=1001
+         select param_name from t_param where param_type='welcomeMsg' and param_value=#{paramValue}
     </select>
 
     <!--  根据车牌查询停车位  -->
@@ -51,7 +47,7 @@
 
     <!--  查询停车时长(分)  -->
     <select id="findTime" resultType="java.lang.Integer">
-         SELECT TIMESTAMPDIFF(MINUTE,carport_starttime,#{nowDate}) from t_carport where carport_carnumber=#{carNumber}
+         SELECT TIMESTAMPDIFF(MINUTE,carport_starttime,STR_TO_DATE(#{nowDate}, '%Y-%m-%d %H:%i:%s')) from t_carport where carport_carnumber=#{carNumber}
     </select>
 
     <!--  查询收费规则  -->
@@ -59,9 +55,21 @@
          select costrules_id,costrules_name,costrules_min,costrules_max,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state from t_costrules where costrules_state=3
     </select>
 
+
     <!--  插入支付明细表  -->
     <insert id="insertDetail" parameterType="com.auc.pojo.Detail">
-          INSERT INTO t_detail(detail_carnumber,detail_event,produce_id,detail_money) VALUES(#{detailCarnumber},#{detailEvent},#{produceId},#{detailMoney})
+          INSERT INTO t_detail(detail_carnumber,detail_event,produce_id,detail_type,detail_money) VALUES(#{detailCarnumber},#{detailEvent},#{produceId},#{detailType},#{detailMoney})
     </insert>
+
+    <!--  免检名单删除临时用户  -->
+    <insert id="deleteExemption" parameterType="java.lang.String">
+          delete from t_exemption where exemption_carnumber=#{carNumber}
+    </insert>
+
+    <!--  查询收费规则  -->
+    <select id="findPerson" resultType="com.auc.pojo.Person">
+         select person_id,person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_address,person_recharge,person_score,person_identity,worker_id
+         from t_person where person_carnumber=#{carNumber}
+    </select>
 
 </mapper>

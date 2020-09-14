@@ -101,6 +101,13 @@
             <version>2.8.0</version>
         </dependency>
 
+        <!-- Alipay SDK -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.10.124.ALL</version>
+        </dependency>
+
     </dependencies>
 
     <build>

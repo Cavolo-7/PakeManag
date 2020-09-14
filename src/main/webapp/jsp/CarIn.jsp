@@ -30,7 +30,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
     <script src="${pageContext.request.contextPath}/js/CarIn.js"></script>
-
+    <script>
+        setInterval(function () {
+            var date = new Date();
+            var year = date.getFullYear(); //获取当前年份
+            var mon = date.getMonth() + 1; //获取当前月份
+            var da = date.getDate(); //获取当前日
+            var day = date.getDay(); //获取当前星期几
+            var h = date.getHours(); //获取小时
+            var m = date.getMinutes(); //获取分钟
+            var s = date.getSeconds(); //获取秒
+            var d = document.getElementById('Date');
+            d.innerHTML = year + '年' + mon + '月' + da + '日' + '星期' + day + ' ' + h + ':' + m + ':' + s;
+        }, 1000);
+    </script>
 </head>
 <body>
 <input type="hidden" value="${pageContext.request.contextPath}" id="path">
@@ -54,7 +67,9 @@
                     <div class="text-white">
                         <h2 class="ms-font-weight-900">${welcomeInfo.welcomeMsg}</h2>
                         <h4 class="font-weight-normal pb-4">
-                            <div id="Date" style="font-size: 15px;margin-top: 15px"></div>
+                            <div id="Date" style="font-size: 15px;margin-top: 15px">
+                                2020年9月12日星期5 10:10:10
+                            </div>
                         </h4>
                         <ul class="list-group">
                             <li>
@@ -137,7 +152,7 @@
                                 <div class="ms-service-box rounded text-center position-relative mb-0">
                                     <img class="img-fluid pb-3 ms-main-img" src="${pageContext.request.contextPath}/imags/21.png" alt="Service Image"/>
                                     <p class="ms-font-lato font-weight-bold">RESTORATION</p>
-                                    <div class="ms-service-box-hover position-absolute rounded">
+                                    <div class="ms-service-box-hover position-absolute rounded" onclick="openOutInput()">
                                         <img class="img-fluid pb-3" src="${pageContext.request.contextPath}/imags/28.png" alt="Service Hover Image"/>
                                         <p class="ms-font-lato font-weight-bold">RESTORATION</p>
                                     </div>

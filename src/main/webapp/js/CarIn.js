@@ -1,28 +1,11 @@
-window.onload = function () {
-    setInterval(function () {
-        var date = new Date();
-        var year = date.getFullYear(); //获取当前年份
-        var mon = date.getMonth() + 1; //获取当前月份
-        var da = date.getDate(); //获取当前日
-        var day = date.getDay(); //获取当前星期几
-        var h = date.getHours(); //获取小时
-        var m = date.getMinutes(); //获取分钟
-        var s = date.getSeconds(); //获取秒
-        var d = document.getElementById('Date');
-        d.innerHTML = year + '年' + mon + '月' + da + '日' + '星期' + day + ' ' + h + ':' + m + ':' + s;
-    }, 1000);
-}
-
-
 layui.use(['upload'], function () {
     var $ = layui.jquery
         , upload = layui.upload;
     var path = $("#path").val();
-    var files;
 
     upload.render({
         elem: '#choseFile'
-        , url: path + '/car/carIn'
+        , url: path + '/car/findCarNumber'
         , auto: true
         , accept: 'images'
         , bindAction: '#upload'
@@ -36,8 +19,9 @@ layui.use(['upload'], function () {
             if (res.msg.indexOf('success') != -1) {
                 layer.msg('识别成功');
                 var arr = res.msg.split("&");
-                var carNumber = arr[1];
-                location.href = path + "/car/carWelcome?carNumber=" + carNumber;//车入场信息
+                var carNumber = arr[1];//车牌号
+                var photoPath = arr[2];
+                carInFindSuccess(carNumber, photoPath);
             } else {
                 openInput();
                 layer.msg('抱歉识别失败,请手动输入车牌号');
@@ -50,10 +34,10 @@ layui.use(['upload'], function () {
     });
 
 
-    //选完文件后不自动上传
+    //车辆出场车牌识别
     upload.render({
         elem: '#choseOutFile'
-        , url: path + '/car/carOut'
+        , url: path + '/car/findCarNumber'
         , auto: true
         , accept: 'images'
         , bindAction: '#upload'
@@ -67,13 +51,12 @@ layui.use(['upload'], function () {
             if (res.msg.indexOf('success') != -1) {
                 layer.msg('识别成功');
                 var arr = res.msg.split("&");
-                var money = arr[1];
-                var minute = arr[2];
-                var carNumber = arr[3];
-                xadmin.open('出场缴费', path + '/jsp/CarOut.jsp?money=' + money + "&minute=" + minute + "&carNumber=" + carNumber, 600, 400);//打开编辑弹出层并传参数
+                var carNumber = arr[1];//车牌号
+                carOutFindSuccess(carNumber);
             } else {
-                openInput();
+                openOutInput();
                 layer.msg('抱歉识别失败,请手动输入车牌号');
+
             }
         }
         , error: function (res, index, upload) {
@@ -83,10 +66,75 @@ layui.use(['upload'], function () {
     });
 });
 
+//打开入场输入弹窗层
 function openInput() {
     var path = $("#path").val();
-    xadmin.open('输入车牌号', path + '/jsp/CarNumberInput.jsp', 600, 400);//打开编辑弹出层并传参数
+    xadmin.open('输入车牌号', path + '/jsp/CarNumberInput.jsp', 600, 450);
 }
+
+//打开出场输入弹窗层
+function openOutInput() {
+    var path = $("#path").val();
+    xadmin.open('输入车牌号', path + '/jsp/CarOutInput.jsp', 600, 450);
+}
+
+
+//车辆入场识别成功
+function carInFindSuccess(carNumber, photoPath) {
+    var path = $("#path").val();
+    $.ajax({
+            url: path + "/car/carIn",
+            type: "post",
+            data: {
+                'carNumber': carNumber,
+                'photoPath': photoPath,
+            },
+            dataType: "json",
+            beforeSend: function () {
+            },
+            success: function (result) {
+                console.log(result)
+                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
+                xadmin.open('车辆入场', url, 600, 450);
+            },
+            error: function () {
+            },
+            complete: function () {
+            }
+        }
+    );
+}
+
+
+//车辆出场识别成功
+function carOutFindSuccess(carNumber) {
+    var path = $("#path").val();
+    $.ajax({
+            url: path + "/car/carOut",
+            type: "post",
+            data: {
+                'carNumber': carNumber
+            },
+            dataType: "json",
+            beforeSend: function () {
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.carNumber != null) {
+                    var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg+ '&carportId=' + result.carportId;
+                    xadmin.open('出场缴费', url, 600, 450);
+                } else {
+                    layer.msg('该车辆不在此停车场！');
+                }
+            },
+            error: function () {
+            },
+            complete: function () {
+            }
+        }
+    );
+}
+
 
 
 

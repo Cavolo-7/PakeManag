@@ -62,14 +62,19 @@ function carInSubmit() {
     var carNumber = "";
     if (carNum1 != '' && carNum2 != '' && carNum3 != '' && carNum4 != '' && carNum5 != '' && carNum6 != '' && carNum7 != '' && carNum8 == '') {
         carNumber = carNum1 + carNum2 + carNum3 + carNum4 + carNum5 + carNum6 + carNum7;
+        console.log(7)
+        console.log(carNumber)
+
     }
     if (carNum1 != '' && carNum2 != '' && carNum3 != '' && carNum4 != '' && carNum5 != '' && carNum6 != '' && carNum7 != '' && carNum8 != '') {
         carNumber = carNum1 + carNum2 + carNum3 + carNum4 + carNum5 + carNum6 + carNum7 + carNum8;
+        console.log(8)
+        console.log(carNumber)
     }
     var path = $("#path").val();
     //1.判断非空（7位，或者8位）
     $.ajax({
-            url: path + "/car/inputCarIn",
+            url: path + "/car/carOut",
             type: "post",
             data: {
                 "carNumber": carNumber,
@@ -83,8 +88,8 @@ function carInSubmit() {
             },
             success: function (result) {
                 console.log("res" + result)
-                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
-                xadmin.open('车辆入场', url, 600, 450);
+                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg;
+                xadmin.open('出场缴费', url, 600, 450);
             },
             error: function () {
             },

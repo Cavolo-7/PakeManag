@@ -1,18 +1,18 @@
 //车辆出场现金支付
-function payMoney() {
+function pay() {
     var path = $("#path").val();
     var payMoney = $("#payMoney").val();//支付金额
     var money = $("#money").val();//应付金额
     var carNumber = $("#carNumber").val();//车牌号
-    console.log(payMoeny + "," + money + "," + carNumber);
-
+    var carportId = $("#carportId").val();//车牌号
     $.ajax({
             url: path + "/car/payMoney",
             type: "post",
             data: {
                 "payMoney": payMoney,
                 "money": money,
-                "carNumber": carNumber
+                "carNumber": carNumber,
+                "carportId": carportId,
             },
             dataType: "text",
             beforeSend: function () {
@@ -25,10 +25,11 @@ function payMoney() {
                 console.log(result)
                 if (result == "success") {
                     alert("支付成功！")
+                    xadmin.close();//关闭弹窗
+                    top.location.href = path + '/car/noCarWelcome'//刷新主页
                 } else {
                     alert("支付失败！")
                 }
-                xadmin.close();//关闭当前弹窗
             },
             error: function () {
             },
@@ -36,4 +37,17 @@ function payMoney() {
             }
         }
     );
+}
+
+
+//支付宝支付
+function Alipy() {
+    console.log("alipy")
+}
+
+//确定按钮
+function sure() {
+    var path = $("#path").val();
+    xadmin.close();
+    top.location.href = path + '/car/noCarWelcome'//刷新主页
 }
