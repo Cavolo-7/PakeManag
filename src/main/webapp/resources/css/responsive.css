@@ -1,0 +1,141 @@
+/* Medium Layout: 1280px. */
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .hero-area h1 {
+        font-size: 52px;
+    }
+ 
+    .footer li a {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+	.fs68{
+		font-size: 50px;
+	}
+	.fs48{
+	    	font-size: 30px;
+	    }
+    /*** Home Page 4 ***/
+    .f-i-right img {
+        max-width: 100%;
+    }
+
+    .f-i-right img.timeline {
+        right: -7%;
+    }
+    .m-t-100 {
+        margin-top: 60px;
+    }
+}
+
+
+/* Tablet Layout: 768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .hidden-sm{
+        display: none;
+    }
+    /*** Home Page 1 ***/
+    .pd-80 {
+        padding: 70px 0;
+    }
+	.fs68{
+		font-size: 40px;
+	}
+	.fs48{
+	    	font-size: 32px;
+	    }
+
+    .tc {
+        margin-bottom: 30px;
+    }
+
+    .t-img,
+    .contact-area:before {
+        display: none;
+    }
+    .pd-130 {
+        padding: 100px 0;
+    }
+
+    .m-t-100 {
+        margin-top: 50px;
+    }
+}
+
+
+/* Mobile Layout: 320px. */
+
+@media only screen and (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+    .fs68{
+    	font-size: 30px;
+    }
+    .fs48{
+    	font-size: 25px;
+    }
+    .pd-80{
+        padding: 50px 0;
+    }
+
+    .pd-130 {
+        padding: 70px 0;
+    }
+
+    .rectangle-img:after {
+        left: 10px;
+    }
+
+    .boxed-btn {
+        margin-bottom: 25px;
+    }
+    .boxed-btn.right-btn {
+        margin-left: 0;
+    }
+
+    .nav-bar,
+    .tc{
+        text-align: center;
+    }
+    .single-c-item {
+        margin: 0;
+    }
+
+    .t-title {
+        margin-bottom: 20px;
+    }
+    .tc {
+        margin-bottom: 30px;
+    }
+
+    .m-t-100 {
+        margin-top: 0;
+    }
+}
+
+
+/* Wide Mobile Layout: 480px. */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    .copyright-section {
+        text-align: center;
+        margin-top: 0;
+    }
+    .btn-icon-img {
+        width: 13%;
+    }
+
+    .solial-link {
+        left: 18%;
+    }
+
+    .faq-icon {
+        width: 5%;
+    }
+
+
+}

@@ -17,6 +17,8 @@ public class CarPort {
     private Date carportStarttime;//入场时间
     private Integer carportState;//车位状态（考虑后期预约停车）
 
+    private String carportFnum;//楼层
+
     private Integer allPark;//总车位数
     private Integer employPark;//已用车位数
     private Integer leisurePark;//空闲车位数
@@ -24,10 +26,29 @@ public class CarPort {
     private Integer allSubarea;//分区总车位数
     private Integer subarEaemploy;//分区已用车位数
     private Integer subarLeisure;//分区空闲车位数
+
+
+    //与鸟瞰图相配对属性
+    private Integer ID;
+    private String name;
+    private Integer fnum;
+    private Integer status;
+
+
     public CarPort() {
     }
 
-    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure) {
+    //与鸟瞰图相配对构造
+    public CarPort(Integer ID, String name, Integer fnum, Integer status) {
+        this.ID = ID;
+        this.name = name;
+        this.fnum = fnum;
+        this.status = status;
+    }
+
+
+
+    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, String carportFnum, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure) {
         this.carportId = carportId;
         this.carportArea = carportArea;
         this.carportNumber = carportNumber;
@@ -35,12 +56,53 @@ public class CarPort {
         this.carportPhoto = carportPhoto;
         this.carportStarttime = carportStarttime;
         this.carportState = carportState;
+        this.carportFnum = carportFnum;
         this.allPark = allPark;
         this.employPark = employPark;
         this.leisurePark = leisurePark;
         this.allSubarea = allSubarea;
         this.subarEaemploy = subarEaemploy;
         this.subarLeisure = subarLeisure;
+    }
+
+    public String getCarportFnum() {
+        return carportFnum;
+    }
+
+    public void setCarportFnum(String carportFnum) {
+        this.carportFnum = carportFnum;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getFnum() {
+        return fnum;
+    }
+
+    public void setFnum(Integer fnum) {
+        this.fnum = fnum;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getCarportId() {
@@ -157,12 +219,17 @@ public class CarPort {
                 ", carportPhoto='" + carportPhoto + '\'' +
                 ", carportStarttime=" + carportStarttime +
                 ", carportState=" + carportState +
+                ", carportFnum='" + carportFnum + '\'' +
                 ", allPark=" + allPark +
                 ", employPark=" + employPark +
                 ", leisurePark=" + leisurePark +
                 ", allSubarea=" + allSubarea +
                 ", subarEaemploy=" + subarEaemploy +
                 ", subarLeisure=" + subarLeisure +
+                ", ID=" + ID +
+                ", name='" + name + '\'' +
+                ", fnum=" + fnum +
+                ", status=" + status +
                 '}';
     }
 }

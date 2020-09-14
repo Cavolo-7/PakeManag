@@ -22,4 +22,6 @@ public interface PersonManageMapper {
     public Integer updWhite(String whiteAccount,String whiteName,String whiteCarnumber, String whitePhone);  //白名单修改
 
     public Integer addWhite(White white);  //白名单增加
+
+    public Integer addExemption(String exemptionName, String exemptionCarnumber);  //插入免检名单
 }
