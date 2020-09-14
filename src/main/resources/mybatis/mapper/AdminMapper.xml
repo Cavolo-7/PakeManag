@@ -59,7 +59,12 @@
     select param_value from t_param where param_name=#{stateName}
     </select>
 
-    <!--    查询参数表-->
+    <!--    查询员工参数表性别-->
+    <select id="selectSexParam" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select param_value from t_param where param_name=#{sexName} and param_type='workerSex'
+    </select>
+
+    <!--    查询员工参数表状态-->
     <select id="selectWorkerParam" resultType="java.lang.Integer" parameterType="java.lang.String">
     select param_value from t_param where param_name=#{stateName} and param_type='workerState'
     </select>
@@ -81,12 +86,17 @@
 
     <!--    查询管理员账号是否存在-->
     <select id="selectAdminAccount" resultType="com.auc.pojo.Admin" parameterType="java.lang.String">
-        select * from t_worker as w where w.worker_account=#{workerAccount}
+        select worker_id,worker_account,worker_password,worker_name,role_id,worker_state,worker_phone,worker_age,worker_sex,worker_address,worker_createtimr from t_worker as w where w.worker_account=#{workerAccount}
+    </select>
+
+<!--    根据账号查询用户表-->
+    <select id="selectPersonAccount" resultType="com.auc.pojo.Person" parameterType="java.lang.String">
+        select person_id,person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_address,person_recharge,person_score,person_identity,worker_id from t_person where person_account=#{personAccount}
     </select>
 
     <!--    查询管理员手机号码是否存在-->
     <select id="selectAdminPhone" resultType="com.auc.pojo.Admin" parameterType="java.lang.String">
-        select * from t_worker as w where w.worker_phone=#{workerPhone}
+        select worker_id,worker_account,worker_password,worker_name,role_id,worker_state,worker_phone,worker_age,worker_sex,worker_address,worker_createtimr  from t_worker as w where w.worker_phone=#{workerPhone}
     </select>
 
     <!--    修改管理员-->
@@ -96,11 +106,17 @@
 
     <!--    查询角色名字集合-->
     <select id="selectRoleNameList" resultType="com.auc.pojo.Role">
-        select role_name roleName from t_role
+        select role_id,role_name,urisdiction_id,role_state from t_role
     </select>
 
     <!--    查询角色名字集合判断状态-->
     <select id="selectRoleStateName" resultType="com.auc.pojo.Role">
-        select role_name roleName from t_role where role_state=(select p.param_value from t_param as p where p.param_type='roleurisdiction' and p.param_name='启用')
+        select role_id,role_name,urisdiction_id,role_state from t_role where role_state=(select p.param_value from t_param as p where p.param_type='roleurisdiction' and p.param_name='启用')
     </select>
+
+    <!--    查询收费管理员名字集合-->
+    <select id="selectAdminNameList" resultType="com.auc.pojo.Admin">
+        select w.worker_id,worker_name from t_worker as w where w.role_id=(select r.role_id from t_role as r where r.role_name='收费员')
+    </select>
+
 </mapper>

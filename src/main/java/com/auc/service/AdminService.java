@@ -1,9 +1,6 @@
 package com.auc.service;
 
-import com.auc.pojo.Admin;
-import com.auc.pojo.Detail;
-import com.auc.pojo.LayuiData;
-import com.auc.pojo.Role;
+import com.auc.pojo.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,11 +25,17 @@ public interface AdminService {
     //查询角色id
     public Integer selectRoleId(String roleName);
 
-    //查询员工参数id
+    //查询员工状态参数id
     public Integer selectWorkerParam(String paramName);
+
+    //查询员工性别参数id
+    public Integer selectSexParam(String sexName);
 
     //查询管理员账号是否存在
     public Admin selectAdminAccount(String workerAccount);
+
+    //查询用户账号是否存在
+    public Person selectPersonAccount(String personAccount);
 
     //查询管理员手机号码是否存在
     public  Admin selectAdminPhone(String workerPhoe);
@@ -46,5 +49,6 @@ public interface AdminService {
     //查询角色名字集合状态
     public List<Role> selectRoleStateName();
 
-
+    //查询收费员名字集合
+    public List<Admin> selectAdminNameList();
 }

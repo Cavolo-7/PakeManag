@@ -15,7 +15,7 @@
 
 <!--    分区车位统计查询-->
     <select id="selectSubareaPark" resultType="com.auc.pojo.CarPort">
-        select c.carport_area carportNumber,count(c.carport_area)allSubarea,sum(c.carport_carnumber!='')subarEaemploy,sum(c.carport_carnumber='')subarLeisure
+        select c.carport_area carportArea ,count(c.carport_area) allSubarea,ifnull(sum(c.carport_carnumber!=''),0)subarEaemploy,ifnull(sum(c.carport_carnumber=''),0)subarLeisure
         from t_carport as c  GROUP BY c.carport_area
     </select>
 </mapper>

@@ -3,10 +3,12 @@ package com.auc.controller;
 import com.alibaba.fastjson.JSON;
 import com.auc.pojo.Admin;
 import com.auc.pojo.LayuiData;
+import com.auc.pojo.Person;
 import com.auc.pojo.Role;
 import com.auc.service.AdminService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.jasper.compiler.JspUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,13 +27,14 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+
+
     @RequestMapping(value = "/getAdminList", produces = "text/plain;charset=utf-8")
     public String getAdminList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String adminName = request.getParameter("key[adminName]");
         String account = request.getParameter("key[account]");
         String phone = request.getParameter("key[phone]");
         String roleNames=request.getParameter("key[roleNames]");
-        System.out.println(roleNames+"****");
         String curPageStr = request.getParameter("page");
         String pageSizeStr = request.getParameter("limit");
         Integer pageSize = 5;
@@ -111,14 +114,19 @@ public class AdminController {
         String stateName=request.getParameter("stateName");
         String L_pass=request.getParameter("repass");
 
-        Admin admin2=adminService.selectAdminAccount(workerAccount);
-        Admin admin3=adminService.selectAdminPhone(phone);
+        System.out.println("数据"+workerAccount+" "+workerName+" "+workerAge+" "+sex+" "+phone+" "+workerAddress+" "+roleName+" "+stateName+" "+L_pass);
+
+        Admin admin2=adminService.selectAdminAccount(workerAccount);//查询管理员账户
+        Admin admin3=adminService.selectAdminPhone(phone);//查询手机号
+        Person person=adminService.selectPersonAccount(workerAccount);//查询用户账号
         if (admin2!=null) {
+            str="账号已经存在";
+        }else if (person!=null){
             str="账号已经存在";
         }else if (admin3!=null) {
             str="电话号码已存在";
         }else{
-            int sexValue = adminService.selectParam(sex);
+            int sexValue = adminService.selectSexParam(sex);
             int roleId = adminService.selectRoleId(roleName);
             int stateValue = adminService.selectWorkerParam(stateName);
 

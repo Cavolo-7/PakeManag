@@ -86,9 +86,9 @@
       , cols: [[
         //序号
         {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'allPark', width: 100, title: '总车位数', align: 'center', edit: true}
+        , {field: 'allPark', width: 100, title: '总车位数', align: 'center'}
         , {field: 'employPark', width: 100,title: '已用车位数', align: 'center'}
-        ,{field: 'leisurePark',width: 100, title: '空闲从车位数', align: 'center'}
+        ,{field: 'leisurePark', title: '空闲车位数', align: 'center'}
       ]]
       , id: 'testReload'
     })
@@ -96,7 +96,7 @@
     table.render({
       elem: '#subareaStatisticsTable'
       , id: 'subareaStatisticsTable'
-      , url: '/detail/second'
+      , url: '/carPark/selectSubareaPark'
       , cellMinWidth: 80
       // 限制每页的条数
       , limit: 10
@@ -109,9 +109,11 @@
       , page: true
       , cols: [[
         //序号
-        {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'whiteName', width: 300, title: '套餐类型', align: 'center', edit: true}
-        , {field: 'whiteAccount', title: '收入', align: 'center'}
+        {type: 'numbers', width: 100, title: '序号', align: 'center'}
+        , {field: 'carportArea', width: 100, title: '分区编号', align: 'center'}
+        , {field: 'allSubarea', width: 100, title: '分区总车位数', align: 'center'}
+        , {field: 'subarEaemploy',width: 100, title: '分区已用车位数', align: 'center'}
+        , {field: 'subarLeisure', title: '分区空闲车位数', align: 'center'}
       ]]
       , id: 'testReload'
     })

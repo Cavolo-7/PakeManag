@@ -93,35 +93,30 @@
                 </div>
             </div>
 
+
             <div class="layui-form-item">
-                <label for="roleNames" class="layui-form-label">
-                    <span class="x-red">*</span>角色
-                </label>
-                <form class="layui-form">
-                    <div class="layui-input-inline" style="margin-top: 5px">
-                        <select name="roleNames" id="roleNames" lay-verify="required">
-                            <c:if test="${not empty roleNameList2}">
-                                <c:forEach items="${roleNameList2}" var="r">
-                                    <option value="${r.roleName}" >${r.roleName}</option>
-                                </c:forEach>
-                            </c:if>
-                        </select>
-                    </div>
-                </form>
+                <label for="roleName" class="layui-form-label">
+                    <span class="x-red">*</span>角色</label>
+                <div class="layui-input-inline">
+                    <select name="roleName" id="roleName" class="valid">
+                        <c:if test="${not empty roleNameList2}">
+                        <c:forEach items="${roleNameList2}" var="r">
+                        <option value="${r.roleName}" >${r.roleName}</option>
+                        </c:forEach>
+                        </c:if>
+                    </select>
+                </div>
             </div>
 
             <div class="layui-form-item">
                 <label for="stateName" class="layui-form-label">
-                    <span class="x-red">*</span>状态
-                </label>
-                <form class="layui-form">
-                    <div class="layui-input-inline" style="margin-top: 5px">
-                        <select name="stateName" id="stateName" lay-verify="required">
-                            <option value="启用">启用</option>
-                            <option value="禁用">禁用</option>
-                        </select>
-                    </div>
-                </form>
+                    <span class="x-red">*</span>状态</label>
+                <div class="layui-input-inline">
+                    <select id="stateName" name="stateName" class="valid">
+                        <option value="启用">启用</option>
+                        <option value="禁用">禁用</option>
+                    </select>
+                </div>
             </div>
 
             <div class="layui-form-item">
@@ -145,8 +140,6 @@
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
-
-
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
@@ -216,7 +209,7 @@
                         xadmin.father_reload();
                     } else if(data == "增加失败"){
                         layer.msg("增加失败!")
-                    }else if (data == "账号已存在"){
+                    }else if (data == "账号已经存在"){
                         layer.msg("该账号已经存在!")
                     }else if (data=="电话号码已存在"){
                         layer.msg("电话号码已存在!")

@@ -28,6 +28,10 @@
         </where>
     </select>
 
+    <insert id="addExemption" parameterType="com.auc.pojo.Exemption">
+        insert into t_exemption (exemption_name,exemption_carnumber) VALUES (#{exemptionName},#{exemptionCarnumber})
+    </insert>
+
     <insert id="addWhite" parameterType="com.auc.pojo.White">
         insert into t_white (white_name,white_account,white_password,white_carnumber,white_phone,worker_id) VALUES (#{whiteName},#{whiteAccount},#{whitePassword},#{whiteCarnumber},#{whitePhone},#{workerId})
     </insert>

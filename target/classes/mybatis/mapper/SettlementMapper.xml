@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.SettlementMapper">
+<!--    收费端日结sql-->
+
+<!--    查询当天收支明细-->
+    <select id="selectDetail" parameterType="java.util.Map" resultType="com.auc.pojo.Detail">
+        select d.detail_id,d.detail_carnumber,d.detail_event,d.produce_id,d.detail_time,d.detail_money,d.detail_type,d.worker_id,(select w.worker_name from t_worker as w where w.worker_id=d.worker_id)workerName from t_detail as d where <![CDATA[d.detail_time < (CURDATE()+1)]]>  and d.detail_time>CURDATE()
+        <if test="condition.personCarnumber !=null and condition.personCarnumber !='' ">
+            and d.detail_carnumber like concat('%',#{condition.personCarnumber},'%')
+        </if>
+        <if test="condition.date1 !=null and condition.date1!=''">
+            and d.detail_time >= #{condition.date1}
+        </if>
+        <if test="condition.date2 !=null and condition.date2!=''">
+            <![CDATA[
+        and d.detail_time <= #{condition.date2}
+        ]]>
+        </if>
+        <if test="condition.workerNames !=null and condition.workerNames !='' ">
+            and d.worker_id=(select w.worker_id from t_worker as w where w.worker_name=#{condition.workerNames})
+        </if>
+        <if test="curPage !=null and pageSize !=''">
+            limit #{curPage},#{pageSize};
+        </if>
+    </select>
+
+<!--    查询相关数据条数-->
+    <select id="selectDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(d.detail_id) from t_detail as d where <![CDATA[d.detail_time < (CURDATE()+1)]]>  and d.detail_time>CURDATE()
+        <if test="condition.personCarnumber !=null and condition.personCarnumber !='' ">
+            and d.detail_carnumber like concat('%',#{condition.personCarnumber},'%')
+        </if>
+        <if test="condition.date1 !=null and condition.date1!=''">
+            and d.detail_time >= #{condition.date1}
+        </if>
+        <if test="condition.date2 !=null and condition.date2!=''">
+            <![CDATA[
+        and d.detail_time <= #{condition.date2}
+        ]]>
+        </if>
+        <if test="condition.workerNames !=null and condition.workerNames !='' ">
+            and d.worker_id=(select w.worker_id from t_worker as w where w.worker_name=#{condition.workerNames})
+        </if>
+    </select>
+
+
+</mapper>

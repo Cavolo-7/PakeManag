@@ -22,10 +22,12 @@ public class Person {
     private String workerName; //办理产品工作人员姓名
     private String sexName;//性别名称
 
+    private Date recordStartime;//开始时间
+    private Date recordEndtime;//结束时间
     public Person() {
     }
 
-    public Person(Integer personId, String personName, String personAccount, String personPassword, String personCarnumber, Integer personSex, Integer personAge, String personPhone, String personAddress, Integer personRecharge, Integer personScore, Integer personIdentity, Integer workerId, String workerName, String sexName) {
+    public Person(Integer personId, String personName, String personAccount, String personPassword, String personCarnumber, Integer personSex, Integer personAge, String personPhone, String personAddress, Integer personRecharge, Integer personScore, Integer personIdentity, Integer workerId, String workerName, String sexName, Date recordStartime, Date recordEndtime) {
         this.personId = personId;
         this.personName = personName;
         this.personAccount = personAccount;
@@ -41,6 +43,8 @@ public class Person {
         this.workerId = workerId;
         this.workerName = workerName;
         this.sexName = sexName;
+        this.recordStartime = recordStartime;
+        this.recordEndtime = recordEndtime;
     }
 
     public Integer getPersonId() {
@@ -163,6 +167,22 @@ public class Person {
         this.sexName = sexName;
     }
 
+    public Date getRecordStartime() {
+        return recordStartime;
+    }
+
+    public void setRecordStartime(Date recordStartime) {
+        this.recordStartime = recordStartime;
+    }
+
+    public Date getRecordEndtime() {
+        return recordEndtime;
+    }
+
+    public void setRecordEndtime(Date recordEndtime) {
+        this.recordEndtime = recordEndtime;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -181,6 +201,8 @@ public class Person {
                 ", workerId=" + workerId +
                 ", workerName='" + workerName + '\'' +
                 ", sexName='" + sexName + '\'' +
+                ", recordStartime=" + recordStartime +
+                ", recordEndtime=" + recordEndtime +
                 '}';
     }
 }

@@ -14,6 +14,7 @@ com\auc\controller\Timing.class
 com\auc\pojo\WelcomeInfo.class
 com\auc\pojo\Result.class
 com\auc\service\impl\DetailServiceImpl.class
+com\auc\controller\ESMapControl.class
 com\auc\pojo\Exemption.class
 com\auc\service\PersonManageService.class
 com\ParkmanageApplication.class
@@ -24,11 +25,13 @@ com\auc\pojo\CarPort.class
 com\auc\service\impl\LoginServiceImpl.class
 com\auc\service\TimingService.class
 com\auc\util\HttpUtil.class
+com\auc\service\impl\ESMapServiceImpl.class
 com\auc\mapper\ProduceMapper.class
 com\auc\pojo\Param.class
 com\auc\controller\LoginController.class
 com\auc\pojo\Detail.class
 com\auc\pojo\Menu.class
+com\auc\mapper\ESMapMapper.class
 com\auc\pojo\White.class
 com\auc\mapper\DetailMapper.class
 com\auc\service\DetailService.class
@@ -51,6 +54,7 @@ com\auc\service\CarService.class
 com\auc\controller\AdminController.class
 com\auc\pojo\Log.class
 com\auc\controller\DetailControl.class
+com\auc\pojo\Person.class
 com\auc\service\impl\ProduceServiceImpl.class
 com\auc\service\impl\PersonManageimpl.class
 com\auc\pojo\Role.class
@@ -59,7 +63,9 @@ com\auc\controller\CarControl.class
 com\auc\pojo\LayuiData.class
 com\auc\service\AdminService.class
 com\auc\pojo\Vip.class
+com\auc\service\ESMapService.class
 com\auc\controller\UserControl.class
+com\auc\pojo\Record.class
 com\auc\service\impl\AdminServiceImpl.class
 com\auc\mapper\CarInMapper.class
 com\auc\mapper\VipMapper.class

@@ -1,10 +1,7 @@
 package com.auc.service.impl;
 
 import com.auc.mapper.AdminMapper;
-import com.auc.pojo.Admin;
-import com.auc.pojo.Detail;
-import com.auc.pojo.LayuiData;
-import com.auc.pojo.Role;
+import com.auc.pojo.*;
 import com.auc.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,10 +78,17 @@ public class AdminServiceImpl implements AdminService {
         return n;
     }
 
-    //查询员工参数id
+    //查询员工状态参数id
     @Override
     public Integer selectWorkerParam(String paramName) {
         int n=adminMapper.selectWorkerParam(paramName);
+        return n;
+    }
+
+    //查询员工性别参数id
+    @Override
+    public Integer selectSexParam(String sexName) {
+        int n=adminMapper.selectSexParam(sexName);
         return n;
     }
 
@@ -94,6 +98,14 @@ public class AdminServiceImpl implements AdminService {
         Admin admin=null;
         admin=adminMapper.selectAdminAccount(workerAccount);
         return admin;
+    }
+
+    //查询用户账号是否存在
+    @Override
+    public Person selectPersonAccount(String personAccount) {
+        Person person=null;
+        person=adminMapper.selectPersonAccount(personAccount);
+        return person;
     }
 
     //查询管理员电话是否存在
@@ -130,6 +142,14 @@ public class AdminServiceImpl implements AdminService {
         List<Role> list=new ArrayList<Role>();
 
         list=adminMapper.selectRoleStateName();
+        return list;
+    }
+
+    @Override
+    public List<Admin> selectAdminNameList() {
+        List<Admin> list=new ArrayList<Admin>();
+
+        list=adminMapper.selectAdminNameList();
         return list;
     }
 
