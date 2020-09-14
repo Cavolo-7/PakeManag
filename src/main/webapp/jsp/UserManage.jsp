@@ -44,7 +44,7 @@
             <div class="layui-inline">
               <input class="layui-input" name="urisdiction" placeholder="请输入管理权限" id="urisdiction" autocomplete="off">
             </div>
-            <button class="layui-btn" data-type="reload" id="sou">搜索</button>
+            <button class="layui-btn" data-type="reload" id="search">搜索</button>
             <br><br><br>
             <button class="layui-btn" onclick="xadmin.open('添加用户','./AddUser.jsp',450,270)"><i
                     class="layui-icon"></i>添加
@@ -59,14 +59,12 @@
   </div>
 </div>
 <script type="text/html" id="barDemo">
-  {{#  if(d.stateName!="注销"){ }}
   {{#  if(d.stateName=="启用"){ }}
   <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用">禁用</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" title="禁用" lay-event="disable" value="禁用" onclick="upd(this)">禁用</a>
   {{#  } else { }}
-  <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用">启用</a>
+  <a class="layui-btn layui-btn-sm layui-btn-xs" lay-event="enabled" title="启用" value="启用" onclick="upd(this)">启用</a>
   {{#  } }}
-  {{#  }}}
 </script>
 </body>
 
@@ -93,6 +91,7 @@
       , cols: [[
         //序号
          {type: 'numbers', width: '10%', title: '序号', align: 'center'}
+        , {field: 'roleId', hide:true}
         , {field: 'roleName', width: '20%', title: '管理员名字', align: 'center', edit: true}
         , {field: 'urisdictionName', width: '20%', title: '权限级别', align: 'center', edit: true}
         , {field: 'stateName', width: '20%', title: '状态', align: 'center', edit: true}
@@ -126,64 +125,18 @@
               $("#search").click();
             }
           });
-          // $.ajax({
-          //   url: "/userControl/updRole",
-          //   data: {'roleName': data.roleName,'urisdictionName': data.urisdictionName},
-          //   method: 'post',
-          //   dataType: 'text',
-          //   success: function (data) {
-          //     if (data == "编辑成功") {
-          //       layer.msg("编辑成功")
-          //     } else {
-          //       layer.msg("编辑失败")
-          //     }
-          //   }
-          // })
         });
 
       }
-      else if (obj.event === 'del') {
-        layer.confirm('真的删除行么', function (index) {
-          $.ajax({
-            url: "/personManage/del",
-            data: {'whiteAccount': data.whiteAccount},
-            method: "post",
-            dataType: "text",
-            success: function (data) {
-              if (data == "删除成功") {
-                layer.msg("删除成功")
-                obj.del();
-                layer.close(index);
-              } else {
-                layer.msg("删除失败")
-              }
-            }
-          })
-        });
-      }
+
     });
 
-    // var $ = layui.$, active = {
-    //   reload: function () {
-    //     //执行重载
-    //     table.reload('testReload', {
-    //       page: {
-    //         curr: 1 //重新从第 1 页开始
-    //       }
-    //       , where: {
-    //         roleName: $("#roleName").val(),
-    //         urisdiction: $("#urisdiction").val(),
-    //       }
-    //     }, 'data');
-    //   }
-    // };
-
-
     //点击查询按钮，重载表格
-    $('#sou').on('click', function () {
+    $('#search').on('click', function () {
       table.reload('testReload', {
         url: "/userControl/selectRole",
         where: {
+          roleId:$("#roleId").val(),
           roleName: $("#roleName").val(),
           urisdiction: $("#urisdiction").val(),
         },
@@ -193,20 +146,32 @@
       });
       return false;
     });
-    //
-    // $('.demoTable .layui-btn').on('click', function () {
-    //   var type = $(this).data('type');
-    //   active[type] ? active[type].call(this) : '';
-    // });
-
-    // var $ = layui.$, active = {
-    //   getCheckData: function () { //获取选中数据
-    //     var checkStatus = table.checkStatus('testReload')
-    //         , data = checkStatus.data;
-    //     layer.alert(JSON.stringify(data));
-    //   }
-    // };
 
   });
+
+  function upd(obj) {
+    layer.confirm('确定要禁用？', function (index){
+      console.log()
+      $.ajax({
+        url: "/userControl/roleState",
+        dataType: "text",
+        method: "post",
+        data: {roleId: $(obj).parent().parent().parent("tr").children("td").eq(1).children("div").text(),
+          roleState: $(obj).text()},
+        success: function (data) {
+          console.log(data)
+          if (data == "启用") {
+            $("#search").click();
+            layer.msg("操作成功！", {icon: 6, time: 1000})
+          }else if (data == "禁用"){
+            $("#search").click();
+            layer.msg("操作成功！", {icon: 6, time: 1000})
+          }else {
+            layer.msg('操作失败!', {icon: 6, time: 1000});
+          }
+        }
+      })
+    });
+  }
 </script>
 </html>

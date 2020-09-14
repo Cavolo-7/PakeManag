@@ -64,6 +64,7 @@ public class PersonManageimpl implements PersonManageService {
         int num=0;
         num=personManageMapper.addWhite(white);
         if (num>0){
+            personManageMapper.addExemption(white.getWhiteName(),white.getWhiteCarnumber());
             fal=true;
         }
         return fal;

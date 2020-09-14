@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.ESMapMapper">
+    <select id="QueryESMap" resultType="com.auc.pojo.CarPort">
+        select carport_id as ID,carport_fnum as fnum,carport_state as status,carport_number as name  from t_carport
+    </select>
+
+</mapper>

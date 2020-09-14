@@ -44,4 +44,14 @@
             <if test="urisdiction!=null and urisdiction!='' "> and u.urisdictionName=#{urisdiction}</if>
         </where>
     </select>
+    <!--角色管理禁用启用-->
+    <update id="roleState">
+        update t_role
+        <set>
+            <if test="roleState!=null and roleState !='' ">role_state =#{roleState},</if>
+        </set>
+        <where>
+            role_id=#{roleId}
+        </where>
+    </update>
 </mapper>

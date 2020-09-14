@@ -3,15 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.auc.mapper.TimingMapper">
-    <select id="queryProduce" resultType="com.auc.pojo.Vip">
-        select vip_id,vip_account,vip_endtime from t_vip
+    <select id="JudgeVip" resultType="com.auc.pojo.Person">
+        select person_id,person_identity, from t_person where person_identity=0
     </select>
+
+    <select id="QueryVip" resultType="com.auc.pojo.Record">
+        select record_id,person_id, from t_person
+        <where>
+            and person_id=#{personId}
+            <if test="date!=null and date!='' ">and  <![CDATA[ record_startime  < #{date}]]> and <![CDATA[ record_endtime  > #{date} ]]> </if>
+        </where>
+    </select>
+
+    <update id="UpdateVip">
+        update t_person
+        <set>
+            person_identity=0;
+        </set>
+        where person_id=#{personId}
+    </update>
 
     <delete id="RemoveVip">
         delete from t_vip
         <where>
-            vip_account=#{vipAccount}
+            person_id=#{personId}
         </where>
     </delete>
+
+    <select id="Sttlement" resultType="com.auc.pojo.Detail">
+        select detail_id,detail_carnumber,detail_event,produce_id, detail_time,detail_money, detail_type,worker_id  from t_detail
+        <where>
+            <if test="starTime!=null and starTime!='' ">and  <![CDATA[ detail_time > STR_TO_DATE(#{starTime},'%Y-%m-%d')]]> </if>
+            <if test="endTime!=null and endTime!='' ">and  <![CDATA[ detail_time  < STR_TO_DATE(#{endTime},'%Y-%m-%d')]]></if>
+        </where>
+    </select>
 
 </mapper>

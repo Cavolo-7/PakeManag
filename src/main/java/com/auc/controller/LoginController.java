@@ -6,8 +6,11 @@ import com.auc.pojo.Produce;
 import com.auc.pojo.Role;
 import com.auc.service.AdminService;
 import com.auc.service.LoginService;
+import com.auc.service.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +30,7 @@ public class LoginController {
     @Autowired
     private AdminService adminService;
     @Autowired
-    private VipService vipService;
+    private PersonService personService;
     //登录
     @RequestMapping(value = "/login", produces = "text/plain;charset=utf-8")
     @ResponseBody
@@ -42,6 +45,10 @@ public class LoginController {
         if (admins != null) {
 
             request.getSession().setAttribute("admin", admins);
+
+            //查询收费管理员姓名集合
+            List<Admin> adminList=adminService.selectAdminNameList();
+            request.getSession().setAttribute("adminList", adminList);
             //            查询角色名字集合
             List<Role> roleNameList=adminService.selectRoleList();
             request.getSession().setAttribute("roleNameList", roleNameList);
@@ -50,10 +57,10 @@ public class LoginController {
             request.getSession().setAttribute("roleNameList2", roleNameList2);
 
             //            查询月缴产品名字集合
-            List<Produce> produceList=vipService.selectProduceNameList();
+            List<Produce> produceList=personService.selectProduceNameList();
             request.getSession().setAttribute("produceList", produceList);
             //            查询月缴产品名字集合状态
-            List<Produce> produceList2=vipService.selectProduceStateName();
+            List<Produce> produceList2=personService.selectProduceStateName();
             request.getSession().setAttribute("produceList2", produceList2);
 
             str = "登录成功";
