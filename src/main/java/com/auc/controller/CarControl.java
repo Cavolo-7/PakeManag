@@ -184,30 +184,23 @@ public class CarControl {
 
         //封装Rsa签名方式
         AlipayClient alipayClient = new DefaultAlipayClient(gatewayUrl, app_id, merchant_private_key, format, charset, alipay_public_key, sign_type);  //获得初始化的AlipayClient
-
         //创建Request请求
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest(); //创建API对应的request
-
         //封装传入参数
         AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
         model.setOutTradeNo(WIDout_trade_no);//商品id
         model.setSubject(WIDsubject);//商品名称
         model.setTotalAmount(WIDtotal_amount);//支付金额
         model.setBody(WIDbody);//商品描述
-
         //设置参数
         alipayRequest.setBizModel(model);
-
         //设置异步回调地址
         alipayRequest.setNotifyUrl(notify_url);
-
         //设置同步回调地址
         alipayRequest.setReturnUrl(return_url);
-
         //生成表单
         String form = alipayClient.pageExecute(alipayRequest).getBody();
         System.out.println("form："+form);
-
         return form;
     }
 
