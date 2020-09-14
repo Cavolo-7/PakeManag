@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.PersonMapper">
+    <!--    用户表SQL语句-->
+
+    <!--    查询普通用户表格数据/普通用户-->
+    <select id="selectOrdinary" parameterType="java.util.Map" resultType="com.auc.pojo.Person">
+        select p.person_id,p.person_name,p.person_account,p.person_password,p.person_carnumber,
+        p.person_age,p.person_phone,p.person_address,p.person_recharge,p.person_score,p.person_identity,
+        (select w.worker_name from t_worker as w where w.worker_id=p.worker_id)workerName,
+        (select p2.param_name from t_param p2 where p2.param_value=p.person_sex and p2.param_type='personSex')sexName
+        from t_person p where p.person_identity=0
+
+        <if test="condition.personName !=null and condition.personName !='' ">
+            and p.person_name like concat('%',#{condition.personName},'%')
+        </if>
+        <if test="condition.account !=null and condition.account!=''">
+            and p.person_account like concat('%',#{condition.account},'%')
+        </if>
+        <if test="condition.phone !=null and condition.phone!=''">
+            and p.person_phone like concat('%',#{condition.phone},'%')
+        </if>
+        <if test="condition.personCarnumber !=null and condition.personCarnumber!=''">
+            and p.person_carnumber like concat('%',#{condition.personCarnumber},'%')
+        </if>
+
+
+        <if test="curPage !=null and pageSize !=''">
+            limit #{curPage},#{pageSize};
+        </if>
+    </select>
+
+    <!--    查询普通用户数据条数/普通用户-->
+    <select id="selectOrdinaryCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(p.person_id) from t_person as p where p.person_identity=0
+        <if test="condition.personName !=null and condition.personName !='' ">
+            and p.person_name like concat('%',#{condition.personName},'%')
+        </if>
+        <if test="condition.account !=null and condition.account!=''">
+            and p.person_account like concat('%',#{condition.account},'%')
+        </if>
+        <if test="condition.phone !=null and condition.phone!=''">
+            and p.person_phone like concat('%',#{condition.phone},'%')
+        </if>
+        <if test="condition.personCarnumber !=null and condition.personCarnumber!=''">
+            and p.person_carnumber like concat('%',#{condition.personCarnumber},'%')
+        </if>
+
+    </select>
+
+    <!--    查询普通用户表格数据/vip-->
+    <select id="selectVip" parameterType="java.util.Map" resultType="com.auc.pojo.Person">
+        select p.person_id,p.person_name,p.person_account,p.person_password,p.person_carnumber,
+        p.person_age,p.person_phone,p.person_address,p.person_recharge,p.person_score,p.person_identity,
+        (select w.worker_name from t_worker as w where w.worker_id=p.worker_id)workerName,
+        (select p2.param_name from t_param p2 where p2.param_value=p.person_sex and p2.param_type='personSex')sexName,
+        (select min(r.record_startime) from t_record as r where p.person_id=r.person_id )recordStartime,
+        (select max(r2.record_endtime) from t_record as r2 where p.person_id=r2.person_id )recordEndtime
+        from t_person p where p.person_identity=1
+
+        <if test="condition.personName !=null and condition.personName !='' ">
+            and p.person_name like concat('%',#{condition.personName},'%')
+        </if>
+        <if test="condition.account !=null and condition.account!=''">
+            and p.person_account like concat('%',#{condition.account},'%')
+        </if>
+        <if test="condition.phone !=null and condition.phone!=''">
+            and p.person_phone like concat('%',#{condition.phone},'%')
+        </if>
+        <if test="condition.personCarnumber !=null and condition.personCarnumber!=''">
+            and p.person_carnumber like concat('%',#{condition.personCarnumber},'%')
+        </if>
+        GROUP BY p.person_id
+        <if test="curPage !=null and pageSize !=''">
+            limit #{curPage},#{pageSize};
+        </if>
+
+    </select>
+
+    <!--    查询普通用户数据条数/vip-->
+    <select id="selectVipCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(p.person_id) from t_person as p,t_record as r where p.person_id=r.person_id and p.person_identity=1
+        <if test="condition.personName !=null and condition.personName !='' ">
+            and p.person_name like concat('%',#{condition.personName},'%')
+        </if>
+        <if test="condition.account !=null and condition.account!=''">
+            and p.person_account like concat('%',#{condition.account},'%')
+        </if>
+        <if test="condition.phone !=null and condition.phone!=''">
+            and p.person_phone like concat('%',#{condition.phone},'%')
+        </if>
+        <if test="condition.personCarnumber !=null and condition.personCarnumber!=''">
+            and p.person_carnumber like concat('%',#{condition.personCarnumber},'%')
+        </if>
+    </select>
+
+    <!--根据id查询用户信息-->
+    <select id="selectPersonId" resultType="com.auc.pojo.Person" parameterType="java.lang.Integer">
+         select person_id,person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_address,person_recharge,person_score,person_identity,worker_id from t_person where person_id=#{personId}
+    </select>
+
+    <!--    查询月份添加-->
+    <select id="selectEndTime" resultType="java.lang.String" parameterType="com.auc.pojo.Record">
+     select  Date_Add(#{recordEndtime},INTERVAL #{produceMonths} month ) strTime from dual
+</select>
+
+    <!--    根据名字查询产品信息-->
+    <select id="selectProduceId" resultType="com.auc.pojo.Produce" parameterType="java.lang.String">
+        select produce_id,produce_name,produce_describe,produce_money,produce_static,produce_months from t_produce where produce_name=#{produceName}
+    </select>
+
+    <!--    查询月缴包名称集合-->
+    <select id="selectProduceNameList" resultType="com.auc.pojo.Produce">
+        select produce_id,produce_name,produce_describe,produce_money,produce_static,produce_months from t_produce
+    </select>
+
+    <!--查询月缴包名称集合状态-->
+    <select id="selectProduceStateName" resultType="com.auc.pojo.Produce">
+        select produce_id,produce_name,produce_describe,produce_money,produce_static,produce_months  from t_produce where produce_static=(select p.param_value from t_param as p where p.param_type='produceState' and p.param_name='启用')
+    </select>
+
+    <!--    明细报表插入-->
+    <insert id="addDetail" parameterType="com.auc.pojo.Detail">
+            insert into t_detail(detail_carnumber,detail_event,produce_id,detail_money,detail_type,worker_id) values (#{detailCarnumber},#{detailEvent},#{produceId},#{detailMoney},#{detailType},#{workerId})
+        </insert>
+
+    <!--    修改普通用户类型/添加会员-->
+    <update id="addVip" parameterType="com.auc.pojo.Person">
+        update t_person set person_identity=1,person_recharge=#{personRecharge},worker_id=#{workerId} where person_id=#{personId}
+    </update>
+
+    <!--    添加免交名单-->
+    <insert id="addExemptionPerson" parameterType="com.auc.pojo.Exemption">
+        insert into t_exemption(exemption_name,exemption_carnumber) values (#{exemptionName},#{exemptionCarnumber})
+    </insert>
+
+    <!--    添加用户记录-->
+    <insert id="addPersonRecord" parameterType="com.auc.pojo.Record">
+        insert into t_record(person_id,produce_id,record_endtime) values (#{personId},#{produceId},#{recordEndtime})
+    </insert>
+
+    <!--    修改普通用户类型/续费-->
+    <update id="updateRecharge" parameterType="com.auc.pojo.Person">
+        update t_person set person_recharge=#{personRecharge} where person_id=#{personId}
+    </update>
+
+    <!--    添加用户记录-->
+    <insert id="addPersonRecords" parameterType="com.auc.pojo.Record">
+        insert into t_record(person_id,produce_id,record_startime,record_endtime) values (#{personId},#{produceId},#{recordStartime},#{recordEndtime})
+    </insert>
+
+    <!--   查询当前使用的产品记录-->
+    <select id="selectNowProduce" resultType="com.auc.pojo.Record" parameterType="com.auc.pojo.Record">
+        select record_id,person_id,produce_id,record_startime,record_endtime from t_record as r where r.person_id=#{personId} and #{refundTime}>=r.record_startime
+    </select>
+
+    <!--    查询未使用过的产品记录-->
+    <select id="selectNoUseProduce" resultType="com.auc.pojo.Record" parameterType="com.auc.pojo.Record">
+     select record_id,person_id,produce_id,record_startime,record_endtime from t_record as r where r.person_id=#{personId} and r.record_startime>=#{refundTime}
+    </select>
+
+    <!--    根据产品id查询产品所有相关信息-->
+    <select id="selectProduceMoney" resultType="com.auc.pojo.Produce" parameterType="java.lang.Integer">
+        select produce_id,produce_name,produce_describe,produce_money,produce_static,produce_months from t_produce  where produce_id=#{produceId}
+    </select>
+
+    <!--    查询计算产品使用天数-->
+    <select id="selectDateTime" resultType="java.lang.Integer" parameterType="com.auc.pojo.Record">
+        select (select datediff(#{refundTime},r.record_startime))dateTime from t_record as r where r.record_id=#{recordId}
+    </select>
+
+    <!--    删除用户记录表-->
+    <delete id="deletePersonRecord" parameterType="java.lang.Integer">
+    delete from t_record where person_Id=#{personId}
+    </delete>
+
+<!--    删除年检表用户-->
+    <delete id="deleteExemptionPerson" parameterType="java.lang.String">
+         delete from t_exemption where exemption_carnumber=#{exemptionCarnumber}
+    </delete>
+
+<!--    退费-->
+    <update id="updateVipIdentity" parameterType="com.auc.pojo.Person">
+        update t_person set person_identity=0 ,person_recharge=#{personRecharge} where person_id=#{personId}
+    </update>
+</mapper>

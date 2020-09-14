@@ -32,54 +32,63 @@
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="vipAccount" class="layui-form-label">
-                    <span class="x-red">*</span>登录账号
+                <div class="layui-input-inline">
+                    <input type="hidden" id="personId" name="personId" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <input type="hidden" id="recordEndtime" name="recordEndtime" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="personAccount" class="layui-form-label">
+                    <span class="x-red"></span>登录账号
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="vipAccount" name="vipAccount" required="" lay-verify="vipAccount"
-                           autocomplete="off" disabled="false" class="layui-input">
+                    <input type="text" id="personAccount" name="personAccount" required="" lay-verify="personAccount"
+                           autocomplete="off" disabled="false" class="layui-input" disabled="false">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label for="vipName" class="layui-form-label">
-                    <span class="x-red">*</span>用户名
+                <label for="personName" class="layui-form-label">
+                    <span class="x-red"></span>用户名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="vipName" name="vipName" required="" lay-verify="vipName"
-                           autocomplete="off" disabled="false" class="layui-input">
+                    <input type="text" id="personName" name="personName" required="" lay-verify="personName"
+                           autocomplete="off" disabled="false" class="layui-input" disabled="false">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label for="vipCarNumber" class="layui-form-label">
-                    <span class="x-red">*</span>车牌号
+                <label for="personCarnumber" class="layui-form-label">
+                    <span class="x-red"></span>车牌号
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="vipCarNumber" name="vipCarNumber" required="" lay-verify="vipCarNumber"
-                           autocomplete="off"  disabled="false" class="layui-input">
+                    <input type="text" id="personCarnumber" name="personCarnumber" required="" lay-verify="personCarnumber"
+                           autocomplete="off"  disabled="false" class="layui-input" disabled="false">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label for="produceName" class="layui-form-label">
-                    <span class="x-red">*</span>月缴产品</label>
-                <form class="layui-form">
-                    <div class="layui-input-inline" style="margin-top: 5px">
-                        <select name="produceName" id="produceName" lay-verify="required">
-                            <c:if test="${not empty produceList2}">
-                                <c:forEach items="${produceList2}" var="p">
-                                    <option value="${p.produceName}" >${p.produceName}</option>
-                                </c:forEach>
-                            </c:if>
-                        </select>
-                    </div>
-                </form>
+                    <span class="x-red"></span>月缴产品</label>
+                <div class="layui-input-inline">
+                    <select name="produceName" id="produceName" lay-verify="required">
+                        <c:if test="${not empty produceList2}">
+                            <c:forEach items="${produceList2}" var="p">
+                                <option value="${p.produceName}" >${p.produceName}</option>
+                            </c:forEach>
+                        </c:if>
+                    </select>
+                </div>
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label"> <span class="x-red"></span></label></label>
                 <button class="layui-btn" lay-filter="add" lay-submit="">
-                  修改
+                  续费
                 </button>
                 <button class="layui-btn" lay-filter="quit" onclick="quit(this)">
                     取消
@@ -130,7 +139,7 @@
         //监听提交
         form.on('submit(add)', function (data) {
             $.ajax({
-                url: "/vip/updateVipProduce",
+                url: "/person/vipRenew",
                 data: data.field,
                 dataType: 'text',
                 method: 'post',

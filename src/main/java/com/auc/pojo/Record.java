@@ -13,10 +13,13 @@ public class Record {
     private String produceName;//产品名称
     private String personName;//用户名
 
+    private Integer produceMonths;//月数
+    private Date  refundTime;//退费时间
+    private Integer dateTime;//使用天数
     public Record() {
     }
 
-    public Record(Integer recordId, Integer personId, Integer produceId, Date recordStartime, Date recordEndtime, String produceName, String personName) {
+    public Record(Integer recordId, Integer personId, Integer produceId, Date recordStartime, Date recordEndtime, String produceName, String personName, Integer produceMonths, Date refundTime, Integer dateTime) {
         this.recordId = recordId;
         this.personId = personId;
         this.produceId = produceId;
@@ -24,6 +27,9 @@ public class Record {
         this.recordEndtime = recordEndtime;
         this.produceName = produceName;
         this.personName = personName;
+        this.produceMonths = produceMonths;
+        this.refundTime = refundTime;
+        this.dateTime = dateTime;
     }
 
     public Integer getRecordId() {
@@ -82,6 +88,30 @@ public class Record {
         this.personName = personName;
     }
 
+    public Integer getProduceMonths() {
+        return produceMonths;
+    }
+
+    public void setProduceMonths(Integer produceMonths) {
+        this.produceMonths = produceMonths;
+    }
+
+    public Date getRefundTime() {
+        return refundTime;
+    }
+
+    public void setRefundTime(Date refundTime) {
+        this.refundTime = refundTime;
+    }
+
+    public Integer getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Integer dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
         return "Record{" +
@@ -92,6 +122,9 @@ public class Record {
                 ", recordEndtime=" + recordEndtime +
                 ", produceName='" + produceName + '\'' +
                 ", personName='" + personName + '\'' +
+                ", produceMonths=" + produceMonths +
+                ", refundTime=" + refundTime +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }

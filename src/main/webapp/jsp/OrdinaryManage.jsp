@@ -9,7 +9,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>管理员管理</title>
+    <title>普通用户开通会员</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -50,21 +50,14 @@
                             <input class="layui-input" name="phone" placeholder="请输入电话号码" id="phone" autocomplete="off">
                         </div>
                         <div class="layui-inline">
-                            <input class="layui-input" name="personCarnumber" placeholder="请输入车牌号码" id="personCarnumber"
-                                   autocomplete="off">
+                            <input class="layui-input" name="personCarnumber" placeholder="请输入车牌号码" id="personCarnumber" autocomplete="off">
                         </div>
-                        <%--                        <div class="layui-inline">--%>
-                        <%--                            <input class="layui-input" type="date" name="recordStartime" placeholder="开始时间" id="recordStartime" autocomplete="off">--%>
-                        <%--                        </div>--%>
-                        <%--                        <div class="layui-inline">--%>
-                        <%--                            <input class="layui-input" type="date" name="recordEndtime" placeholder="截止时间" id="recordEndtime" autocomplete="off">--%>
-                        <%--                        </div>--%>
                         <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
                         <%--                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>--%>
-                        <%--                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddVip.jsp',600,470)"><i--%>
-                        <%--                                class="layui-icon"></i>新增VIP--%>
-                        <%--                        </button>--%>
+<%--                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddVip.jsp',600,470)"><i--%>
+<%--                                class="layui-icon"></i>新增VIP--%>
+<%--                        </button>--%>
                     </div>
                 </div>
                 <div class="layui-card-body ">
@@ -75,8 +68,7 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">续费</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">退费</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">开通会员</a>
 </script>
 </body>
 
@@ -89,8 +81,7 @@
         table.render({
             elem: '#demo'
             , id: 'demo'
-            , url: '/person/getVipList'
-            ,totalRow: true
+            , url: '/person/getOrdinaryList'
             , cellMinWidth: 80
             // 限制每页的条数
             , limit: 10
@@ -101,24 +92,21 @@
             }
             // 开启分页
             , page: true
-            , toolbar: '#demo'
             , cols: [[
                 //序号
                 // {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
-                {type: 'numbers', width: '5%', title: '序号', align: 'center', unresize: true, sort: true, totalRowText: '合计'}
-                , {field: 'personId', title: 'ID', width: '5%', align: 'center', hide: true}
-                , {field: 'personName', title: '用户名', width: '10%', align: 'center'}
-                , {field: 'personAccount', title: '用户账号', width: '10%', align: 'center'}
-                , {field: 'sexName', title: '性别', width: '5%', align: 'center'}
-                , {field: 'personAge', title: '年龄', width: '5%', align: 'center'}
-                , {field: 'personPhone', title: '电话', width: '10%', align: 'center'}
-                , {field: 'personAddress', title: '住址', width: '10%', align: 'center'}
-                , {field: 'personCarnumber', title: '车牌号', width: '10%', align: 'center'}
-                , {field: 'personRecharge', title: '用户总消费', width: '10%', align: 'center',totalRow: true}
-                , {field: 'personScore', title: '用户积分', width: '5%', align: 'center', hide: true}
-                , {field: 'workerName', title: '办理员工', width: '10%', align: 'center', hide: true}
-                , {field: 'recordStartime', title: '开通时间', width: '10%', align: 'center', hide: true}
-                , {field: 'recordEndtime', title: '结束时间', width: '10%', align: 'center'}
+                {type: 'numbers', width: '5%', title: '序号', align: 'center'}
+                , {field: 'personId', title: 'ID', width: '5%',align: 'center',hide: true}
+                , {field: 'personName', title: '用户名', width: '10%',align: 'center'}
+                , {field: 'personAccount', title: '用户账号', width: '5%',align: 'center'}
+                , {field: 'sexName', title: '性别', width: '5%',align: 'center'}
+                , {field: 'personAge', title: '年龄', width: '5%',align: 'center'}
+                , {field: 'personPhone', title: '电话', width: '10%',align: 'center'}
+                , {field: 'personAddress', title: '住址', width: '10%',align: 'center'}
+                ,{field: 'personCarnumber', title: '车牌号', width: '10%',align: 'center'}
+                , {field: 'personRecharge', title: '用户总消费', width: '10%',align: 'center'}
+                , {field: 'personScore', title: '用户积分', width: '5%',align: 'center',hide: true}
+                , {field: 'workerName', title: '办理员工', width: '10%',align: 'center',hide: true}
                 , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
             ]]
             , id: 'testReload'
@@ -126,63 +114,41 @@
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
-                layer.confirm('确定要续费吗？', function (index) {
+                layer.confirm('确定要开通会员吗？', function (index) {
                     layer.open({
                         // anim: 1,
                         type: 2,//Page层类型
                         area: ['500px', '500px'],
-                        title: 'VIP续费',
+                        title: 'VI开通',
                         shadeClose: true,
                         shade: false,
                         id: 'alterp',
                         shade: 0.6, //遮罩透明度,
                         maxmin: true, //允许全屏最小化,
                         anim: 1, //0-6的动画形式，-1不开启,
-                        content: ['/jsp/VipRenew.jsp'],
+                        content: ['/jsp/AddVip.jsp'],
                         success: function (layero, index) {
                             var body = layer.getChildFrame('body', index);
                             body.contents().find("#personId").val(data.personId)
                             body.contents().find("#personAccount").val(data.personAccount)
                             body.contents().find("#personName").val(data.personName)
                             body.contents().find("#personCarnumber").val(data.personCarnumber)
-                            body.contents().find("#recordEndtime").val(data.recordEndtime)
                         },
                         end: function () {
                             $("#search").click();
                         }
                     });
+                });
 
-                });
-            } else if (obj.event === 'del') {
-                layer.confirm('确定要退费吗？', function (index) {
-                    $.ajax({
-                        url: "/person/vipRefund",
-                        data: {
-                            personId: data.personId,
-                            personAccount: data.personAccount,
-                            personName: data.personName,
-                            personCarnumber: data.personCarnumber
-                        },
-                        method: "post",
-                        dataType: "text",
-                        success: function (data) {
-                            layer.alert(data)
-                            $("#search").click();
-                        }
-                    })
-                });
             }
-        });
-
+        })
 
         var $ = layui.$, active = {
             reload: function () {
                 var personName = $('#personName').val();
                 var account = $('#account').val();
                 var phone = $('#phone').val();
-                var personCarnumber = $('#personCarnumber').val();
-                var recordStartime = $('#recordStartime').val();
-                var recordEndtime = $('#recordEndtime').val();
+                var personCarnumber=$('#personCarnumber').val();
                 //执行重载
                 table.reload('testReload', {
                     page: {
@@ -193,9 +159,7 @@
                             personName: personName,
                             account: account,
                             phone: phone,
-                            personCarnumber: personCarnumber,
-                            recordStartime: recordStartime,
-                            recordEndtime: recordEndtime,
+                            personCarnumber:personCarnumber,
                         }
                     }
                 }, 'data');
@@ -216,7 +180,6 @@
         // };
 
     });
-
 
 </script>
 </html>

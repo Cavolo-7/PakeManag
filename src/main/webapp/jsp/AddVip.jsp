@@ -32,81 +32,47 @@
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="vipAccount" class="layui-form-label">
-                    <span class="x-red">*</span>登录账号
+                <div class="layui-input-inline">
+                    <input type="hidden" id="personId" name="personId" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="personAccount" class="layui-form-label">
+                    <span class="x-red"></span>登录账号
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="vipAccount" name="vipAccount" required="" lay-verify="vipAccount"
-                           autocomplete="off" class="layui-input">
+                    <input type="text" id="personAccount" name="personAccount" required="" lay-verify="personAccount"
+                           autocomplete="off" class="layui-input" disabled="false">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>将会成为您唯一的登入名
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label for="vipName" class="layui-form-label">
-                    <span class="x-red">*</span>用户名
+                <label for="personName" class="layui-form-label">
+                    <span class="x-red"></span>用户名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="vipName" name="vipName" required="" lay-verify="vipName"
-                           autocomplete="off" class="layui-input">
+                    <input type="text" id="personName" name="personName" required="" lay-verify="personName"
+                           autocomplete="off" class="layui-input" disabled="false">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label for="vipAge" class="layui-form-label">
-                    <span class="x-red">*</span>年龄
+                <label for="personCarnumber" class="layui-form-label">
+                    <span class="x-red"></span>车牌号
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="vipAge" name="vipAge" required="" lay-verify="vipAge"
-                           autocomplete="off" class="layui-input">
+                    <input type="text" id="personCarnumber" name="personCarnumber" required="" lay-verify="personCarnumber"
+                           autocomplete="off" class="layui-input" disabled="false">
                 </div>
             </div>
-
-            <div class="layui-form-item">
-                <label fro="sex" class="layui-form-label">
-                    <span class="x-red">*</span>性别
-                </label>
-                <div class="layui-input-block">
-                    <input name="sex" type="radio" value="男" checked>男 &nbsp; &nbsp; <input name="sex" type="radio" value="女">女
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label for="phone" class="layui-form-label">
-                    <span class="x-red">*</span>手机号码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="phone" name="phone" required="" lay-verify="phone"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="carNumber" class="layui-form-label">
-                    <span class="x-red">*</span>车牌号
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="carNumber" name="carNumber" required="" lay-verify="carNumber"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="vipAddress" class="layui-form-label">
-                    <span class="x-red">*</span>住址
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="vipAddress" name="vipAddress" required="" lay-verify="vipAddress"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
 
             <div class="layui-form-item">
                 <label for="produceName" class="layui-form-label">
-                    <span class="x-red">*</span>月缴产品</label>
-                <form class="layui-form">
-                    <div class="layui-input-inline" style="margin-top: 5px">
+                    <span class="x-red"></span>月缴产品</label>
+                    <div class="layui-input-inline">
                         <select name="produceName" id="produceName" lay-verify="required">
                             <c:if test="${not empty produceList2}">
                                 <c:forEach items="${produceList2}" var="p">
@@ -115,32 +81,10 @@
                             </c:if>
                         </select>
                     </div>
-                </form>
             </div>
+
             <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label">
-                    <span class="x-red">*</span>密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
-                           autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    6到16个字符
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_repass" class="layui-form-label">
-                    <span class="x-red">*</span>确认密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_repass" class="layui-form-label">
-                </label>
+                <label class="layui-form-label"> <span class="x-red"></span></label></label>
                 <button class="layui-btn" lay-filter="add" lay-submit="">
                     增加
                 </button>
@@ -160,63 +104,44 @@
 
         //自定义验证规则
         form.verify({
-            vipAccount:[/^[0-9]+$/,'账号为整数类型'],
-            vipAccount:function(value){
+            personAccount:[/^[0-9]+$/,'账号为整数类型'],
+            personAccount:function(value){
                 if (value.length<2){
                     return '账号长度需要大于或大于3位'
                 }
             },
 
-            vipName:function(value){
+            personName:function(value){
               if (value.length<2){
                   return '用户名需要大于或等于两个字符'
               }
             },
 
-            vipAge:[ /^([1-9]\d?|1[01]\d|120)$/,'年龄填写错误'],
 
-            carNumber: [
+            personCarnumber: [
                 /^[\u4E00-\u9FA5]([0-9A-Z]{6})|([0-9A-Z]{5}[\u4E00-\u9FA5]{1})$/,
                 '车牌号码是否合法'
             ],
-
-            vipAddress:function(value){
-              if (value==''){
-                  return '住址必须填写'
-              }
-            },
-            pass: [/(.+){6,12}$/, '密码必须6到12位'],
-            repass: function (value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
         });
 
         //监听提交
         form.on('submit(add)', function (data) {
             $.ajax({
-                url: "/vip/addVip",
+                url: "/person/addVip",
                 data: data.field,
                 dataType: 'text',
                 method: 'post',
                 success: function (data) {
-                    if (data == "增加成功") {
-                        layer.msg("增加成功!")
+                    if (data == "开通成功") {
+                        layer.msg("开通成功!")
                         // //关闭当前frame
                         setTimeout(function () {
                             xadmin.close();
                         }, 20000);
                         // // 可以对父窗口进行刷新
                         xadmin.father_reload();
-                    } else if(data == "增加失败"){
-                        layer.msg("增加失败!")
-                    }else if (data == "账号已存在"){
-                        layer.msg("该账号已经存在!")
-                    }else if (data=="电话号码已存在"){
-                        layer.msg("电话号码已存在!")
-                    }else if (data=="车牌号已存在"){
-                        layer.msg("车牌号已存在!")
+                    } else if(data == "开通失败"){
+                        layer.msg("开通失败!")
                     }
                 }
             })

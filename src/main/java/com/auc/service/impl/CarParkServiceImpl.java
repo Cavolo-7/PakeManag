@@ -1,7 +1,6 @@
 package com.auc.service.impl;
 
 import com.auc.mapper.CarParkMapper;
-import com.auc.mapper.VipMapper;
 import com.auc.pojo.Admin;
 import com.auc.pojo.CarPort;
 import com.auc.pojo.LayuiData;
@@ -31,4 +30,16 @@ public class CarParkServiceImpl implements CarParkService {
         hashMaps.put("list", list);
         return hashMaps;
     }
+
+    @Override
+    public HashMap selectSubareaParkList(HashMap hashMap) {
+        List<CarPort> list = new ArrayList<CarPort>();
+        HashMap hashMaps = new HashMap();
+        int page = (int) hashMap.get("page");
+        int pageSize = (int) hashMap.get("pageSize");
+        list=carParkMapper.selectSubareaPark(page,pageSize);
+        hashMaps.put("list", list);
+        return hashMaps;
+    }
+
 }
