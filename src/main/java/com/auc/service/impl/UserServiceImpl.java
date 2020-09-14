@@ -58,6 +58,26 @@ public class UserServiceImpl implements UserService {
         }
         return flag;
     }
+
+    //禁用启用
+    @Override
+    public boolean roleState(Integer roleId, String roleState) {
+        boolean flag=false;
+        int num=0;
+        if (roleState.equals("启用")){
+            roleState="启用";
+        }else{
+            roleState="禁用";
+        }
+        Param param=userMapper.inquireUser(roleState);
+        num=userMapper.roleState(roleId,param.getParamValue());
+        System.out.println("我的id:"+roleId);
+        System.out.println("我的键值:"+param.getParamValue());
+        if (num>0){
+            flag=true;
+        }
+        return flag;
+    }
     //查询所有用户
 
 }

@@ -28,4 +28,7 @@ public interface UserService {
 
     //修改
     public boolean updRole(String roleId,String roleName,String urisdictionName);
+
+    //禁用启用
+    public  boolean roleState(Integer roleId,String roleState);
 }

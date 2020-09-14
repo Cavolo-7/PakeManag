@@ -175,10 +175,10 @@
         },
         success: function (data) {
           console.log(data)
-          if (data == '启用') {
+          if (data == "启用") {
             $("#search").click();
             layer.msg('操作成功!', {icon: 6, time: 1000});
-          }else if(data == '禁用'){
+          }else if(data == "禁用"){
             $("#search").click();
             layer.msg('操作成功!', {icon: 6, time: 1000});
           }else {

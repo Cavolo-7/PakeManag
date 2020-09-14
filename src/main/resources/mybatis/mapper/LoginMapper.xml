@@ -5,7 +5,7 @@
 <mapper namespace="com.auc.mapper.LoginMapper">
     <!--菜单显示-->
     <select id="findMenusByPid" resultType="com.auc.pojo.Menu" parameterType="com.auc.pojo.Menu">
-  select m.menu_id,m.menu_name,m.menu_url,m.parent_id from t_menu as m,t_relation as r  where m.menu_id=r.menu_id and m.parent_id=#{param1} and r.urisdiction_id=#{param2}
+     select m.menu_id,m.menu_name,m.menu_url,m.parent_id from t_menu as m,t_relation as r  where m.menu_id=r.menu_id and m.parent_id=#{param1} and r.urisdiction_id=#{param2}
   </select>
     <!--查询权限id-->
    <select id="findRoot" resultType="com.auc.pojo.Role" parameterType="com.auc.pojo.Role">

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.RootMapper">
+    <!--菜单显示-->
+    <select id="findMenu" resultType="com.auc.pojo.Menu" parameterType="com.auc.pojo.Menu">
+  select m.menu_id,m.menu_name,m.menu_url,m.parent_id from t_menu as m,t_relation as r  where m.menu_id=r.menu_id and m.parent_id=#{param1} and r.urisdiction_id=#{param2}
+  </select>
+    <!--根据id显示全部菜单-->
+    <select id="inquireMenu" resultType="com.auc.pojo.Menu">
+        select  * from t_menu;
+    </select>
+</mapper>

@@ -57,7 +57,7 @@ public class UserControl {
             return  "增加失败";
         }
     }
-
+    //修改
     @RequestMapping(value = "/updRole", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String updRole(String roleId,String roleName,String urisdictionName){
@@ -70,5 +70,20 @@ public class UserControl {
             return "编辑失败";
         }
 
+    }
+
+    //禁用启用
+    @RequestMapping(value = "/roleState", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String roleState(Integer roleId,String roleState){
+        System.out.println("用户管理禁用和启用");
+        boolean flag=userService.roleState(roleId,roleState);
+        System.out.println("我的id:"+roleId);
+        System.out.println("我的状态:"+roleState);
+        if (flag){
+            return roleState;
+        }else{
+            return "操作失败";
+        }
     }
 }

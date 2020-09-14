@@ -23,6 +23,10 @@ public interface UserMapper {
 
     //增加管理员账号
      public Integer addRole(Integer urisdictionId,String roleName,Integer roleState);
+
      //修改
     public  Integer updRole(String roleId,String roleName,Integer urisdictionName);
+
+    //禁用启用
+    public Integer roleState(Integer roleId,Integer roleState);
 }

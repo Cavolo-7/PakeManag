@@ -6,7 +6,6 @@ import com.auc.pojo.Produce;
 import com.auc.pojo.Role;
 import com.auc.service.AdminService;
 import com.auc.service.LoginService;
-import com.auc.service.VipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +27,7 @@ public class LoginController {
     private LoginService loginService;
     @Autowired
     private AdminService adminService;
-    @Autowired
-    private VipService vipService;
+
     //登录
     @RequestMapping(value = "/login", produces = "text/plain;charset=utf-8")
     @ResponseBody
@@ -51,13 +49,6 @@ public class LoginController {
             List<Role> roleNameList2=adminService.selectRoleStateName();
             request.getSession().setAttribute("roleNameList2", roleNameList2);
 
-            //            查询月缴产品名字集合
-            List<Produce> produceList=vipService.selectProduceNameList();
-            request.getSession().setAttribute("produceList", produceList);
-            //            查询月缴产品名字集合状态
-            List<Produce> produceList2=vipService.selectProduceStateName();
-            request.getSession().setAttribute("produceList2", produceList2);
-
             str = "登录成功";
         } else {
             str = "账号密码错误";
@@ -67,6 +58,7 @@ public class LoginController {
     //显示菜单
     @RequestMapping(value = "/userMenus")
     public ModelAndView userMenus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("我的菜单显示了");
         Admin admin = (Admin) request.getSession().getAttribute("admin");
         Map<String, List<Menu>> MenuMap = loginService.findMenus(admin.getRoleId());//根据角色id显示不同的菜单
         ModelAndView modelAndView=new ModelAndView();
