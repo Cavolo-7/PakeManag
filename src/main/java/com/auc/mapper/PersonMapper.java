@@ -26,7 +26,7 @@ public interface PersonMapper {
     public Integer selectVipCount(@Param("condition") Map<String, String> condition);
 
     //查询计算好的时间
-    public String selectEndTime(Record record);
+    public Date selectEndTime(Record record);
 
     //查询产品
     public Produce selectProduceId(String produceName);

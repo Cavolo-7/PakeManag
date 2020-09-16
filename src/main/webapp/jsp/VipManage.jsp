@@ -61,10 +61,8 @@
                         <%--                        </div>--%>
                         <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
-                        <%--                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>--%>
-                        <%--                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddVip.jsp',600,470)"><i--%>
-                        <%--                                class="layui-icon"></i>新增VIP--%>
-                        <%--                        </button>--%>
+<%--                        <input name ="Button"  value="火狐谷歌打印" type="button" οnclick="window.print()">--%>
+                        <button name ="Button"  value="火狐谷歌打印" οnclick="window.print()"></button>
                     </div>
                 </div>
                 <div class="layui-card-body ">

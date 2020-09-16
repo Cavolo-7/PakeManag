@@ -33,6 +33,8 @@ public class CarPort {
     private String name;
     private Integer fnum;
     private Integer status;
+    private String carportX;
+    private String carportY;
 
 
     public CarPort() {
@@ -47,8 +49,7 @@ public class CarPort {
     }
 
 
-
-    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, String carportFnum, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure) {
+    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, String carportFnum, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure, Integer ID, String name, Integer fnum, Integer status, String carportX, String carportY) {
         this.carportId = carportId;
         this.carportArea = carportArea;
         this.carportNumber = carportNumber;
@@ -63,6 +64,28 @@ public class CarPort {
         this.allSubarea = allSubarea;
         this.subarEaemploy = subarEaemploy;
         this.subarLeisure = subarLeisure;
+        this.ID = ID;
+        this.name = name;
+        this.fnum = fnum;
+        this.status = status;
+        this.carportX = carportX;
+        this.carportY = carportY;
+    }
+
+    public String getCarportX() {
+        return carportX;
+    }
+
+    public void setCarportX(String carportX) {
+        this.carportX = carportX;
+    }
+
+    public String getCarportY() {
+        return carportY;
+    }
+
+    public void setCarportY(String carportY) {
+        this.carportY = carportY;
     }
 
     public String getCarportFnum() {

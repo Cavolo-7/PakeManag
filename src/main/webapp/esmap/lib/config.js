@@ -121,8 +121,8 @@ function getQueryString(name) {
     if (currentpath.indexOf("html") < 0) {
       var u =
         "https://www.esmap.cn/escopemap/content/cn/develope/map-download.html";
-      var str = currentpath.match(/demo\/.*?\//);
-      // str = str.slice(5, -1); // demo所在文件夹的名称
+      var str = currentpath.match(/demo\/.*?\//)[0];
+      str = str.slice(5, -1); // demo所在文件夹的名称
       switch (str) {
         case "BaseMap":
           u += "#m_base";

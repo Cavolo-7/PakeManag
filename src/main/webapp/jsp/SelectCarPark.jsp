@@ -109,10 +109,10 @@
       , page: true
       , cols: [[
         //序号
-        {type: 'numbers', width: 100, title: '序号', align: 'center'}
-        , {field: 'carportArea', width: 100, title: '分区编号', align: 'center'}
-        , {field: 'allSubarea', width: 100, title: '分区总车位数', align: 'center'}
-        , {field: 'subarEaemploy',width: 100, title: '分区已用车位数', align: 'center'}
+        {type: 'numbers', width: 80, title: '序号', align: 'center'}
+        , {field: 'carportArea', width: 80, title: '分区编号', align: 'center'}
+        , {field: 'allSubarea', width: 120, title: '分区总车位数', align: 'center'}
+        , {field: 'subarEaemploy',width: 120, title: '分区已用车位数', align: 'center'}
         , {field: 'subarLeisure', title: '分区空闲车位数', align: 'center'}
       ]]
       , id: 'testReload'

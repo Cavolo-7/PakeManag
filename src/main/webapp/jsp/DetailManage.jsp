@@ -62,6 +62,7 @@
                                             </c:forEach>
                                         </c:if>
                                     </select>
+
                                 </div>
                             </form>
                         </div>
@@ -70,17 +71,25 @@
 <%--                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddVip.jsp',600,470)"><i--%>
 <%--                                class="layui-icon"></i>新增VIP--%>
 <%--                        </button>--%>
+                        <button type="button" class="layui-btn layui-btn-primary" onclick="scorePDF()">打印成绩单</button>
                     </div>
                 </div>
                 <div class="layui-card-body ">
-                    <table class="layui-hide" id="demo" lay-filter="demo"></table>
+                    <table class="layui-hide" id="demo" lay-filter="demo">
+<%--                        <tr>--%>
+<%--                            <td>合计</td>--%>
+<%--                        </tr>--%>
+<%--                        <tr>--%>
+<%--                            <td>合计</td>--%>
+<%--                        </tr>--%>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">开通会员</a>
+<%--    <a class="layui-btn layui-btn-xs" lay-event="edit">开通会员</a>--%>
 </script>
 </body>
 
@@ -90,25 +99,28 @@
         var form = layui.form;
         var util = layui.util;
         var laydate = layui.laydate;
+
         table.render({
             elem: '#demo'
             , id: 'demo'
             , url: '/settlement/getDetailList'
+            ,totalRow: true
             , cellMinWidth: 80
             // 限制每页的条数
-            , limit: 10
-            , limits: [10]
+            // , limit: 10
+            // , limits: [10]
             //数据没有时显示
             , text: {
                 none: '暂无相关数据'
             }
             // 开启分页
-            , page: true
+            // , page: true
             , toolbar: '#demo'
             , cols: [[
                 //序号
+                // , totalRowText: '合计',totalRow: true
                 // {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
-                {type: 'numbers', width: '5%', title: '序号', align: 'center' unresize: true, sort: true, totalRowText: '合计'}
+                {type: 'numbers', width: '5%', title: '序号', align: 'center', totalRowText: '合计'}
                 , {field: 'detailId', title: 'ID', width: '5%',align: 'center',hide: true}
                 , {field: 'detailCarnumber', title: '车牌号', width: '10%',align: 'center'}
                 , {field: 'detailEvent', title: '业务', width: '10%',align: 'center'}
@@ -116,13 +128,19 @@
                 , {field: 'detailTime', title: '记录时间', width: '15%',align: 'center'}
                 , {field: 'detailMoney', title: '金额', width: '10%',align: 'center',totalRow: true}
                 , {field: 'workerName', title: '工作人员', width: '10%',align: 'center'}
-                ,{field: 'detailType', title: '支付方式', width: '10%',align: 'center'}
-                , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
-            ]]
+                , {field: 'detailType', title: '支付方式', align: 'center'}
+                // , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
+            ],
+                // [
+                // { field: 'detailMoney', title: '今日总收入', align: 'center' }
+                // ]
+            ]
             , id: 'testReload'
         })
+            //table.exportFile(ins1.config.id, data);
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
+            console.log(data)
             if (obj.event === 'edit') {
                 layer.confirm('确定要开通会员吗？', function (index) {
                     layer.open({
@@ -152,29 +170,50 @@
 
             }
         })
-
-        var $ = layui.$, active = {
-            reload: function () {
-                var personCarnumber = $('#personCarnumber').val();
-                var date1 = $('#date1').val();
-                var date2 = $('#date2').val();
-                var workerNames=$('#workerNames').val();
-                //执行重载
-                table.reload('testReload', {
-                    page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                    , where: {
-                        key: {
-                            personCarnumber: personCarnumber,
-                            date1: date1,
-                            date2: date2,
-                            workerNames:workerNames,
-                        }
-                    }
-                }, 'data');
-            }
-        };
+        // function scorePDF (argument) {
+        //     layui.use('table',function(){
+        //         var table = layui.table
+        //         var checkStatus = table.checkStatus('csInfo');
+        //         var frame = document.createElement("IFRAME");
+        //         if(checkStatus.data.length==0){
+        //             parent.layer.msg('请先选择要打印的数据行！', {icon: 2});
+        //             return ;
+        //         }
+        //         var nums = "";
+        //         for(var i=0;i<checkStatus.data.length;i++){
+        //             nums += checkStatus.data[i].id+",";
+        //         }
+        //         parent.layer.msg('打印中...', {icon: 16,shade: 0.3,time:5000});
+        //
+        //         frame.style.display ="none";
+        //         frame.src = '/settlement/getDetailList';//controller层的url
+        //         document.body.appendChild(frame);
+        //         frame.contentWindow.focus();
+        //         frame.contentWindow.print();
+        //     });
+        // }
+        // var $ = layui.$, active = {
+        //     reload: function () {
+        //         var personCarnumber = $('#personCarnumber').val();
+        //         var date1 = $('#date1').val();
+        //         var date2 = $('#date2').val();
+        //         var workerNames=$('#workerNames').val();
+        //         //执行重载
+        //         table.reload('testReload', {
+        //             page: {
+        //                 curr: 1 //重新从第 1 页开始
+        //             }
+        //             , where: {
+        //                 key: {
+        //                     personCarnumber: personCarnumber,
+        //                     date1: date1,
+        //                     date2: date2,
+        //                     workerNames:workerNames,
+        //                 }
+        //             }
+        //         }, 'data');
+        //     }
+        // };
 
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
