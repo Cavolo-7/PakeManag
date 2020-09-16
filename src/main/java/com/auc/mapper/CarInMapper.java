@@ -27,7 +27,7 @@ public interface CarInMapper {
     public List<CarPort> findCarPortList();//查询停车场车位表可停车车位
 
     public Integer updateCarPort(@Param("carportCarnumber") String carportCarnumber, @Param("carportPhoto") String carportPhoto,
-                                 @Param("carportStarttime") String carportStarttime,@Param("carportState") Integer carportState, @Param("carportId") Integer carportId);//车信息插入停车车位表
+                                 @Param("carportStarttime") String carportStarttime, @Param("carportState") Integer carportState, @Param("carportId") Integer carportId);//车信息插入停车车位表
 
     public Integer insertHistory(History history);//插入历史汇总表
 
@@ -46,6 +46,10 @@ public interface CarInMapper {
     public Integer deleteExemption(String carNumber);//免检名单删除临时用户
 
     public Person findPerson(String carNumber);//根据车牌查询用户表
+
+    public Integer insertAlipay(Alipay alipay);//支付宝订单插入数据
+
+    public Alipay findAlipay(String alipayNumber);//支付宝订单查询数据
 
 
 }

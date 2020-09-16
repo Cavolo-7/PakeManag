@@ -16,6 +16,12 @@
 </head>
 <body>
 <input type="hidden" value="${pageContext.request.contextPath}" id="path">
+<input type="hidden" id="body">
+<input type="hidden" id="subject">
+<input type="hidden" id="total_amount">
+<input type="hidden" id="State">
+
+
 <div class="search bar1">
     <form method="post">
         <input type="text" placeholder="请输入您的车牌号" id="carNumber">
@@ -56,13 +62,16 @@
                     <td>停车时长</td>
                     <td id="longTime"></td>
                 </tr>
-
+                <tr>
+                    <td>缴费状态</td>
+                    <td id="payState"></td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </section>
     <section class="receipt__half lower">
-        <button>关闭</button>
+        <button onclick="Alipay()">支付宝支付</button>
     </section>
 </article>
 <script src="${pageContext.request.contextPath}/js/SelfPay.js"></script>

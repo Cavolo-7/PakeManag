@@ -6,11 +6,18 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeWapMergePayModel;
 import com.alipay.api.domain.AlipayTradeWapPayModel;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.response.AlipayTradePagePayResponse;
+import com.auc.mapper.CarInMapper;
+import com.auc.pojo.Alipay;
+import com.auc.pojo.CarPort;
 import com.auc.pojo.Result;
 import com.auc.pojo.WelcomeInfo;
 import com.auc.service.impl.AuthServiceImpl;
 import com.auc.service.impl.CarServiceImpl;
+import com.auc.util.AlipayConfig;
+import com.auc.util.AlipayUtil;
 import com.auc.util.FileUtil;
 import com.auc.util.LayuiData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +30,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
 
 import static com.alipay.api.AlipayConstants.*;
 import static com.auc.util.AlipayConfig.*;
@@ -80,7 +92,6 @@ public class CarControl {
     public ModelAndView noCarWelcome() {
         System.out.println("noCarWelcome()");
         WelcomeInfo welcomeInfo = carServiceImpl.noCarWelcome();//查询空闲时的欢迎信息
-        System.out.println(welcomeInfo);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("welcomeInfo", welcomeInfo);
         modelAndView.setViewName("/jsp/CarIn.jsp");
@@ -124,7 +135,7 @@ public class CarControl {
 
     /**
      * @Author: TheBigBlue
-     * @Description: 车辆出场
+     * @Description: 结算费用并获取车辆出场信息
      * @Date: 2020/9/10
      * @Param request:
      * @Param file:
@@ -152,8 +163,8 @@ public class CarControl {
         String payMoney = request.getParameter("payMoney");//应付金额
         String carNumber = request.getParameter("carNumber");//车牌号
         String carportId = request.getParameter("carportId");//车位id
-        System.out.println("carportId："+carportId);
-        boolean flag = carServiceImpl.insertDetail(new Integer(payMoney), carNumber,new Integer(carportId));
+        System.out.println("carportId：" + carportId);
+        boolean flag = carServiceImpl.carOutMoney(new Integer(payMoney), carNumber, new Integer(carportId));
         String result = "";
         if (flag == true) {
             result = "success";
@@ -166,7 +177,117 @@ public class CarControl {
 
     /**
      * @Author: TheBigBlue
-     * @Description: 支付宝支付
+     * @Description: 车辆出场支付宝支付
+     * @Date: 2020/9/16
+     * @Param request:
+     * @Param response:
+     * @return: java.lang.String
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/carOutAlipay")
+    public String carOutAlipay(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String subject = request.getParameter("subject");//订单标题
+        String total_amount = request.getParameter("total_amount");//订单总金额
+        String body = request.getParameter("body");//商品描述信息
+        String form = carServiceImpl.carOutAlipay(subject, total_amount, body);
+        return form;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 车辆出场支付宝支付结果同步通知
+     * @Date: 2020/9/15
+     * @Param request:
+     * @Param response:
+     * @return: void
+     **/
+    @RequestMapping(value = "/carOutAlipayReturnUrl")
+    public ModelAndView carOutAlipayReturnUrl(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
+        //获取支付宝GET过来反馈信息
+        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+        ModelAndView modelAndView = new ModelAndView();
+        if (signVerified) {
+//            String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8"); //商户订单号
+            WelcomeInfo welcomeInfo = carServiceImpl.noCarWelcome();//查询空闲时的欢迎信息
+            modelAndView.addObject("welcomeInfo", welcomeInfo);
+            modelAndView.setViewName("/jsp/CarIn.jsp");
+        } else {
+        }
+        return modelAndView;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 车辆出场支付宝支付结果异步通知
+     * @Date: 2020/9/15
+     * @Param request:
+     * @Param response:
+     * @return: void
+     **/
+    @RequestMapping(value = "/carOutAlipayNotify")
+    public void carOutAlipayNotify(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
+        //获取支付宝POST过来反馈信息
+        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+        if (signVerified) {//验证成功
+            String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");//交易金额
+            String subject = params.get("subject");//车牌
+            if (total_amount != null && !total_amount.equals("")) {
+                String str[] = total_amount.split("\\.");
+                CarPort carPort = carServiceImpl.findCarPort(subject);
+                carServiceImpl.carOutMoney(new Integer(str[0]),subject,carPort.getCarportId());
+            }
+            response.getWriter().print("success");
+        } else {//验证失败
+            response.getWriter().print("fail");
+        }
+    }
+
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 查询车辆结算信息
+     * @Date: 2020/9/15
+     * @Param request:
+     * @return: com.auc.pojo.WelcomeInfo
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/findCarPayInfo")
+    public WelcomeInfo findCarPayInfo(HttpServletRequest request) {
+        String carNumber = request.getParameter("carNumber");
+        WelcomeInfo welcomeInfo = carServiceImpl.findCarPayInfo(carNumber);
+        return welcomeInfo;
+    }
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 自助缴费--支付宝支付
      * @Date: 2020/9/14
      * @Param request:
      * @Param response:
@@ -174,34 +295,87 @@ public class CarControl {
      **/
     @ResponseBody
     @RequestMapping(value = "/Alipay")
-    public String Alipay(HttpServletRequest request, HttpServletResponse response) throws IOException, AlipayApiException {
-        System.out.println("alipy*********************************");
-        String WIDout_trade_no = request.getParameter("WIDout_trade_no");
-        String WIDsubject = request.getParameter("WIDsubject");
-        String WIDtotal_amount = request.getParameter("WIDtotal_amount");
-        String WIDbody = request.getParameter("WIDbody");
-        System.out.println(WIDout_trade_no+","+WIDsubject+","+WIDtotal_amount+","+WIDbody);
-
-        //封装Rsa签名方式
-        AlipayClient alipayClient = new DefaultAlipayClient(gatewayUrl, app_id, merchant_private_key, format, charset, alipay_public_key, sign_type);  //获得初始化的AlipayClient
-        //创建Request请求
-        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest(); //创建API对应的request
-        //封装传入参数
-        AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
-        model.setOutTradeNo(WIDout_trade_no);//商品id
-        model.setSubject(WIDsubject);//商品名称
-        model.setTotalAmount(WIDtotal_amount);//支付金额
-        model.setBody(WIDbody);//商品描述
-        //设置参数
-        alipayRequest.setBizModel(model);
-        //设置异步回调地址
-        alipayRequest.setNotifyUrl(notify_url);
-        //设置同步回调地址
-        alipayRequest.setReturnUrl(return_url);
-        //生成表单
-        String form = alipayClient.pageExecute(alipayRequest).getBody();
-        System.out.println("form："+form);
+    public String alipay(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String subject = request.getParameter("subject");//订单标题
+        String total_amount = request.getParameter("total_amount");//订单总金额
+        String body = request.getParameter("body");//商品描述信息
+        String form = carServiceImpl.alipay(subject, total_amount, body);
         return form;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 自助缴费支付宝支付结果同步通知
+     * @Date: 2020/9/15
+     * @Param request:
+     * @Param response:
+     * @return: void
+     **/
+    @RequestMapping(value = "/alipayReturnUrl")
+    public ModelAndView alipayReturnUrl(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
+        //获取支付宝GET过来反馈信息
+        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+        ModelAndView modelAndView = new ModelAndView();
+        if (signVerified) {
+            String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8"); //商户订单号
+            Alipay alipay = carServiceImpl.findAlipay(out_trade_no);
+            WelcomeInfo welcomeInfo = carServiceImpl.findCarPayInfo(alipay.getAlipayCarnumber());
+            modelAndView.addObject("welcomeInfo", welcomeInfo);
+            modelAndView.setViewName("/jsp/SelfPaySuccess.jsp");
+        } else {
+        }
+        return modelAndView;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 自助缴费支付宝支付结果异步通知
+     * @Date: 2020/9/15
+     * @Param request:
+     * @Param response:
+     * @return: void
+     **/
+    @RequestMapping(value = "/alipayNotify")
+    public void alipayNotify(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
+        //获取支付宝POST过来反馈信息
+        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+        if (signVerified) {//验证成功
+            String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");//交易金额
+            String subject = params.get("subject");//车牌
+            if (total_amount != null && !total_amount.equals("")) {
+                String str[] = total_amount.split("\\.");
+                carServiceImpl.alipaySuccess(new Integer(str[0]), subject, null);//自助缴费成功
+            }
+            response.getWriter().print("success");
+        } else {//验证失败
+            response.getWriter().print("fail");
+        }
     }
 
 

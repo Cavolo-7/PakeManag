@@ -42,6 +42,12 @@ function pay() {
 
 //支付宝支付
 function Alipy() {
+    var path = $("#path").val();
+    var total_amount = $("#money").val();
+    var subject = $("#carNumber").val();
+    var body = $("#carportId").val();
+    xadmin.close();
+    top.location.href = path + "/car/carOutAlipay?total_amount=" + total_amount + "&subject=" + subject + "&body" + body;
     console.log("alipy")
 }
 
