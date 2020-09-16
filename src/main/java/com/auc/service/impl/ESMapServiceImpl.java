@@ -22,4 +22,10 @@ public class ESMapServiceImpl implements ESMapService {
 
         return hashMap;
     }
+
+    @Override
+    public CarPort Search(String carNumber) {
+        CarPort carPort=esMapMapper.Search(carNumber);
+        return carPort;
+    }
 }

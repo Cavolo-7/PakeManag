@@ -11,4 +11,5 @@ public interface ESMapMapper {
 
     public List<CarPort> QueryESMap();  //查询车位情况
 
+    public CarPort Search(String carNumber);  //查询车位情况
 }

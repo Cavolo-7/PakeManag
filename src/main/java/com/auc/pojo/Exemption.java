@@ -13,12 +13,12 @@ public class Exemption {
     private Integer exemptionId;//免检名单id
     private String exemptionName;//免检名单用户名
     private String exemptionCarnumber;//车牌号
-    private Date exemptionPaytime;//支付时间
+    private String exemptionPaytime;//支付时间
 
     public Exemption() {
     }
 
-    public Exemption(Integer exemptionId, String exemptionName, String exemptionCarnumber, Date exemptionPaytime) {
+    public Exemption(Integer exemptionId, String exemptionName, String exemptionCarnumber, String exemptionPaytime) {
         this.exemptionId = exemptionId;
         this.exemptionName = exemptionName;
         this.exemptionCarnumber = exemptionCarnumber;
@@ -49,11 +49,11 @@ public class Exemption {
         this.exemptionCarnumber = exemptionCarnumber;
     }
 
-    public Date getExemptionPaytime() {
+    public String getExemptionPaytime() {
         return exemptionPaytime;
     }
 
-    public void setExemptionPaytime(Date exemptionPaytime) {
+    public void setExemptionPaytime(String exemptionPaytime) {
         this.exemptionPaytime = exemptionPaytime;
     }
 
@@ -63,7 +63,7 @@ public class Exemption {
                 "exemptionId=" + exemptionId +
                 ", exemptionName='" + exemptionName + '\'' +
                 ", exemptionCarnumber='" + exemptionCarnumber + '\'' +
-                ", exemptionPaytime=" + exemptionPaytime +
+                ", exemptionPaytime='" + exemptionPaytime + '\'' +
                 '}';
     }
 }

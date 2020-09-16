@@ -1,23 +1,18 @@
 package com.auc.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alipay.api.AlipayApiException;
 import com.auc.mapper.CarInMapper;
 import com.auc.pojo.*;
 import com.auc.service.CarService;
 import com.auc.util.*;
-import com.auc.util.LayuiData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @基本功能:
@@ -30,6 +25,36 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarInMapper carInMapper;
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 空闲时入场显示屏信息
+     * @Date: 2020/9/8
+     * @return: void
+     **/
+    @Override
+    public WelcomeInfo noCarWelcome() {
+        //（1）欢迎信息
+        String welcomeMsg = carInMapper.findWelcomeMsg(1001);//欢迎信息
+        //（2）当前停车场车位情况
+        List<CarPort> carPortList = carInMapper.findCarPortList();//查询停车场车位表
+        List<CarPort> useList = new ArrayList<>();
+        for (int i = 0; i < carPortList.size(); i++) {
+            if ((carPortList.get(i).getCarportCarnumber() != null) && (!carPortList.get(i).getCarportCarnumber().equals(""))) {
+                useList.add(carPortList.get(i));
+            }
+        }
+        int allNum = carPortList.size();//a。共多少车位
+        int useNum = useList.size(); //b。已使用多少车位（已停车）
+        int noNum = allNum - useNum;//c。剩余多少可使用空车位
+        WelcomeInfo welcomeInfo = new WelcomeInfo();
+        welcomeInfo.setWelcomeMsg(welcomeMsg);
+        welcomeInfo.setAllNum(allNum);
+        welcomeInfo.setUseNum(useNum);
+        welcomeInfo.setNoNum(noNum);
+        return welcomeInfo;
+    }
+
 
     /**
      * @Author: TheBigBlue
@@ -69,36 +94,6 @@ public class CarServiceImpl implements CarService {
 
     /**
      * @Author: TheBigBlue
-     * @Description: 空闲时入场显示屏信息
-     * @Date: 2020/9/8
-     * @return: void
-     **/
-    @Override
-    public WelcomeInfo noCarWelcome() {
-        //（1）欢迎信息
-        String welcomeMsg = carInMapper.findWelcomeMsg(1001);//欢迎信息
-        //（2）当前停车场车位情况
-        List<CarPort> carPortList = carInMapper.findCarPortList();//查询停车场车位表
-        List<CarPort> useList = new ArrayList<>();
-        for (int i = 0; i < carPortList.size(); i++) {
-            if ((carPortList.get(i).getCarportCarnumber() != null) && (!carPortList.get(i).getCarportCarnumber().equals(""))) {
-                useList.add(carPortList.get(i));
-            }
-        }
-        int allNum = carPortList.size();//a。共多少车位
-        int useNum = useList.size(); //b。已使用多少车位（已停车）
-        int noNum = allNum - useNum;//c。剩余多少可使用空车位
-        WelcomeInfo welcomeInfo = new WelcomeInfo();
-        welcomeInfo.setWelcomeMsg(welcomeMsg);
-        welcomeInfo.setAllNum(allNum);
-        welcomeInfo.setUseNum(useNum);
-        welcomeInfo.setNoNum(noNum);
-        return welcomeInfo;
-    }
-
-
-    /**
-     * @Author: TheBigBlue
      * @Description: 车辆出场(扫描识别成功)
      * @Date: 2020/9/10
      * @Param accessToken:
@@ -116,10 +111,10 @@ public class CarServiceImpl implements CarService {
             int minute = carInMapper.findTime(carNumber, nowDate);//查询车库表返回计算后的停车时长(分)
             if (exemption != null) {
                 welcomeInfo.setPayState("已缴费");
-                //免检名单判断是否为临时用户自助缴费，是-- 出场则要从白名单移除该用户
+                //免检名单判断是否为临时用户自助缴费，
                 if (exemption.getExemptionPaytime() != null && !exemption.getExemptionPaytime().equals("")) {
                     welcomeInfo.setCarType("临时停车");
-                    carInMapper.deleteExemption(carNumber);
+                    carInMapper.deleteExemption(carNumber);//临时用户出场则要从免检名单中移除该用户
                 } else {
                     Person person = carInMapper.findPerson(carNumber);
                     if (person != null && person.getPersonIdentity() == 1) {
@@ -157,8 +152,8 @@ public class CarServiceImpl implements CarService {
      * @return: boolean
      **/
     @Override
-    public boolean insertDetail(Integer money, String carNumber, Integer carportId) {
-        int updateCarPortNum = carInMapper.updateCarPort(null, null, null, 2, carportId);//插入停车车位表
+    public boolean carOutMoney(Integer money, String carNumber, Integer carportId) {
+        int updateCarPortNum = carInMapper.updateCarPort(null, null, null, 2, carportId);//修改停车车位表
         Detail detail = new Detail();
         detail.setDetailCarnumber(carNumber);
         detail.setDetailMoney(money);
@@ -171,6 +166,175 @@ public class CarServiceImpl implements CarService {
             flag = true;
         }
         return flag;
+    }
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 车辆出场调用支付宝进行支付
+     * @Date: 2020/9/15
+     * @Param money:
+     * @Param carNumber:
+     * @Param carportId:
+     * @return: boolean
+     **/
+    @Override
+    public String carOutAlipay(String subject, String total_amount, String body) {
+        String form = "";
+        try {
+            String uuid = UUID.randomUUID().toString();//商户订单号
+            form = AlipayUtil.getAlipay(uuid, subject, total_amount, body,"http://acsk.free.idcfengye.com/car/carOutAlipayNotify","http://acsk.free.idcfengye.com/car/carOutAlipayReturnUrl");
+            Alipay alipay = new Alipay();
+            alipay.setAlipayNumber(uuid);
+            alipay.setAlipayCarnumber(subject);
+            carInMapper.insertAlipay(alipay);//支付宝订单查询数据
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+        return form;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 车辆出场支付宝支付成功
+     * @Date: 2020/9/15
+     * @Param money:
+     * @Param carNumber:
+     * @Param carportId:
+     * @return: boolean
+     **/
+    @Override
+    public boolean carOutAlipaySuccess(Integer money, String carNumber, Integer carportId) {
+        return false;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 自助缴费调用支付宝进行支付
+     * @Date: 2020/9/15
+     * @Param subject:        订单标题
+     * @Param total_amount:   订单金额
+     * @Param body:           商品描述信息
+     * @return: java.lang.String
+     **/
+    @Override
+    public String alipay(String subject, String total_amount, String body) {
+        String form = "";
+        try {
+            String uuid = UUID.randomUUID().toString();//商户订单号
+            form = AlipayUtil.getAlipay(uuid, subject, total_amount, body,AlipayConfig.notify_url,AlipayConfig.notify_url);
+            Alipay alipay = new Alipay();
+            alipay.setAlipayNumber(uuid);
+            alipay.setAlipayCarnumber(subject);
+            carInMapper.insertAlipay(alipay);//支付宝订单查询数据
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+        return form;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 自助缴费支付宝支付成功
+     * @Date: 2020/9/15
+     * @Param money:
+     * @Param carNumber:
+     * @Param carportId:
+     * @return: boolean
+     **/
+    @Transactional
+    @Override
+    public boolean alipaySuccess(Integer money, String carNumber, Integer carportId) {
+        //1.插入明细表
+        Detail detail = new Detail();
+        detail.setDetailCarnumber(carNumber);//车牌
+        detail.setDetailMoney(money);//交易金额
+        detail.setDetailEvent("临时缴费");//缴费事件
+        detail.setProduceId(new Integer(0));//临时缴费
+        detail.setDetailType("支付宝");//支付方式
+        Integer insertDetailNum = carInMapper.insertDetail(detail);
+        //2.插入免检名单表
+        Exemption exemption = new Exemption();
+        exemption.setExemptionCarnumber(carNumber);//车牌号
+        exemption.setExemptionName("");//用户名
+        exemption.setExemptionPaytime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));//支付时间
+        Integer insertExemptionNum = carInMapper.insertExemption(exemption);
+        boolean flag = false;
+        if (insertDetailNum > 0 && insertExemptionNum > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 支付宝订单查询数据
+     * @Date: 2020/9/15
+     * @Param alipayNumber:
+     * @return: com.auc.pojo.Alipay
+     **/
+    @Override
+    public Alipay findAlipay(String alipayNumber) {
+        Alipay alipay = carInMapper.findAlipay(alipayNumber);
+        return alipay;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 查询车辆结算信息
+     * @Date: 2020/9/15
+     * @Param carNumber:
+     * @return: com.auc.pojo.WelcomeInfo
+     **/
+    @Override
+    public WelcomeInfo findCarPayInfo(String carNumber) {
+        WelcomeInfo welcomeInfo = new WelcomeInfo();
+        //判断该车牌是否停车在车库
+        CarPort carPort = carInMapper.findCarPort(carNumber);
+        if (carPort != null) {
+            Exemption exemption = carInMapper.findExemption(carNumber);//查询免检名单表
+            String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());//当前时间
+            int minute = carInMapper.findTime(carNumber, nowDate);//查询车库表返回计算后的停车时长(分)
+            if (exemption != null) {
+                //免检名单判断是否为临时用户自助缴费，
+                if (exemption.getExemptionPaytime() != null && !exemption.getExemptionPaytime().equals("")) {
+                    welcomeInfo.setCarType("临时停车");
+                } else {
+                    Person person = carInMapper.findPerson(carNumber);
+                    if (person != null && person.getPersonIdentity() == 1) {
+                        welcomeInfo.setCarType("月缴停车");
+                    } else {
+                        welcomeInfo.setCarType("白名单用户");
+                    }
+                }
+                welcomeInfo.setPayState("已缴费");
+            } else {
+                welcomeInfo.setCarType("临时停车");
+                welcomeInfo.setPayState("未缴费");
+            }
+            float hour = CountUtil.getHour(minute);//停车小时整
+            List<Costrules> rulesList = carInMapper.findCostRules();//查询收费规则
+            int money = CountUtil.getMoney(rulesList, hour);//计算费用
+            welcomeInfo.setMoney(money);
+            welcomeInfo.setCarNumber(carNumber);
+            welcomeInfo.setWelcomeMsg(carInMapper.findWelcomeMsg(1002));
+            welcomeInfo.setCarPort(carPort.getCarportArea() + "区" + carPort.getCarportNumber() + "号");
+            welcomeInfo.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(carPort.getCarportStarttime()));
+            welcomeInfo.setEndTime(nowDate);
+            welcomeInfo.setLongTime(minute + "");
+            welcomeInfo.setCarportId(carPort.getCarportId());
+        }
+        return welcomeInfo;
+    }
+
+    @Override
+    public CarPort findCarPort(String carNumber) {
+        CarPort carPort = carInMapper.findCarPort(carNumber);
+        return carPort;
     }
 
 

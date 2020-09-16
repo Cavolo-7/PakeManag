@@ -9,7 +9,6 @@
         select white_id,white_name,white_account,white_password,white_carnumber,white_phone,white_createtime,worker_id from t_white where white_carnumber=#{whiteCarnumber}
     </select>
 
-
     <!--  添加至免检用户表  -->
     <insert id="insertExemption" parameterType="com.auc.pojo.Exemption">
          insert into t_exemption(exemption_name,exemption_carnumber,exemption_paytime) VALUES(#{exemptionName},#{exemptionCarnumber},#{exemptionPaytime})
@@ -55,7 +54,6 @@
          select costrules_id,costrules_name,costrules_min,costrules_max,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state from t_costrules where costrules_state=3
     </select>
 
-
     <!--  插入支付明细表  -->
     <insert id="insertDetail" parameterType="com.auc.pojo.Detail">
           INSERT INTO t_detail(detail_carnumber,detail_event,produce_id,detail_type,detail_money) VALUES(#{detailCarnumber},#{detailEvent},#{produceId},#{detailType},#{detailMoney})
@@ -71,5 +69,16 @@
          select person_id,person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_address,person_recharge,person_score,person_identity,worker_id
          from t_person where person_carnumber=#{carNumber}
     </select>
+
+    <!--  支付宝订单插入数据  -->
+    <insert id="insertAlipay" parameterType="com.auc.pojo.Alipay">
+         INSERT into t_alipay(alipay_number,alipay_carnumber) VALUES(#{alipayNumber},#{alipayCarnumber})
+    </insert>
+
+    <!--  插入支付清单表  -->
+    <select id="findAlipay" resultType="com.auc.pojo.Alipay" parameterType="java.lang.String">
+         select  alipay_id,alipay_number,alipay_carnumber from t_alipay where alipay_number=#{alipayNumber}
+    </select>
+
 
 </mapper>

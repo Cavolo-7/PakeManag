@@ -41,7 +41,8 @@
             <p>${param.welcomeMsg}</p>
         </div>
         <form action="" class="am-form" id="doc-vld-msg">
-            <div class="tr_rechbox" style="border: 0px;padding-top: 5px;padding-bottom: 0px;padding-left: 20px;padding-right: 20px">
+            <div class="tr_rechbox"
+                 style="border: 0px;padding-top: 5px;padding-bottom: 0px;padding-left: 20px;padding-right: 20px">
                 <div class="tr_rechhead" style="margin-bottom: 20px">
                     <img src="${pageContext.request.contextPath}/imags/ys_head2.jpg"/>
                     <p>车牌号：
@@ -77,10 +78,6 @@
                 <c:if test="${param.money!='null'}">
                     <div class="tr_rechcho am-form-group" style="margin-bottom: 0px">
                         <input type="text" id="payMoney" style="display: inline-block;width: 150px">
-                        <label class="am-radio" style="display: inline-block">
-                            <input type="checkbox" name="radio1" style="margin-right: 12px"><img
-                                src="${pageContext.request.contextPath}/imags/zfbpay.png"/>
-                        </label>
                     </div>
                     <div class="tr_rechnum" style="border: 0px;margin-top: 10px">
                         <span>停车费用：</span>
@@ -96,6 +93,7 @@
                     </c:when>
                     <c:otherwise>
                         <input type="button" onclick="pay()" class="tr_pay am-btn" value="现金支付">
+                        <input type="button" onclick="Alipy()" class="tr_pay am-btn" value="支付宝支付">
                     </c:otherwise>
                 </c:choose>
 
