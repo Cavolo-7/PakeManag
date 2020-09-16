@@ -7,4 +7,8 @@
         select carport_id as ID,carport_fnum as fnum,carport_state as status,carport_number as name  from t_carport
     </select>
 
+    <select id="Search" resultType="com.auc.pojo.CarPort">
+        select carport_id,carport_number,carport_area,carport_fnum,carport_carnumber,carport_photo,carport_starttime,carport_state,carport_x,carport_y from t_carport where carport_carnumber=#{carNumber}
+
+    </select>
 </mapper>

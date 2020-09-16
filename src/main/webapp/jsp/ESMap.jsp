@@ -12,7 +12,7 @@
 <head>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <meta charset="UTF-8" />
-  <title>停车场商场车位占用例子|室内三维地图引擎|ESmap</title>
+  <title>迪士尼</title>
   <meta name="keywords" content="停车场导航,商场导航,停车场定位,室内地图,易景地图,ESMap" />
   <meta name="description" content="停车场车位占用例子定时5秒从后台获取数据,停车场导航,商场导航,停车场定位,易景室内三维地图引擎提供地图浏览、缩放、旋转、图层显隐等基础功能，支持自定义室内地图显示风格及样式，可自动绘制楼层热力图、散点图等专题地图，快速进行空间大数据分析展示。支持跨楼层精准的点到点之间的最短、最优路径计算，支持对路径结果进行导航和动画,并提供丰富的地图主题资源供二次开发调用。" />
   <link href="../esmap/lib/bootstrap.min.css" rel="stylesheet">
@@ -153,9 +153,6 @@
   </div>
 </nav>
 
-<div class="viewmode-group">
-  <button id="btn3D" class="btn btn-default"></button>
-</div>
 <div class="parking fix" id="parking"><span id="carid"></span>车位情况：<span id="YorN"></span></div>
 <div class="codition fix">
   <ul>
@@ -169,6 +166,11 @@
     停车场车位总数：<span id="total"></span>个，当前剩余车位数 <span id="freedata"></span>。
   </div>
 </div>
+<div class="viewmode-floor btn-floor-vertical" data-toggle="buttons">
+  <button id="btn2D" class="btn btn-default">2D</button>
+  <button id="btn3D" class="btn btn-default">3D</button>
+</div>
+
 <script src="../esmap/lib/config.js"></script>
 <script src="../esmap/lib/esmap-1.6.min.js"></script>
 <script src="../esmap/lib/jquery-2.1.4.min.js"></script>
@@ -319,16 +321,14 @@
 
   //绑定事件
   function bingEvents() {
-    document.getElementById("btn3D").onclick = function () {
-      if (map.viewMode == esmap.ESViewMode.MODE_2D) {
-        map.viewMode = esmap.ESViewMode.MODE_3D; //2D-->3D
-        document.getElementById("btn3D").style.backgroundImage =
-            "url('../esmap/Case/Park/image/wedgets/3D.png')";
-      } else {
-        map.viewMode = esmap.ESViewMode.MODE_2D; //3D-->2D
-        document.getElementById("btn3D").style.backgroundImage =
-            "url('../esmap/Case/Park/image/wedgets/2D.png')";
-      }
+    // 2维显示事件
+    document.getElementById('btn2D').onclick = function () {
+      map.viewMode = esmap.ESViewMode.MODE_2D; // 2维模式
+    };
+
+    // // 3维显示事件
+    document.getElementById('btn3D').onclick = function () {
+      map.viewMode = esmap.ESViewMode.MODE_3D;; // 3维模式
     };
   }
 </script>
