@@ -102,8 +102,8 @@
     </select>
 
     <!--    查询月份添加-->
-    <select id="selectEndTime" resultType="java.lang.String" parameterType="com.auc.pojo.Record">
-     select  Date_Add(#{recordEndtime},INTERVAL #{produceMonths} month ) strTime from dual
+    <select id="selectEndTime" resultType="java.util.Date" parameterType="com.auc.pojo.Record">
+     select  DATE_ADD(#{recordEndtime},INTERVAL #{produceMonths} month )recordEndtime from dual
 </select>
 
     <!--    根据名字查询产品信息-->

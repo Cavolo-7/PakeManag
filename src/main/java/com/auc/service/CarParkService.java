@@ -13,4 +13,8 @@ public interface CarParkService {
 
     //查询分区停车位数据信息
     public HashMap selectSubareaParkList(HashMap hashMap);
+
+
+    //查询类型个数
+    public Integer selectSubareaNumber();
 }

@@ -75,7 +75,8 @@
                 <label for="produceName" class="layui-form-label">
                     <span class="x-red"></span>月缴产品</label>
                 <div class="layui-input-inline">
-                    <select name="produceName" id="produceName" lay-verify="required">
+                    <select name="produceName" id="produceName" lay-verify="required" lay-filter="produceName" class="select">
+                        <option value="">请选择</option>
                         <c:if test="${not empty produceList2}">
                             <c:forEach items="${produceList2}" var="p">
                                 <option value="${p.produceName}" >${p.produceName}</option>
@@ -84,12 +85,25 @@
                     </select>
                 </div>
             </div>
-
+            <div class="layui-form-item">
+                <label for="money" class="layui-form-label">
+                    <span class="x-red"></span>套餐金额
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="money" name="money" required="" lay-verify="money"
+                           autocomplete="off" class="layui-input" disabled="false">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"> <span class="x-red"></span></label></label>
                 <button class="layui-btn" lay-filter="add" lay-submit="">
-                  续费
+                    现金续费
                 </button>
+
+
+                    <button class="layui-btn" lay-filter="zf" lay-submit="">
+                        网上支付续费
+                    </button>
                 <button class="layui-btn" lay-filter="quit" onclick="quit(this)">
                     取消
                 </button>
@@ -135,7 +149,21 @@
             //     }
             // }
         });
-
+//选择套餐后加上值
+        form.on('select(produceName)', function (data) {
+            var produceName = $("#produceName").val()
+            if (produceName != null) {
+                $.ajax({
+                    url: "/person/selectMoney",
+                    data: {produceName: produceName},
+                    method: "post",
+                    dataType: "text",
+                    success: function (data) {
+                        $("#money").val(data)
+                    }
+                })
+            }
+        });
         //监听提交
         form.on('submit(add)', function (data) {
             $.ajax({
@@ -159,8 +187,29 @@
             })
             return false;
             });
-
-
+//网上支付
+        form.on('submit(zf)', function (data) {
+            $.ajax({
+                url: "/person/vipRenew",
+                data: data.field,
+                dataType: 'text',
+                method: 'post',
+                success: function (data) {
+                    if (data == "续费成功") {
+                        layer.msg("续费成功!")
+                        // //关闭当前frame
+                        setTimeout(function () {
+                            xadmin.close();
+                        }, 2000000);
+                        // // 可以对父窗口进行刷新
+                        xadmin.father_reload();
+                    } else if(data == "续费失败"){
+                        layer.msg("续费失败!")
+                    }
+                }
+            })
+            return false;
+        });
 
 
     });

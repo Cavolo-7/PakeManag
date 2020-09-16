@@ -47,8 +47,8 @@ public class PersonServicImpl implements PersonService {
 
     //查询计算好的时间
     @Override
-    public String selectEndTime(Record record) {
-        String date=personMapper.selectEndTime(record);
+    public Date selectEndTime(Record record) {
+        Date date=personMapper.selectEndTime(record);
 
         return date;
     }

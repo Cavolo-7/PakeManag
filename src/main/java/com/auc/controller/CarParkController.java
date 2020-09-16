@@ -42,6 +42,7 @@ public class CarParkController {
     @RequestMapping("/selectSubareaPark")
     @ResponseBody
     public String selectSubareaPark(String page, String limit,HttpServletRequest request) {
+        int subareaNumber=carParkService.selectSubareaNumber();
         int pages = Integer.parseInt(limit) * (Integer.parseInt(page) - 1);
         HashMap hashMap = new HashMap();
         hashMap.put("page", pages);
@@ -50,7 +51,7 @@ public class CarParkController {
         List<CarPort> list = (List<CarPort>) hs.get("list");
         LayuiData layuiData=new LayuiData();
         layuiData.setCode(0);
-        layuiData.setCount(2);
+        layuiData.setCount(subareaNumber);
         layuiData.setMsg("查无此数据");
         layuiData.setData(list);
         String str= JSON.toJSONString(layuiData);

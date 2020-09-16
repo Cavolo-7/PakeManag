@@ -123,12 +123,12 @@ public class PersonController {
         Record record2 = new Record();
         record2.setRecordEndtime(date);
         record2.setProduceMonths(produce.getProduceMonths());
-//        Date date2 = personService.selectEndTime(record2);//计算截止时间
-        String  date2= personService.selectEndTime(record2);
+        Date date2 = personService.selectEndTime(record2);//计算截止时间
+//        String  date2= personService.selectEndTime(record2);
         System.out.println(date2+"/**-*");
-//        String strDate = dateFormat.format(date2);//截止时间格式转换
-//        System.out.println(strDate+"/*-*-*/");
-        Date date3 = dateFormat.parse(date2);//截止时间格式转换为date
+        String strDate = dateFormat.format(date2);//截止时间格式转换
+        System.out.println(strDate+"/*-*-*/");
+        Date date3 = dateFormat.parse(strDate);//截止时间格式转换为date
 
         //开通vip
         Person person2 = new Person();
@@ -174,6 +174,20 @@ public class PersonController {
         return str;
     }
 
+    //查询套餐价格
+    @RequestMapping(value = "/selectMoney", produces = "text/plain;charset=utf-8")
+    public String selectMoney(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        String produceName = request.getParameter("produceName");
+        System.out.println(produceName);
+        String str=null;
+        Produce produce=personService.selectProduceId(produceName);
+        System.out.println(produce.toString());
+        str=produce.getProduceMoney()+"";
+        System.out.println(str);
+        return str;
+    }
+
+
     //vip续费
     @RequestMapping(value = "/vipRenew", produces = "text/plain;charset=utf-8")
     public String vipRenew(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
@@ -196,12 +210,12 @@ public class PersonController {
         Record record2 = new Record();
         record2.setRecordEndtime(date3);
         record2.setProduceMonths(produce.getProduceMonths());
-//        Date date2 = personService.selectEndTime(record2);//计算截止时间
-        String  date2= personService.selectEndTime(record2);
+        Date date2 = personService.selectEndTime(record2);//计算截止时间
+//        String  date2= personService.selectEndTime(record2);
         System.out.println("//*-*-"+date2);
-//        String strDate = dateFormat.format(date2);//格式化截止时间
+        String strDate = dateFormat.format(date2);//格式化截止时间
 //        System.out.println("/*-+-/"+strDate);
-        Date date = dateFormat.parse(date2);//格式好的最终截止时间
+        Date date = dateFormat.parse(strDate);//格式好的最终截止时间
         System.out.println("/**-/*-*"+date);
 
         //修改用户总消费金额

@@ -33,7 +33,7 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <div class="layui-input-inline">
-                    <input type="hidden" id="personId" name="personId" autocomplete="off" class="layui-input" >
+                    <input type="hidden" id="personId" name="personId" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -64,7 +64,8 @@
                     <span class="x-red"></span>车牌号
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="personCarnumber" name="personCarnumber" required="" lay-verify="personCarnumber"
+                    <input type="text" id="personCarnumber" name="personCarnumber" required=""
+                           lay-verify="personCarnumber"
                            autocomplete="off" class="layui-input" disabled="false">
                 </div>
             </div>
@@ -72,21 +73,37 @@
             <div class="layui-form-item">
                 <label for="produceName" class="layui-form-label">
                     <span class="x-red"></span>月缴产品</label>
-                    <div class="layui-input-inline">
-                        <select name="produceName" id="produceName" lay-verify="required">
-                            <c:if test="${not empty produceList2}">
-                                <c:forEach items="${produceList2}" var="p">
-                                    <option value="${p.produceName}" >${p.produceName}</option>
-                                </c:forEach>
-                            </c:if>
-                        </select>
-                    </div>
+                <div class="layui-input-inline">
+                    <%--                        onchange="show_sub(this.options[this.options.selectedIndex].value)"--%>
+                    <select name="produceName" id="produceName" lay-verify="required" lay-filter="produceName"
+                            class="select">
+                        <option value="">请选择</option>
+                        <c:if test="${not empty produceList2}">
+                            <c:forEach items="${produceList2}" var="p">
+                                <option value="${p.produceName}">${p.produceName}</option>
+                            </c:forEach>
+                        </c:if>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="money" class="layui-form-label">
+                    <span class="x-red"></span>套餐金额
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="money" name="money" required="" lay-verify="money"
+                           autocomplete="off" class="layui-input" disabled="false">
+                </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label"> <span class="x-red"></span></label></label>
                 <button class="layui-btn" lay-filter="add" lay-submit="">
-                    增加
+                    现金开通
+                </button>
+                <button class="layui-btn" lay-filter="zf" lay-submit="">
+                    网上支付开通
                 </button>
                 <button class="layui-btn" lay-filter="quit" onclick="quit(this)">
                     取消
@@ -104,17 +121,17 @@
 
         //自定义验证规则
         form.verify({
-            personAccount:[/^[0-9]+$/,'账号为整数类型'],
-            personAccount:function(value){
-                if (value.length<2){
+            personAccount: [/^[0-9]+$/, '账号为整数类型'],
+            personAccount: function (value) {
+                if (value.length < 2) {
                     return '账号长度需要大于或大于3位'
                 }
             },
 
-            personName:function(value){
-              if (value.length<2){
-                  return '用户名需要大于或等于两个字符'
-              }
+            personName: function (value) {
+                if (value.length < 2) {
+                    return '用户名需要大于或等于两个字符'
+                }
             },
 
 
@@ -123,31 +140,81 @@
                 '车牌号码是否合法'
             ],
         });
+        //选择套餐后加上值
+        form.on('select(produceName)', function (data) {
+            var produceName = $("#produceName").val()
+            if (produceName != null) {
+                $.ajax({
+                    url: "/person/selectMoney",
+                    data: {produceName: produceName},
+                    method: "post",
+                    dataType: "text",
+                    success: function (data) {
+                        $("#money").val(data)
+                    }
+                })
+            }
+        });
 
         //监听提交
         form.on('submit(add)', function (data) {
-            $.ajax({
-                url: "/person/addVip",
-                data: data.field,
-                dataType: 'text',
-                method: 'post',
-                success: function (data) {
-                    if (data == "开通成功") {
-                        layer.msg("开通成功!")
-                        // //关闭当前frame
-                        setTimeout(function () {
-                            xadmin.close();
-                        }, 20000);
-                        // // 可以对父窗口进行刷新
-                        xadmin.father_reload();
-                    } else if(data == "开通失败"){
-                        layer.msg("开通失败!")
+            var produceName = $("#produceName").val()
+            var money = $("#money").val()
+            if (produceName != null && money != null) {
+                $.ajax({
+                    url: "/person/addVip",
+                    data: data.field,
+                    dataType: 'text',
+                    method: 'post',
+                    success: function (data) {
+                        if (data == "开通成功") {
+                            layer.msg("开通成功!")
+                            // //关闭当前frame
+                            setTimeout(function () {
+                                xadmin.close();
+                            }, 20000);
+                            // // 可以对父窗口进行刷新
+                            xadmin.father_reload();
+                        } else if (data == "开通失败") {
+                            layer.msg("开通失败!")
+                        }
                     }
-                }
-            })
+                })
+            } else {
+                layer.msg("请选择要开通的套餐！")
+            }
             return false;
-            });
+        });
+        //支付宝开通
+        //监听提交
+        form.on('submit(zf)', function (data) {
+            var produceName = $("#produceName").val()
+            var money = $("#money").val()
+
+                $.ajax({
+                    url: "/person/addVip",
+                    data: data.field,
+                    dataType: 'text',
+                    method: 'post',
+                    success: function (data) {
+                        if (data == "开通成功") {
+                            layer.msg("开通成功!")
+                            // //关闭当前frame
+                            setTimeout(function () {
+                                xadmin.close();
+                            }, 20000);
+                            // // 可以对父窗口进行刷新
+                            xadmin.father_reload();
+                        } else if (data == "开通失败") {
+                            layer.msg("开通失败!")
+                        }
+                    }
+                })
+            return false;
+        });
+
     });
+
 function quit(node) {
     setTimeout(function () {
         xadmin.close();
@@ -155,6 +222,7 @@ function quit(node) {
     // // 可以对父窗口进行刷新
     xadmin.father_reload();
 }
+
 </script>
 </body>
 

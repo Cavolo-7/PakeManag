@@ -17,4 +17,8 @@ public interface CarParkMapper {
 
     //查询分区停车位数据信息
     public List<CarPort> selectSubareaPark(Integer page, Integer limit);
+
+    //查询类型个数
+    public Integer selectSubareaNumber();
+
 }

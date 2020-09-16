@@ -42,4 +42,10 @@ public class CarParkServiceImpl implements CarParkService {
         return hashMaps;
     }
 
+    @Override
+    public Integer selectSubareaNumber() {
+        int n=carParkMapper.selectSubareaNumber();
+        return n;
+    }
+
 }

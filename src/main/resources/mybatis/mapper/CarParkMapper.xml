@@ -9,13 +9,19 @@
     <select id="selectAllPark" resultType="com.auc.pojo.CarPort">
         select count(c.carport_id) allPark,
     (select count(c2.carport_id) from t_carport as c2 where c2.carport_carnumber!='')employPark,
-    (select count(c3.carport_id) from t_carport as c3 where c3.carport_carnumber='')leisurePark
+    (select count(c3.carport_id) from t_carport as c3 where c3.carport_carnumber is null or"")leisurePark
     from t_carport as c
     </select>
 
 <!--    分区车位统计查询-->
     <select id="selectSubareaPark" resultType="com.auc.pojo.CarPort">
-        select c.carport_area carportArea ,count(c.carport_area) allSubarea,ifnull(sum(c.carport_carnumber!=''),0)subarEaemploy,ifnull(sum(c.carport_carnumber=''),0)subarLeisure
+        select c.carport_area carportArea ,count(c.carport_area) allSubarea,ifnull(sum(c.carport_carnumber!=''),0)subarEaemploy,ifnull(sum(c.carport_carnumber is null or""),0)subarLeisure
         from t_carport as c  GROUP BY c.carport_area
     </select>
+
+<!--    分区个数-->
+    <select id="selectSubareaNumber" resultType="java.lang.Integer">
+        select count(DISTINCT(c.carport_area)) from t_carport as c
+    </select>
+
 </mapper>

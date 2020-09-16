@@ -15,7 +15,7 @@ public interface PersonService {
     public LayuiData<Person> selectVipList(Map<String, String> condition, Integer curPage, Integer pageSize);
 
     //查询计算好的时间
-    public String selectEndTime(Record record);
+    public Date selectEndTime(Record record);
 
     //查询产品
     public Produce selectProduceId(String produceName);
