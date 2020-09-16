@@ -3,7 +3,7 @@
     layer = layui.layer;
     var tree = layui.tree;
     var path = $("#path").val();
-    var roleId = $("#roleValue").val();
+    var roleId = $("#roleId").val();
     $.ajax({
             url: path + "/root/rootAllot",
             type: "post",
@@ -24,8 +24,7 @@
             },
             complete: function () {
             }
-        }
-    );
+        });
 
     $("#update").on("click", function () {
         //获得选中的节点
@@ -34,7 +33,7 @@
 
         console.log(checkData)
         $.ajax({
-                url: path + "/admin/updateMenu",
+                url: path + "/root/updateMenu",
                 type: "post",
                 data: {
                     "checkData": checkData,

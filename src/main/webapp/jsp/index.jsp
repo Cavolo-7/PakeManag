@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="../css/theme10.min.css">
   <script src="../layui/layui.js" charset="utf-8"></script>
   <script type="text/javascript" src="../js/xadmin.js"></script>
+<%--  <script src="${pageContext.request.contextPath}/js/Tc.js" charset="utf-8"></script>--%>
   <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <%--  <!--[if lt IE 9]>--%>
 <%--  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>--%>
@@ -36,7 +37,7 @@
 <!-- 顶部开始 -->
 <div class="container">
   <div class="logo">
-    <a href="./index.html">智能停车场管理系统</a></div>
+    <a >智能停车场管理系统</a></div>
   <div class="left_open">
     <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
   </div>
@@ -71,13 +72,14 @@
         <dd>
           <a onclick="Person()">个人信息</a></dd>
         <dd>
-          <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+          <a onclick="xadmin.open('切换帐号','../jsp/Login.jsp')">切换帐号</a></dd>
         <dd>
-          <a href="../Login.jsp">退出</a></dd>
+          <a href="${pageContext.request.contextPath}/jsp/Login.jsp">退出</a></dd>
       </dl>
     </li>
     <li class="layui-nav-item to-index">
-      <a href="/">前台首页</a></li>
+      <a class="layui-icon" href="${pageContext.request.contextPath}/jsp/main.jsp">前台首页</a>
+    </li>
   </ul>
 </div>
 <!-- 顶部结束 -->
@@ -113,13 +115,13 @@
           <cite>其它页面</cite>
           <i class="iconfont nav_right">&#xe697;</i></a>
         <ul class="sub-menu">
+<%--          <li>--%>
+<%--            <a href="login.jsp" target="_blank">--%>
+<%--              <i class="iconfont">&#xe6a7;</i>--%>
+<%--              <cite>登录页面</cite></a>--%>
+<%--          </li>--%>
           <li>
-            <a href="login.jsp" target="_blank">
-              <i class="iconfont">&#xe6a7;</i>
-              <cite>登录页面</cite></a>
-          </li>
-          <li>
-            <a onclick="xadmin.add_tab('错误页面','error.html')">
+            <a onclick="xadmin.add_tab('错误页面','error.jsp')">
               <i class="iconfont">&#xe6a7;</i>
               <cite>错误页面</cite></a>
           </li>
@@ -129,7 +131,7 @@
               <cite>示例页面</cite></a>
           </li>
           <li>
-            <a onclick="xadmin.add_tab('更新日志','log.html')">
+            <a onclick="xadmin.add_tab('更新日志','log.jsp')">
               <i class="iconfont">&#xe6a7;</i>
               <cite>更新日志</cite></a>
           </li>
@@ -157,7 +159,7 @@
     </div>
     <div class="layui-tab-content">
       <div class="layui-tab-item layui-show">
-        <iframe src='../imags/1.jpg' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+        <iframe src='../imags/1.jpg' width="100%" height="100$" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
       </div>
     </div>
     <div id="tab_show"></div>
@@ -167,5 +169,6 @@
 <style id="theme_style"></style>
 <!-- 右侧主体结束 -->
 <!-- 中部结束 -->
+
 </body>
 </html>

@@ -20,8 +20,6 @@ public class UserControl {
 
     @Autowired
     public UserService userService;
-
-
     @RequestMapping(value = "/selectRole", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String selectRole(HttpServletRequest request) {

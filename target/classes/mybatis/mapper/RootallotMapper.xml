@@ -5,10 +5,52 @@
 <mapper namespace="com.auc.mapper.RootMapper">
     <!--菜单显示-->
     <select id="findMenu" resultType="com.auc.pojo.Menu" parameterType="com.auc.pojo.Menu">
-  select m.menu_id,m.menu_name,m.menu_url,m.parent_id from t_menu as m,t_relation as r  where m.menu_id=r.menu_id and m.parent_id=#{param1} and r.urisdiction_id=#{param2}
-  </select>
+    select m.menu_id,m.menu_name,m.menu_url,m.parent_id from t_menu as m,t_relation as r  where m.menu_id=r.menu_id and m.parent_id=#{param1} and r.urisdiction_id=#{param2}
+     </select>
     <!--根据id显示全部菜单-->
     <select id="inquireMenu" resultType="com.auc.pojo.Menu">
         select  * from t_menu;
     </select>
+
+    <!--查询角色列表表格数据-->
+    <select id="selectRole" parameterType="java.util.Map" resultType="com.auc.pojo.Role">
+        select r.role_id,r.role_name,r.urisdictionName ,p.param_name stateName from t_param p ,(select r.role_id,r.role_name,u.param_name urisdictionName, r.role_state from t_role r, t_param u where r.urisdiction_id=u.param_value) r
+        <where>
+            p.param_value=r.role_state
+            <if test="roleName!=null and roleName!=''"> and r.role_name=#{roleName}  </if>
+            <if test="urisdiction!=null and urisdiction!='' "> and urisdictionName=#{urisdiction}</if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <!--查询页码-->
+    <select id="queryRoleCount"  resultType="Integer">
+        select count(*) from t_role r,t_param u where r.urisdiction_id=u.param_value
+        <where>
+            <if test="roleName!=null and roleName!='' "> and r.role_name=#{roleName}</if>
+            <if test="urisdiction!=null and urisdiction!='' "> and u.urisdictionName=#{urisdiction}</if>
+        </where>
+    </select>
+
+
+    <!--查菜单方法-->
+    <select id="findAdminMenuById"  resultMap="menuMap">
+        select m.menu_id,m.menu_name,m.menu_url,m.parent_id,r.urisdiction_id urisdiction_id from t_menu as m,t_relation as r where m.menu_id=r.menu_id and m.parent_id=#{parentId} and r.urisdiction_id=#{urisdictionId}
+           </select>
+
+    <resultMap id="menuMap" type="com.auc.pojo.Menu">
+        <id column="menu_id" property="menuId"/>
+        <id column="menu_name" property="menuName"/>
+        <id column="menu_url" property="menuUrl"/>
+        <id column="parent_id" property="parentId"/>
+        <collection column="{urisdiction_id=urisdiction_id,menuId=menu_id}" property="menuList" ofType="com.auc.pojo.Menu" javaType="java.util.ArrayList"  select="selectMenu">
+        </collection>
+    </resultMap>
+
+    <select id="selectMenu" parameterType="java.util.Map" resultType="com.auc.pojo.Menu">
+   select m.menu_id,m.menu_name,m.menu_url,m.parent_id from t_menu as m,t_relation as r  where m.menu_id=r.menu_id and m.parent_id=#{menuId} and r.urisdiction_id=#{urisdiction_id}
+
+    </select>
+
+
 </mapper>

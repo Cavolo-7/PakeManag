@@ -292,18 +292,18 @@
           <div class="mainmenu">
             <nav>
               <ul>
-                <li class="active"><a href="http://www.jparking.cn/home">首页</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/jsp/main.jsp">首页</a></li>
                 <li >
                   <a  href="http://www.jparking.cn/lists/index?tid=1">客户端</a>
                 </li>
                 <li >
-                  <a  href="http://www.jparking.cn/lists/index?tid=2">管理端</a>
+                  <a href="${pageContext.request.contextPath}/jsp/Login.jsp">管理端</a>
                 </li>
                 <li >
                   <a  href="http://www.jparking.cn/lists/index?tid=3">扫描系统</a>
                 </li>
                 <li >
-                  <a  href="http://www.jparking.cn/lists/index?tid=5">关于我们</a>
+                  <a  href="http://www.jparking.cn/lists/index?tid=4">关于我们</a>
                 </li>
                 <script>
                   if(screen.width >375){
