@@ -105,9 +105,9 @@
         //序号
         , {type: 'numbers', width: '5%', title: '序号', align: 'center'}
         , {field: 'produceId', width: '10%', title: '套餐编号', align: 'center'}
-        , {field: 'produceName', width: '20%', title: '套餐名字', align: 'center', edit: true}
+        , {field: 'produceName', width: '20%', title: '套餐名字', align: 'center'}
         , {field: 'produceDescribe', width: '20%', title: '套餐描述', align: 'center'}
-        , {field: 'produceMoney', width: '20%', title: '套餐价格', align: 'center', edit: true}
+        , {field: 'produceMoney', width: '20%', title: '套餐价格', align: 'center'}
         , {field: 'paramName', width: '10%', title: '套餐状态', align: 'center'}
         , {field: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
       ]]

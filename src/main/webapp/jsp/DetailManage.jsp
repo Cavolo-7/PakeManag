@@ -105,6 +105,7 @@
             , id: 'demo'
             , url: '/settlement/getDetailList'
             ,totalRow: true
+            ,defaultToolbar:['print']
             , cellMinWidth: 80
             // 限制每页的条数
             // , limit: 10
@@ -120,7 +121,7 @@
                 //序号
                 // , totalRowText: '合计',totalRow: true
                 // {type: 'checkbox', width: '5%', fixed: 'left', align: 'center'}
-                {type: 'numbers', width: '5%', title: '序号', align: 'center', totalRowText: '合计'}
+                ,{type: 'numbers', width: '5%', title: '序号', align: 'center', totalRowText: '合计'}
                 , {field: 'detailId', title: 'ID', width: '5%',align: 'center',hide: true}
                 , {field: 'detailCarnumber', title: '车牌号', width: '10%',align: 'center'}
                 , {field: 'detailEvent', title: '业务', width: '10%',align: 'center'}

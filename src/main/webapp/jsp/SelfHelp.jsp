@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cleo - Agency Landing Page Template</title>
+    <title>自助客户端</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- font -->
@@ -32,7 +32,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" onclick="openArea()">
                 <div class="content">
                     <div class="serv-icon">
                         <i class="icon ion-ios-bulb"></i>
@@ -100,6 +100,11 @@
 </div>
 <!-- end services -->
 <script>
+    function openArea() {
+        var path = $("#path").val();
+        location.href = '/jsp/Area.jsp';
+    }
+
     function openSelfHelf() {
         var path = $("#path").val();
         location.href = path+'/jsp/SelfPay.jsp';

@@ -19,24 +19,4 @@ public class Timing {
         timingService.JudgeVip();
     }
 
-    //早班
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void Sttlement(){
-
-        timingService.Sttlement();
-    }
-
-    //午班
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void Sttlement2(){
-
-        timingService.Sttlement2();
-    }
-
-    //晚班
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void Sttlement3(){
-
-        timingService.Sttlement3();
-    }
 }

@@ -28,10 +28,19 @@ public class ESMapControl {
     public String QueryMap(){
         System.out.println("鸟瞰图查询");
         HashMap<String, List<CarPort>> hashMap=esMapService.QueryESMap();
-        System.out.println(hashMap);
         String str=JSONObject.toJSONString(hashMap);
         return str;
     }
+
+    @RequestMapping("/photo")
+    @ResponseBody
+    public String QueryPhoto(String carNumber){
+        System.out.println("照片查询");
+        CarPort carPort=esMapService.Search(carNumber);
+        String str=JSONObject.toJSONString(carPort);
+        return str;
+    }
+
 
     @RequestMapping("/search")
     @ResponseBody
