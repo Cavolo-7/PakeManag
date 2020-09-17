@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.LogRegMapper">
+    <!--注册用户-->
+    <insert id="regPerson" parameterType="com.auc.pojo.Person">
+   insert into t_person (person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_identity) values
+    (#{personName},#{personAccount},#{personPassword},#{personCarnumber},#{personSex},#{personAge},#{personPhone},0)
+    </insert>
+
+    <select id="loginPerson" resultType="com.auc.pojo.Person">
+    select p.person_name,p.person_account,p.person_password,p.person_carnumber,p.person_sex,p.person_age,p.person_phone
+    from t_person as p where person_account = #{personAccount} and person_password=#{personAassword} limit 1
+  </select>
+
+    <!--   查询员工参数表性别-->
+    <select id="querySexParam" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select param_value from t_param where param_name=#{sexName} and param_type='personSex'
+    </select>
+
+    <!--    查询管理员手机号码是否存在-->
+    <select id="selectPersonPhone" resultType="com.auc.pojo.Person" parameterType="java.lang.String">
+        select person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone
+ from t_person as w where w.person_phone=#{personPhone}
+
+    </select>
+
+    <!--    根据账号查询用户表-->
+    <select id="selectPersonAccount" resultType="com.auc.pojo.Person" parameterType="java.lang.String">
+       select person_id,person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone
+        from t_person where person_account=#{personAccount}
+    </select>
+</mapper>

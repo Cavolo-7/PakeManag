@@ -68,7 +68,6 @@
 
                         <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
-                        <%--                        <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量删除</button>--%>
                         <button class="layui-btn" onclick="xadmin.open('添加用户','./AddAdmin.jsp',600,470)"><i
                                 class="layui-icon"></i>添加
                         </button>

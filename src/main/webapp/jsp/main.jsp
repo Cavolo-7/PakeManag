@@ -294,7 +294,7 @@
               <ul>
                 <li class="active"><a href="${pageContext.request.contextPath}/jsp/main.jsp">首页</a></li>
                 <li >
-                  <a  href="http://www.jparking.cn/lists/index?tid=1">客户端</a>
+                  <a  href="${pageContext.request.contextPath}/jsp/UserLogin.jsp">客户端</a>
                 </li>
                 <li >
                   <a href="${pageContext.request.contextPath}/jsp/Login.jsp">管理端</a>
@@ -375,27 +375,27 @@
     <div class="swiper-container index-banner">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <a href="https://www.jslife.com.cn/info-collection/parkRental.html?busType=5&orderSource=1#/" target="_blank">
+<%--          <a href="https://www.jslife.com.cn/info-collection/parkRental.html?busType=5&orderSource=1#/" target="_blank">--%>
             <img src="../resources/picture/20030505432524886.jpg" class="wow fadeIn bacimg" />
           </a>
         </div>
         <div class="swiper-slide">
-          <a href="https://www.jslife.com.cn/info-collection/no-sense-payment-coll.html?busType=6&orderSource=1#/" target="_blank">
+<%--          <a href="https://www.jslife.com.cn/info-collection/no-sense-payment-coll.html?busType=6&orderSource=1#/" target="_blank">--%>
             <img src="../resources/picture/20030505411114915.jpg" class="wow fadeIn bacimg" />
           </a>
         </div>
         <div class="swiper-slide">
-          <a href="https://www.jslife.com.cn/info-collection/monthly-card.html?busType=7&orderSource=1#/" target="_blank">
+<%--          <a href="https://www.jslife.com.cn/info-collection/monthly-card.html?busType=7&orderSource=1#/" target="_blank">--%>
             <img src="../resources/picture/20030505342174169.jpg" class="wow fadeIn bacimg" />
           </a>
         </div>
         <div class="swiper-slide">
-          <a href="https://www.jslife.com.cn/info-collection/electronic-invoice.html?busType=3&orderSource=1#/" target="_blank">
+<%--          <a href="https://www.jslife.com.cn/info-collection/electronic-invoice.html?busType=3&orderSource=1#/" target="_blank">--%>
             <img src="../resources/picture/20030505334627771.jpg" class="wow fadeIn bacimg" />
           </a>
         </div>
         <div class="swiper-slide">
-          <a href="https://www.jslife.com.cn/info-collection/collection.html?busType=1&orderSource=1&view=locationNine#/" target="_blank">
+<%--          <a href="https://www.jslife.com.cn/info-collection/collection.html?busType=1&orderSource=1&view=locationNine#/" target="_blank">--%>
             <img src="../resources/picture/20032002544193178.png" class="wow fadeIn bacimg" />
           </a>
         </div>
