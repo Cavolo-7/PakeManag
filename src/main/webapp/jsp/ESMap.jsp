@@ -137,18 +137,10 @@
     </h1>
 
     <div class="tips-right">
-      <span class="tip1"></span> <span class="tip2"></span>
+
     </div>
     <div class="tips-msg">
-      <div class="msg msg1">
-        <div class="erweima"></div>
-        <p>手机扫一扫进入体验</p>
-      </div>
-      <div class="msg msg2">
-        <h4>迪斯尼</h4>
-        <p>这是一个无敌的停车场</p>
-        <div style="display: none"></div>
-      </div>
+
     </div>
   </div>
 </nav>

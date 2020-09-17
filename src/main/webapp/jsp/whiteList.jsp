@@ -176,14 +176,6 @@
       active[type] ? active[type].call(this) : '';
     });
 
-    // var $ = layui.$, active = {
-    //   getCheckData: function () { //获取选中数据
-    //     var checkStatus = table.checkStatus('testReload')
-    //         , data = checkStatus.data;
-    //     layer.alert(JSON.stringify(data));
-    //   }
-    // };
-
   });
 </script>
 </html>

@@ -91,7 +91,7 @@
       , cols: [[
         //序号
         {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'detailEvent', width: 300, title: '用户类型', align: 'center', edit: true}
+        , {field: 'detailEvent', width: 300, title: '用户类型', align: 'center'}
         , {field: 'detailMoney', title: '收入', align: 'center'}
       ]]
       , id: 'testReload'
@@ -114,7 +114,7 @@
       , cols: [[
         //序号
         {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'detailEvent', width: 300, title: '套餐类型', align: 'center', edit: true}
+        , {field: 'detailEvent', width: 300, title: '套餐类型', align: 'center'}
         , {field: 'detailMoney', title: '收入', align: 'center'}
       ]]
       , id: 'testReload'
@@ -137,7 +137,7 @@
       , cols: [[
         //序号
         {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'detailEvent', width: 300, title: '自助缴费', align: 'center', edit: true}
+        , {field: 'detailEvent', width: 300, title: '自助缴费', align: 'center'}
         , {field: 'detailMoney', title: '收入', align: 'center'}
       ]]
       , id: 'testReload'
@@ -160,12 +160,13 @@
       , cols: [[
         //序号
          {type: 'numbers', width: 200, title: '序号', align: 'center'}
-        , {field: 'detailEvent', width: 300, title: '停放总次数', align: 'center', edit: true}
+        , {field: 'detailEvent', width: 300, title: '停放总次数', align: 'center'}
         , {field: 'detailMoney', title: '总收入', align: 'center'}
       ]]
       , id: 'testReload'
     })
   });
+
 </script>
 </body>
 </html>

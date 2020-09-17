@@ -217,7 +217,6 @@
         } else if (clickCount == 1) { //添加终点并画路线
           //判断起点和终点是否相同
           if (lastCoord.x == coord.x) {
-            alert("起点和终点不能相同!,请重新选点")
             return;
           }
           navi.setEndPoint({

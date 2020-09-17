@@ -3,41 +3,47 @@
     layer = layui.layer;
     var tree = layui.tree;
     var path = $("#path").val();
-    var roleId = $("#roleId").val();
+    var value = $("#value").val();
+
     $.ajax({
             url: path + "/root/rootAllot",
             type: "post",
-            data: {"roleId": roleId},
+            data: {
+                "value": value,
+            },
             dataType: "json",
             beforeSend: function () {
             },
             success: function (result) {
-                //渲染树
+                console.log(result)
                 tree.render({
                     elem: '#roleTree'
-                    , data: [result] //数据源
-                    , showCheckbox: true //显示复选框
-                    , id: 'roleTree' //定义索引
-                });
+                    , data: [result]
+                    , showCheckbox: true
+                    , id: 'roleTree'
+                })
             },
             error: function () {
             },
             complete: function () {
             }
-        });
+        }
+    );
 
     $("#update").on("click", function () {
-        //获得选中的节点
-        var checkData = tree.getChecked('roleTree');
-        var checkData = JSON.stringify(checkData[0]);
+        layer.confirm('确定要修改嘛？', function (index) {
+            layer.close(index);//关闭特定层(confirm)
+            //获得选中的节点
+            var checkData = tree.getChecked('roleTree');
+            var checkData = JSON.stringify(checkData[0]);
 
-        console.log(checkData)
-        $.ajax({
+            console.log(checkData)
+            $.ajax({
                 url: path + "/root/updateMenu",
                 type: "post",
                 data: {
                     "checkData": checkData,
-                    "roleId": roleId,
+                    "value": value,
                 },
                 dataType: "text",
                 beforeSend: function () {
@@ -53,13 +59,17 @@
                 },
                 complete: function () {
                 }
-            }
-        );
+            });
+        }
+        )
     })
 
 
     $("#cancel").on("click", function () {
-        tree.reload('roleTree');
+        layer.confirm('您将取消修改，是否确定？', function (index) {
+            layer.close(index);//关闭特定层(confirm)
+            tree.reload('roleTree');
+        })
     })
 
 });
