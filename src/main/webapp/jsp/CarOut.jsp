@@ -48,9 +48,11 @@
                     <p>车牌号：
                         <a>${param.carNumber}</a>
                     </p>
-                    <p style="margin-left: 50px">停车类型：
-                        <a>${param.carType}</a>
-                    </p>
+                    <c:if test="${param.carType}!='白名单用户'">
+                        <p style="margin-left: 50px">停车类型：
+                            <a>${param.carType}</a>
+                        </p>
+                    </c:if>
                     <c:if test="${not empty param.payState}">
                         <p style="margin-left: 50px">缴费状态：
                             <a style="color: red">${param.payState}</a>
@@ -88,16 +90,24 @@
 
             <div class="tr_paybox" style="padding-top: 0px;text-align: center">
                 <c:choose>
+<%--                    无需缴费：白名单用户，月缴用户，自助缴费未超时--%>
                     <c:when test="${param.money=='null'}">
                         <input type="button" onclick="sure()" class="tr_pay am-btn" value="确定">
                     </c:when>
+
+<%--                    无需缴费：临时车辆不满半小时,金额为 0 --%>
+                    <c:when test="${param.money==0}">
+                        <input type="button" onclick="zeroMoney()" class="tr_pay am-btn" value="确定">
+                    </c:when>
+
+<%--                    需要缴费：临时车辆，自助缴费超时,金额不为 0--%>
                     <c:otherwise>
                         <input type="button" onclick="pay()" class="tr_pay am-btn" value="现金支付">
                         <input type="button" onclick="Alipy()" class="tr_pay am-btn" value="支付宝支付">
                     </c:otherwise>
                 </c:choose>
-
             </div>
+
         </form>
     </div>
 </div>

@@ -32,7 +32,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" onclick="openArea()">
                 <div class="content">
                     <div class="serv-icon">
                         <i class="icon ion-ios-bulb"></i>
@@ -103,6 +103,11 @@
     function openSelfHelf() {
         var path = $("#path").val();
         location.href = path+'/jsp/SelfPay.jsp';
+    }
+
+    function openArea() {
+        var path = $("#path").val();
+        location.href = path+'/jsp/Area.jsp';
     }
 </script>
 

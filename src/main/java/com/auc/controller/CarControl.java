@@ -58,7 +58,7 @@ public class CarControl {
 
     /**
      * @Author: TheBigBlue
-     * @Description: 车牌扫描
+     * @Description: 车牌入场扫描
      * @Date: 2020/9/11
      * @Param request:
      * @Param file:
@@ -67,14 +67,51 @@ public class CarControl {
     @ResponseBody
     @RequestMapping(value = "/findCarNumber")
     public LayuiData findCarNumber(HttpServletRequest request, MultipartFile file) throws IOException {
-        String projectPath = FileUtil.uploadFile(request, file);
+        String projectPath = FileUtil.uploadFile(request, file);//上传车辆入场照片
         String accessToken = authServiceImpl.getAuth();//获取accessToken
         Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
         LayuiData layuiData = new LayuiData();
-        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {
+        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描成功
             layuiData.setMsg("error");
-        } else {
-            layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);
+        } else {//车牌扫描失败
+            //查询车库表是否有该车辆
+            CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());
+            if (carPort == null) {
+                layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);
+            } else {
+                layuiData.setMsg("repeat");
+            }
+        }
+        layuiData.setCode(0);
+        return layuiData;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 车牌出场扫描
+     * @Date: 2020/9/11
+     * @Param request:
+     * @Param file:
+     * @return: com.auc.util.LayuiData
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/findCarNumberOut")
+    public LayuiData findCarNumberOut(HttpServletRequest request, MultipartFile file) throws IOException {
+        String projectPath = FileUtil.uploadFile(request, file);//上传车辆入场照片
+        String accessToken = authServiceImpl.getAuth();//获取accessToken
+        Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
+        LayuiData layuiData = new LayuiData();
+        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描成功
+            layuiData.setMsg("error");
+        } else {//车牌扫描失败
+            //查询车库表是否有该车辆
+            CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());
+            if (carPort == null) {
+                layuiData.setMsg("nocar");//该车不在车库
+            } else {
+                layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);//该车在车库
+            }
         }
         layuiData.setCode(0);
         return layuiData;
@@ -109,16 +146,16 @@ public class CarControl {
     @ResponseBody
     @RequestMapping(value = "/carIn")
     public WelcomeInfo carIn(HttpServletRequest request) {
-        String carNumber = request.getParameter("carNumber");
-        String path = request.getParameter("photoPath");
-        WelcomeInfo welcomeInfo = carServiceImpl.carIn(carNumber, path);
-        return welcomeInfo;
+        String carNumber = request.getParameter("carNumber");//车牌号
+        String path = request.getParameter("photoPath");//入场照片
+        WelcomeInfo welcomeInfo = carServiceImpl.carIn(carNumber, path);//车辆入场业务
+        return welcomeInfo;//返回车辆入场信息
     }
 
 
     /**
      * @Author: TheBigBlue
-     * @Description: 车辆入库手动输入车牌
+     * @Description: 车辆入场手动输入车牌
      * @Date: 2020/9/9
      * @Param request:
      * @Param file:
@@ -144,9 +181,32 @@ public class CarControl {
     @ResponseBody
     @RequestMapping(value = "/carOut")
     public WelcomeInfo carOut(HttpServletRequest request) {
-        String carNumber = request.getParameter("carNumber");
-        WelcomeInfo welcomeInfo = carServiceImpl.carOut(carNumber);
-        return welcomeInfo;
+        String carNumber = request.getParameter("carNumber");//车牌号
+        WelcomeInfo welcomeInfo = carServiceImpl.carOut(carNumber);//车辆出场业务
+        return welcomeInfo;//返回出场信息
+    }
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 车辆出场无需支付
+     * @Date: 2020/9/17
+     * @Param request:
+     * @return: java.lang.String
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/carOutNoPay")
+    public String carOutNoPay(HttpServletRequest request) {
+        String carNumber = request.getParameter("carNumber");//车牌号
+        String carportId = request.getParameter("carportId");//车位id
+        String result = "";
+        boolean flag = carServiceImpl.carOutNoPay(carNumber, new Integer(carportId));
+        if (flag == true) {
+            result = "success";
+        } else {
+            result = "error";
+        }
+        return result;
     }
 
 
@@ -260,14 +320,13 @@ public class CarControl {
             if (total_amount != null && !total_amount.equals("")) {
                 String str[] = total_amount.split("\\.");
                 CarPort carPort = carServiceImpl.findCarPort(subject);
-                carServiceImpl.carOutMoney(new Integer(str[0]),subject,carPort.getCarportId());
+                carServiceImpl.carOutAlipaySuccess(new Integer(str[0]), subject, carPort.getCarportId());//车辆出场支付宝支付成功
             }
             response.getWriter().print("success");
         } else {//验证失败
             response.getWriter().print("fail");
         }
     }
-
 
 
     /**
@@ -332,9 +391,9 @@ public class CarControl {
         if (signVerified) {
             String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8"); //商户订单号
             Alipay alipay = carServiceImpl.findAlipay(out_trade_no);
-            WelcomeInfo welcomeInfo = carServiceImpl.findCarPayInfo(alipay.getAlipayCarnumber());
+            WelcomeInfo welcomeInfo = carServiceImpl.findCarPayInfo(alipay.getAlipayCarnumber());//查询车辆结算信息
             modelAndView.addObject("welcomeInfo", welcomeInfo);
-            modelAndView.setViewName("/jsp/SelfPaySuccess.jsp");
+            modelAndView.setViewName("/jsp/SelfPaySuccess.jsp");//跳转回自助缴费页面
         } else {
         }
         return modelAndView;
