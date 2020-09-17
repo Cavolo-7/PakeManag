@@ -3,6 +3,8 @@ layui.use(['upload'], function () {
         , upload = layui.upload;
     var path = $("#path").val();
 
+
+    //车辆入场扫描车牌
     upload.render({
         elem: '#choseFile'
         , url: path + '/car/findCarNumber'
@@ -20,10 +22,12 @@ layui.use(['upload'], function () {
                 layer.msg('识别成功');
                 var arr = res.msg.split("&");
                 var carNumber = arr[1];//车牌号
-                var photoPath = arr[2];
-                carInFindSuccess(carNumber, photoPath);
+                var photoPath = arr[2];//车牌照片
+                carInFindSuccess(carNumber, photoPath);//车牌识别成功
+            } else if (res.msg == 'repeat') {
+                layer.msg('该车辆已经停在停车场！');
             } else {
-                openInput();
+                openInput();//车牌识别失败 手动输入车牌
                 layer.msg('抱歉识别失败,请手动输入车牌号');
             }
         }
@@ -34,10 +38,10 @@ layui.use(['upload'], function () {
     });
 
 
-    //车辆出场车牌识别
+    //车辆出场扫描车牌
     upload.render({
         elem: '#choseOutFile'
-        , url: path + '/car/findCarNumber'
+        , url: path + '/car/findCarNumberOut'
         , auto: true
         , accept: 'images'
         , bindAction: '#upload'
@@ -52,11 +56,12 @@ layui.use(['upload'], function () {
                 layer.msg('识别成功');
                 var arr = res.msg.split("&");
                 var carNumber = arr[1];//车牌号
-                carOutFindSuccess(carNumber);
+                carOutFindSuccess(carNumber);//车牌识别成功
+            } else if (res.msg == 'nocar') {
+                layer.msg('该车辆不在停车场！');
             } else {
-                openOutInput();
+                openOutInput();//识别失败手动输入车牌
                 layer.msg('抱歉识别失败,请手动输入车牌号');
-
             }
         }
         , error: function (res, index, upload) {
@@ -66,11 +71,13 @@ layui.use(['upload'], function () {
     });
 });
 
+
 //打开入场输入弹窗层
 function openInput() {
     var path = $("#path").val();
     xadmin.open('输入车牌号', path + '/jsp/CarNumberInput.jsp', 600, 450);
 }
+
 
 //打开出场输入弹窗层
 function openOutInput() {
@@ -94,7 +101,7 @@ function carInFindSuccess(carNumber, photoPath) {
             },
             success: function (result) {
                 console.log(result)
-                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
+                var url = path + '/jsp/OpenCarIn.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
                 xadmin.open('车辆入场', url, 600, 450);
             },
             error: function () {
@@ -120,12 +127,8 @@ function carOutFindSuccess(carNumber) {
             },
             success: function (result) {
                 console.log(result)
-                if (result.carNumber != null) {
-                    var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg+ '&carportId=' + result.carportId;
-                    xadmin.open('出场缴费', url, 600, 450);
-                } else {
-                    layer.msg('该车辆不在此停车场！');
-                }
+                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg + '&carportId=' + result.carportId;
+                xadmin.open('出场缴费', url, 600, 450);
             },
             error: function () {
             },

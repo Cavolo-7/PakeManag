@@ -22,6 +22,8 @@ public interface CarService {
 
     public WelcomeInfo carOut(String carNumber);//车辆出场
 
+    public boolean carOutNoPay(String carNumber,Integer carportId);//车辆出场无需缴费
+
     public boolean carOutMoney(Integer money, String carNumber, Integer carportId);//车辆出场现金支付
 
     public String carOutAlipay(String subject, String total_amount, String body);//车辆出场调用支付宝进行支付
@@ -36,7 +38,7 @@ public interface CarService {
 
     public WelcomeInfo findCarPayInfo(String carNumber);//查询车辆结算信息
 
-    public CarPort findCarPort(String carNumber);
+    public CarPort findCarPort(String carNumber);//查询车库信息
 
 
 }

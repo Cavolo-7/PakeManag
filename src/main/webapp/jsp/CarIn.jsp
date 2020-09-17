@@ -54,8 +54,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-lg-3">
-                    <a class="navbar-brand ms-logo-pad"><img src="${pageContext.request.contextPath}/imags/Logo.png"
-                                                             class="img-fluid" alt="Logo"/></a>
+                    <a class="navbar-brand ms-logo-pad"><img src="${pageContext.request.contextPath}/imags/Logo.png" class="img-fluid" alt="Logo"/></a>
                 </div>
             </div>
         </div>
@@ -88,27 +87,27 @@
                                     <span class="d-inline-block">空余车位：</span>${welcomeInfo.noNum}
                                 </p>
                             </li>
-                            <c:if test="${not empty welcomeInfo.carPort}">
-                                <li>
-                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
-                                        <span class="d-inline-block">您的停车位：</span>${welcomeInfo.carPort}
-                                    </p>
-                                </li>
-                            </c:if>
-                            <c:if test="${not empty welcomeInfo.carNumber}">
-                                <li>
-                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
-                                        <span class="d-inline-block">车牌号：</span>${welcomeInfo.carNumber}
-                                    </p>
-                                </li>
-                            </c:if>
-                            <c:if test="${not empty welcomeInfo.carType}">
-                                <li>
-                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">
-                                        <span class="d-inline-block">停车类型：</span>${welcomeInfo.carType}
-                                    </p>
-                                </li>
-                            </c:if>
+<%--                            <c:if test="${not empty welcomeInfo.carPort}">--%>
+<%--                                <li>--%>
+<%--                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">--%>
+<%--                                        <span class="d-inline-block">您的停车位：</span>${welcomeInfo.carPort}--%>
+<%--                                    </p>--%>
+<%--                                </li>--%>
+<%--                            </c:if>--%>
+<%--                            <c:if test="${not empty welcomeInfo.carNumber}">--%>
+<%--                                <li>--%>
+<%--                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">--%>
+<%--                                        <span class="d-inline-block">车牌号：</span>${welcomeInfo.carNumber}--%>
+<%--                                    </p>--%>
+<%--                                </li>--%>
+<%--                            </c:if>--%>
+<%--                            <c:if test="${not empty welcomeInfo.carType}">--%>
+<%--                                <li>--%>
+<%--                                    <p class="font-weight-light text-white" style="font-size: 15px;margin-bottom: 10px">--%>
+<%--                                        <span class="d-inline-block">停车类型：</span>${welcomeInfo.carType}--%>
+<%--                                    </p>--%>
+<%--                                </li>--%>
+<%--                            </c:if>--%>
                         </ul>
                     </div>
                 </div>
@@ -132,16 +131,12 @@
                                 <div class="ms-service-box rounded text-center position-relative">
                                     <img class="img-fluid pb-3 ms-main-img"
                                          src="${pageContext.request.contextPath}/imags/23.png" alt="Service Image"/>
-                                    <p class="ms-font-lato font-weight-bold">
-                                        SHUTTLE SERVICE
-                                    </p>
+                                    <p class="ms-font-lato font-weight-bold">入场手动输入车牌</p>
                                     <div class="ms-service-box-hover position-absolute rounded" onclick="openInput()">
                                         <img class="img-fluid pb-3"
                                              src="${pageContext.request.contextPath}/imags/26.png"
                                              alt="Service Hover Image"/>
-                                        <p class="ms-font-lato font-weight-bold">
-                                            SHUTTLE SERVICE
-                                        </p>
+                                        <p class="ms-font-lato font-weight-bold">入场手动输入车牌</p>
                                     </div>
                                 </div>
                             </div>
@@ -161,14 +156,14 @@
                             <div class="col-6 col-md-6 pl-2 pl-md-3">
                                 <div class="ms-service-box rounded text-center position-relative mb-0">
                                     <img class="img-fluid pb-3 ms-main-img"
-                                         src="${pageContext.request.contextPath}/imags/21.png" alt="Service Image"/>
-                                    <p class="ms-font-lato font-weight-bold">RESTORATION</p>
+                                         src="${pageContext.request.contextPath}/imags/23.png" alt="Service Image"/>
+                                    <p class="ms-font-lato font-weight-bold">出场手动输入车牌</p>
                                     <div class="ms-service-box-hover position-absolute rounded"
                                          onclick="openOutInput()">
                                         <img class="img-fluid pb-3"
-                                             src="${pageContext.request.contextPath}/imags/28.png"
+                                             src="${pageContext.request.contextPath}/imags/26.png"
                                              alt="Service Hover Image"/>
-                                        <p class="ms-font-lato font-weight-bold">RESTORATION</p>
+                                        <p class="ms-font-lato font-weight-bold">出场手动输入车牌</p>
                                     </div>
                                 </div>
                             </div>

@@ -109,6 +109,11 @@
         var path = $("#path").val();
         location.href = path+'/jsp/SelfPay.jsp';
     }
+
+    function openArea() {
+        var path = $("#path").val();
+        location.href = path+'/jsp/Area.jsp';
+    }
 </script>
 
 </body>

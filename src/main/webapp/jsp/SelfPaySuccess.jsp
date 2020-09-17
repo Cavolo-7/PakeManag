@@ -78,6 +78,7 @@
 </article>
 <script src="${pageContext.request.contextPath}/js/SelfPay.js"></script>
 <script>
+    //返回主页
     function back() {
         var path = $("#path").val();
         location.href = path + "/jsp/SelfHelp.jsp";

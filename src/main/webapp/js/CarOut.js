@@ -51,9 +51,70 @@ function Alipy() {
     console.log("alipy")
 }
 
-//确定按钮
+
+//确定按钮---月缴用户，白名单用户,自助缴费未超时,无需支付
 function sure() {
     var path = $("#path").val();
-    xadmin.close();
-    top.location.href = path + '/car/noCarWelcome'//刷新主页
+    var carNumber = $("#carNumber").val();//车牌号
+    var carportId = $("#carportId").val();//车位id
+    $.ajax({
+            url: path + "/car/carOutNoPay",
+            type: "post",
+            data: {
+                "carNumber": carNumber,
+                "carportId": carportId,
+            },
+            dataType: "text",
+            beforeSend: function () {
+            },
+            success: function (result) {
+                console.log(result)
+                if (result == "success") {
+                    alert("出场成功！")
+                    xadmin.close();//关闭弹窗
+                    top.location.href = path + '/car/noCarWelcome'//刷新主页
+                } else {
+                    alert("出场失败！")
+                }
+            },
+            error: function () {
+            },
+            complete: function () {
+            }
+        }
+    );
+}
+
+
+//确定按钮---临时车辆不满半小时,金额为 0
+function zeroMoney() {
+    var path = $("#path").val();
+    var carNumber = $("#carNumber").val();//车牌号
+    var carportId = $("#carportId").val();//车位id
+    $.ajax({
+            url: path + "/car/carOutNoPay",
+            type: "post",
+            data: {
+                "carNumber": carNumber,
+                "carportId": carportId,
+            },
+            dataType: "text",
+            beforeSend: function () {
+            },
+            success: function (result) {
+                console.log(result)
+                if (result == "success") {
+                    alert("出场成功！")
+                    xadmin.close();//关闭弹窗
+                    top.location.href = path + '/car/noCarWelcome'//刷新主页
+                } else {
+                    alert("出场失败！")
+                }
+            },
+            error: function () {
+            },
+            complete: function () {
+            }
+        }
+    );
 }
