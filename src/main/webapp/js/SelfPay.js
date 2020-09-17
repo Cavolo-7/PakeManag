@@ -1,9 +1,8 @@
+//查找车辆信息
 function findCar() {
-
     var path = $("#path").val();
     var carNumber = $("#carNumber").val();
     console.log(carNumber);
-
     $.ajax({
         url: path + "/car/findCarPayInfo",
         type: "post",
@@ -20,15 +19,15 @@ function findCar() {
         },
         success: function (result) {
             console.log(result)
-            $("#nowTime").text(result.endTime);
-            $("#money").text(result.money + "元");
-            $("#number").text(result.carNumber);
-            $("#carPort").text(result.carPort);
-            $("#carType").text(result.carType);
-            $("#startTime").text(result.startTime);
-            $("#endTime").text(result.endTime);
-            $("#longTime").text(result.longTime + "分");
-            $("#payState").text(result.payState);
+            $("#nowTime").text(result.endTime);//结算时间
+            $("#money").text(result.money + "元");//结算金额
+            $("#number").text(result.carNumber);//车牌号
+            $("#carPort").text(result.carPort);//车位
+            $("#carType").text(result.carType);//停车类型
+            $("#startTime").text(result.startTime);//停车时间
+            $("#endTime").text(result.endTime);//结束时间
+            $("#longTime").text(result.longTime + "分");//停车时长
+            $("#payState").text(result.payState);//支付状态
 
             $("#info-div").css('display', "block");
 
@@ -54,14 +53,12 @@ function verifyLicensePlateNum(value) {
 //支付宝支付
 function Alipay() {
     var path = $("#path").val();
-    var total_amount = $("#total_amount").val();
-    var subject = $("#subject").val();
-    var body = $("#body").val();
-    if (total_amount==0){
-        alert("无需支付！")
-        return;
-    }else{
+    var total_amount = $("#total_amount").val();//订单金额
+    if (total_amount == 0) {
+        alert("半小时内免费，您无需进行支付！")
+    } else {
+        var subject = $("#subject").val();//订单标题
+        var body = $("#body").val();//订单简介
         location.href = path + "/car/Alipay?total_amount=" + total_amount + "&subject=" + subject + "&body" + body;
     }
-
 }

@@ -300,7 +300,7 @@
                   <a href="${pageContext.request.contextPath}/jsp/Login.jsp">管理端</a>
                 </li>
                 <li >
-                  <a  href="http://www.jparking.cn/lists/index?tid=3">扫描系统</a>
+                  <a  href="/car//noCarWelcome">扫描系统</a>
                 </li>
                 <li >
                   <a  href="http://www.jparking.cn/lists/index?tid=4">关于我们</a>
@@ -320,54 +320,6 @@
   </div>
 </div>
 <script>
-  function ajaxSubmitForm() {
-
-    var form = $("#contact-form");
-
-    if(form.find('[name=name]').val() == ''){
-
-      layer.msg('请输入姓名', {icon:5});
-      return false;
-    }
-    if(form.find('[name=phone]').val() == ''){
-
-      layer.msg('请输入电话', {icon:5});
-      return false;
-    }
-    if( ! (/^1[3456789]\d{9}$/.test(form.find('[name=phone]').val()))){
-
-      layer.msg('电话格式有误', {icon:5});
-      return false;
-    }
-    if(form.find('[name=content]').val() == ''){
-
-      layer.msg('请输入内容', {icon:5});
-      return false;
-    }
-
-    var formData = new FormData($("#contact-form")[0]);
-
-    $.ajax({
-      url: "http://www.jparking.cn/home/ajaxContactForm",
-      method: "post",
-      data: formData,
-      async: false,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (msg) {
-
-        msg = $.parseJSON(msg);
-        if(msg.status){
-          layer.msg(msg.message, {icon:6});
-
-          setTimeout("location.reload()", 2000);
-        }else{
-          layer.msg(msg.message, {icon:5});
-        }
-      },
-    })
-  }
 
   //轮播图
 </script><div class="hero-area">
@@ -607,27 +559,6 @@
         <p>商务合作：0755-83112288-8189</p>
         <p>邮箱：jtc@jparking.cn</p>
       </div>
-      <div class="messageSubmit col-lg-5">
-        <form id="contact-form" class="text-center">
-          <div class="input-group">
-            <textarea name="content" id="content"  placeholder="请输入留言" rows="4" style="line-height: 1.3;"></textarea>
-            <span class="input-bar"></span>
-          </div>
-          <div class="display_flex">
-            <div class="input-group flexItem" style="margin-right: 8px;">
-              <input name="name" id="name" type="text" autocomplete="off" placeholder="请输入您的姓名" required="">
-              <span class="input-bar"></span>
-            </div>
-            <div class="input-group flexItem">
-              <input name="phone" id="phone" type="text" autocomplete="off" placeholder="请输入您的电话" required="">
-              <span class="input-bar"></span>
-            </div>
-          </div>
-          <input type="button" class="btn btn-lg btn-light btn-submit " onclick="ajaxSubmitForm()" value="提交" id="submit-message">
-          <div id="msg" class="message"></div>
-        </form>
-      </div>
-    </div>
     <ul class="display_flex" style="flex-wrap:wrap;">
       <li>友情链接：</li>
       <li style="width:85px;">
@@ -656,9 +587,6 @@
       </li>
 
     </ul>
-    <div style="margin-top: 30px;padding-bottom: 10px;">
-      <p style="text-align: center;">Copyright ©2018 - 2020 深圳市顺易通信息科技有限公司       粤公网安备 44030402002685号<a target="_blank" href="http://www.beian.miit.gov.cn"><img src="static/picture/beian.png"/> 粤ICP备18020873号-1 </a> </p>
-    </div>
   </div>
 </div>
 <script src="../resources/js/jquery-1.12.4.min.js"></script>

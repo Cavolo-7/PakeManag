@@ -13,6 +13,7 @@
             and person_id=#{personId}
             <if test="date!=null and date!='' ">and  <![CDATA[ record_startime  < #{date}]]> and <![CDATA[ record_endtime  > #{date} ]]> </if>
         </where>
+        limit #{page},#{limit}
     </select>
 
     <update id="UpdateVip">
@@ -33,8 +34,16 @@
     <select id="Sttlement" resultType="com.auc.pojo.Detail">
         select detail_id,detail_carnumber,detail_event,produce_id, detail_time,detail_money, detail_type,worker_id  from t_detail
         <where>
-            <if test="starTime!=null and starTime!='' ">and  <![CDATA[ detail_time > STR_TO_DATE(#{starTime},'%Y-%m-%d')]]> </if>
-            <if test="endTime!=null and endTime!='' ">and  <![CDATA[ detail_time  < STR_TO_DATE(#{endTime},'%Y-%m-%d')]]></if>
+            <if test="starTime!=null and starTime!='' ">and  <![CDATA[ detail_time > STR_TO_DATE(#{starTime},'%Y-%m-%d  %H:%i:%s')]]> </if>
+            <if test="endTime!=null and endTime!='' ">and  <![CDATA[ detail_time  < STR_TO_DATE(#{endTime},'%Y-%m-%d  %H:%i:%s')]]></if>
+        </where>
+    </select>
+
+    <select id="SttlementCount" resultType="Integer">
+        select count(*) from t_detail
+        <where>
+            <if test="starTime!=null and starTime!='' ">and  <![CDATA[ detail_time >  STR_TO_DATE(#{starTime},'%Y-%m-%d  %H:%i:%s')]]> </if>
+            <if test="endTime!=null and endTime!='' ">and  <![CDATA[ detail_time  < STR_TO_DATE(#{endTime},'%Y-%m-%d  %H:%i:%s')]]></if>
         </where>
     </select>
 

@@ -80,5 +80,10 @@
          select  alipay_id,alipay_number,alipay_carnumber from t_alipay where alipay_number=#{alipayNumber}
     </select>
 
+    <!--  根据车牌查询支付明细表最新一条记录  -->
+    <select id="findDetailTime" resultType="com.auc.pojo.Detail" parameterType="java.lang.String">
+--          select TIMESTAMPDIFF(MINUTE,detail_time,STR_TO_DATE(#{newDate}, '%Y-%m-%d %H:%i:%s')) from t_detail where detail_carnumber=#{carNumber}  ORDER BY detail_time desc LIMIT 1
+          select detail_id,detail_carnumber,detail_event,produce_id,detail_time,detail_money,detail_type,TIMESTAMPDIFF(MINUTE,detail_time,STR_TO_DATE(#{newDate} worker_id, '%Y-%m-%d %H:%i:%s')) from t_detail where detail_carnumber=#{carNumber}  ORDER BY detail_time desc LIMIT 1
+    </select>
 
 </mapper>

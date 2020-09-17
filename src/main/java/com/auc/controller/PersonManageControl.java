@@ -55,8 +55,6 @@ public class PersonManageControl {
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String str= JSON.toJSONString(layuiData);
-
-
         return str;
     }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auc.mapper.ProducePayMapper">
+
+    <insert id="addProducePay" parameterType="com.auc.pojo.Alipay">
+         insert into t_alipay (alipay_number,alipay_carnumber,person_id,person_account,person_name,produce_name,work_id) values (#{alipayNumber},#{alipayCarnumber},#{personId},#{personAccount},#{personName},#{produceName},#{workerId})
+    </insert>
+
+<select id="selectProducePay" parameterType="java.lang.String" resultType="com.auc.pojo.Alipay">
+    select alipay_number,alipay_carnumber,person_id,person_account,person_name,produce_name,worker_id from t_alipay where alipay_number=#{alipayNumber}
+</select>
+
+</mapper>

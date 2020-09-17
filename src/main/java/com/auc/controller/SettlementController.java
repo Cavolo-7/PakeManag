@@ -46,6 +46,8 @@ public class SettlementController {
         beginTime = dateFormat.parse(str2+" 08:00:00");
         endTime=dateFormat.parse(str2+" 16:00:00");
 
+
+
         String personCarnumber = request.getParameter("key[personCarnumber]");
         String date1 = request.getParameter("key[date1]");
         String date2 = request.getParameter("key[date2]");

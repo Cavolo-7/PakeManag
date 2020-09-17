@@ -22,15 +22,10 @@
   <link rel="stylesheet" href="../css/theme10.min.css">
   <script src="../layui/layui.js" charset="utf-8"></script>
   <script type="text/javascript" src="../js/xadmin.js"></script>
-<%--  <script src="${pageContext.request.contextPath}/js/Tc.js" charset="utf-8"></script>--%>
-  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-<%--  <!--[if lt IE 9]>--%>
-<%--  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>--%>
-<%--  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>--%>
-<%--  <![endif]-->--%>
+
   <script>
     // 是否开启刷新记忆tab功能
-    var is_remember = false;
+    var is_remember = true;
   </script>
 </head>
 <body class="index">
@@ -109,34 +104,34 @@
           </li>
         </c:forEach>
       </c:if>
-<%--      <li>--%>
-<%--        <a href="javascript:;">--%>
-<%--          <i class="iconfont left-nav-li" lay-tips="其它页面">&#xe6b4;</i>--%>
-<%--          <cite>其它页面</cite>--%>
-<%--          <i class="iconfont nav_right">&#xe697;</i></a>--%>
-<%--        <ul class="sub-menu">--%>
-<%--&lt;%&ndash;          <li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <a href="login.jsp" target="_blank">&ndash;%&gt;--%>
-<%--&lt;%&ndash;              <i class="iconfont">&#xe6a7;</i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;              <cite>登录页面</cite></a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;          </li>&ndash;%&gt;--%>
+      <li>
+        <a href="javascript:;">
+          <i class="iconfont left-nav-li" lay-tips="其它页面">&#xe6b4;</i>
+          <cite>其它页面</cite>
+          <i class="iconfont nav_right">&#xe697;</i></a>
+        <ul class="sub-menu">
 <%--          <li>--%>
-<%--            <a onclick="xadmin.add_tab('错误页面','error.jsp')">--%>
+<%--            <a href="login.jsp" target="_blank">--%>
 <%--              <i class="iconfont">&#xe6a7;</i>--%>
-<%--              <cite>错误页面</cite></a>--%>
+<%--              <cite>登录页面</cite></a>--%>
 <%--          </li>--%>
-<%--          <li>--%>
-<%--            <a onclick="xadmin.add_tab('示例页面','demo.html')">--%>
-<%--              <i class="iconfont">&#xe6a7;</i>--%>
-<%--              <cite>示例页面</cite></a>--%>
-<%--          </li>--%>
-<%--          <li>--%>
-<%--            <a onclick="xadmin.add_tab('更新日志','log.jsp')">--%>
-<%--              <i class="iconfont">&#xe6a7;</i>--%>
-<%--              <cite>更新日志</cite></a>--%>
-<%--          </li>--%>
-<%--        </ul>--%>
-<%--      </li>--%>
+          <li>
+            <a onclick="xadmin.add_tab('错误页面','error.jsp')">
+              <i class="iconfont">&#xe6a7;</i>
+              <cite>错误页面</cite></a>
+          </li>
+          <li>
+            <a onclick="xadmin.add_tab('示例页面','demo.html')">
+              <i class="iconfont">&#xe6a7;</i>
+              <cite>示例页面</cite></a>
+          </li>
+          <li>
+            <a onclick="xadmin.add_tab('更新日志','log.jsp')">
+              <i class="iconfont">&#xe6a7;</i>
+              <cite>更新日志</cite></a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>
@@ -159,7 +154,7 @@
     </div>
     <div class="layui-tab-content">
       <div class="layui-tab-item layui-show">
-        <iframe src='../imags/img-2.jpg' width="100%" height="100$" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+        <iframe src='../imags/1.jpg' width="100%" height="100$" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
       </div>
     </div>
     <div id="tab_show"></div>

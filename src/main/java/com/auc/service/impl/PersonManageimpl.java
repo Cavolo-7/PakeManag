@@ -30,7 +30,6 @@ public class PersonManageimpl implements PersonManageService {
         int num = 0;
         list=personManageMapper.queryWhite(page,pageSize,username,account,phone,worker,carnumber);
         num=personManageMapper.queryWhiteCount(username,account,phone,worker,carnumber);
-        System.out.println(list);
         hashMaps.put("list", list);
         hashMaps.put("num", num);
         return hashMaps;

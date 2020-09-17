@@ -2,6 +2,7 @@ package com.auc.service.impl;
 
 import com.auc.mapper.TimingMapper;
 
+import com.auc.pojo.Detail;
 import com.auc.pojo.Person;
 import com.auc.pojo.Record;
 import com.auc.service.TimingService;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 /**
  * 系统定时执行实现类
@@ -42,25 +45,39 @@ public class TimingServiceImpl implements TimingService {
     }
 
     @Override
-    public void Sttlement() {
+    public HashMap Sttlement(Integer page, Integer limit) {
+        HashMap hashMaps = new HashMap();
         String earlyTime=getDate(8,0);
         String afterTime=getDate(16,0);
-
-        timingMapper.Sttlement(earlyTime,afterTime);
+        List<Detail> list=timingMapper.Sttlement(page,limit,earlyTime,afterTime);
+        int num=timingMapper.SttlementCount(earlyTime,afterTime);
+        hashMaps.put("list", list);
+        hashMaps.put("num", num);
+        return hashMaps;
     }
 
     @Override
-    public void Sttlement2() {
+    public HashMap Sttlement2(Integer page, Integer limit) {
+        HashMap hashMaps = new HashMap();
         String afterTime=getDate(16,0);
         String nightTime=getDate(24,0);
-        timingMapper.Sttlement(afterTime,nightTime);
+        List<Detail> list=timingMapper.Sttlement(page,limit,afterTime,nightTime);
+        int num=timingMapper.SttlementCount(afterTime,nightTime);
+        hashMaps.put("list", list);
+        hashMaps.put("num", num);
+        return hashMaps;
     }
 
     @Override
-    public void Sttlement3() {
+    public HashMap Sttlement3(Integer page, Integer limit) {
+        HashMap hashMaps = new HashMap();
         String nightTime=getDate(24,0);
         String nextTime=getDate(8,1);
-        timingMapper.Sttlement(nightTime,nextTime);
+        List<Detail> list=timingMapper.Sttlement(page,limit,nightTime,nextTime);
+        int num=timingMapper.SttlementCount(nightTime,nextTime);
+        hashMaps.put("list", list);
+        hashMaps.put("num", num);
+        return hashMaps;
     }
 
     public String getDate(Integer inte ,Integer inte2){
@@ -75,6 +92,12 @@ public class TimingServiceImpl implements TimingService {
         date.setSeconds(0);
         Long goodsTime=date.getTime();
         String str=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(goodsTime);
+        Date date1=new Date();
+        try {
+            date1=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return str;
     }
 
