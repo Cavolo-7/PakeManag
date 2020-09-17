@@ -190,13 +190,13 @@
 //网上支付
         form.on('submit(zf)', function (data) {
             $.ajax({
-                url: "/person/vipRenew",
+                url: "/person/renewAlipay",
                 data: data.field,
                 dataType: 'text',
                 method: 'post',
                 success: function (data) {
                     if (data == "续费成功") {
-                        layer.msg("续费成功!")
+                        layer.alert("续费成功!")
                         // //关闭当前frame
                         setTimeout(function () {
                             xadmin.close();
@@ -204,7 +204,7 @@
                         // // 可以对父窗口进行刷新
                         xadmin.father_reload();
                     } else if(data == "续费失败"){
-                        layer.msg("续费失败!")
+                        layer.alert("续费失败!")
                     }
                 }
             })

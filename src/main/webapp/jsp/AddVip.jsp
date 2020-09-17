@@ -43,7 +43,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="personAccount" name="personAccount" required="" lay-verify="personAccount"
-                           autocomplete="off" class="layui-input" disabled="false">
+                           autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                 </div>
@@ -55,7 +55,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="personName" name="personName" required="" lay-verify="personName"
-                           autocomplete="off" class="layui-input" disabled="false">
+                           autocomplete="off" class="layui-input" >
                 </div>
             </div>
 
@@ -64,9 +64,10 @@
                     <span class="x-red"></span>车牌号
                 </label>
                 <div class="layui-input-inline">
+<%--                    return false;--%>
                     <input type="text" id="personCarnumber" name="personCarnumber" required=""
                            lay-verify="personCarnumber"
-                           autocomplete="off" class="layui-input" disabled="false">
+                           autocomplete="off" class="layui-input" >
                 </div>
             </div>
 
@@ -93,7 +94,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="money" name="money" required="" lay-verify="money"
-                           autocomplete="off" class="layui-input" disabled="false">
+                           autocomplete="off" class="layui-input" >
                 </div>
             </div>
 
@@ -102,6 +103,7 @@
                 <button class="layui-btn" lay-filter="add" lay-submit="">
                     现金开通
                 </button>
+<%--                onclick="zf(this)"--%>
                 <button class="layui-btn" lay-filter="zf" lay-submit="">
                     网上支付开通
                 </button>
@@ -133,8 +135,6 @@
                     return '用户名需要大于或等于两个字符'
                 }
             },
-
-
             personCarnumber: [
                 /^[\u4E00-\u9FA5]([0-9A-Z]{6})|([0-9A-Z]{5}[\u4E00-\u9FA5]{1})$/,
                 '车牌号码是否合法'
@@ -155,6 +155,24 @@
                 })
             }
         });
+
+        // form.on('submit(zf)', function (data) {
+        //     var personId = $("#personId").val()
+        //     var personAccount = $("#personAccount").val()
+        //     var personCarnumber = $("#personCarnumber").val()
+        //     var personName = $("#personName").val()
+        //     var subject="开通会员";
+        //     var total_amount = $("#money").val()
+        //     var body=$("#produceName").val();
+        //     if ( produceName&& produceName!=''&& total_amount!= null &&total_amount!='') {
+        //         top.location.href="/person/zf?subject="+subject+"&total_amount="+total_amount+"&body="+body+"&personId="+personId+"&personAccount="+personAccount+"&personCarnumber="+personCarnumber+"&personName="+personName;
+        //         top
+        //     } else {
+        //         layer.alert("请选择要开通的套餐！")
+        //     }
+        //     return false;
+        // });
+
 
         //监听提交
         form.on('submit(add)', function (data) {
@@ -192,7 +210,7 @@
             var money = $("#money").val()
 
                 $.ajax({
-                    url: "/person/addVip",
+                    url: "/person/addVipAlipay",
                     data: data.field,
                     dataType: 'text',
                     method: 'post',
@@ -215,6 +233,22 @@
 
     });
 
+// function zf(node) {
+//     var personId = $("#personId").val()
+//     var personAccount = $("#personAccount").val()
+//     var personCarnumber = $("#personCarnumber").val()
+//     var personName = $("#personName").val()
+//     var subject="开通会员";
+//     var total_amount = $("#money").val()
+//     var body=$("#produceName").val();
+//     if ( body&& body!=''&& total_amount!= null &&total_amount!='') {
+//         window.open("/person/zf?subject="+subject+"&total_amount="+total_amount+"&body="+body+"&personId="+personId+"&personAccount="+personAccount+"&personCarnumber="+personCarnumber+"&personName="+personName);
+//     } else {
+//         layer.alert("请选择要开通的套餐！")
+//     }
+// }
+
+
 function quit(node) {
     setTimeout(function () {
         xadmin.close();
@@ -222,6 +256,8 @@ function quit(node) {
     // // 可以对父窗口进行刷新
     xadmin.father_reload();
 }
+
+
 
 </script>
 </body>
