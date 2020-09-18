@@ -28,7 +28,7 @@
                     changeImg();
                 } else if (data == "登录成功") {
                     alert("登录成功！")
-                    // location.href =  ;
+                    // location.href = "/" ;
                 }
             },
             error: function () {
