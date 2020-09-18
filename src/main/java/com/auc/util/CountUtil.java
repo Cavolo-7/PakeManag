@@ -70,13 +70,13 @@ public class CountUtil {
     public static CarPort getCarParkPosition(List<CarPort> carPortList) {
         CarPort carPort = null;
         if (carPortList != null) {
-            List<CarPort> noUseCarPortList = new ArrayList<>();//未占用车位
+            List<CarPort> noUseCarPortList = new ArrayList<>();//未占用车位List
             for (int i = 0; i < carPortList.size(); i++) {
                 if (carPortList.get(i).getCarportCarnumber() == null || carPortList.get(i).getCarportCarnumber().equals("")) {
                     noUseCarPortList.add(carPortList.get(i));
                 }
             }
-            int num = (int) (Math.random() * (noUseCarPortList.size()));
+            int num = (int) (Math.random() * (noUseCarPortList.size()));//随机选取一个车位
             carPort = noUseCarPortList.get(num);//分配的停车位
         }
         return carPort;

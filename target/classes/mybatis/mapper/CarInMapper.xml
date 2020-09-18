@@ -16,7 +16,7 @@
 
     <!--  查询停车场车位表  -->
     <select id="findCarPortList" resultType="com.auc.pojo.CarPort">
-         SELECT carport_id,carport_number,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport
+         SELECT carport_id,carport_number,carport_fnum,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport
     </select>
 
     <!--  修改停车车位表  -->
@@ -29,6 +29,17 @@
           INSERT into t_histor(histor_carnumber,histor_photo) VALUES(#{historCarnumber},#{historPhoto})
     </insert>
 
+    <!--  根据车牌查询历史汇总表最新一条  -->
+    <select id="findHistoryId" parameterType="com.auc.pojo.History" resultType="java.lang.Integer">
+          select histor_id from t_histor where histor_carnumber=#{historCarnumber} ORDER BY histor_startime DESC LIMIT 1
+    </select>
+
+    <!--  修改历史汇总表  -->
+    <update id="updateHistory" parameterType="com.auc.pojo.History">
+          update t_histor set histor_money=#{historMoney} where histor_id= #{historId}
+    </update>
+
+
     <!--  查询欢迎信息  -->
     <select id="findWelcomeMsg" resultType="java.lang.String">
          select param_name from t_param where param_type='welcomeMsg' and param_value=#{paramValue}
@@ -36,7 +47,7 @@
 
     <!--  根据车牌查询停车位  -->
     <select id="findCarPort" resultType="com.auc.pojo.CarPort">
-         SELECT carport_id,carport_number,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport where carport_carnumber=#{carNumber}
+         SELECT carport_id,carport_number,carport_fnum,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport where carport_carnumber=#{carNumber}
     </select>
 
     <!--  根据车牌查询免检名单表  -->
@@ -82,7 +93,6 @@
 
     <!--  根据车牌查询支付明细表最新一条记录  -->
     <select id="findDetailTime" resultType="com.auc.pojo.Detail" parameterType="java.lang.String">
---          select TIMESTAMPDIFF(MINUTE,detail_time,STR_TO_DATE(#{newDate}, '%Y-%m-%d %H:%i:%s')) from t_detail where detail_carnumber=#{carNumber}  ORDER BY detail_time desc LIMIT 1
           select detail_id,detail_carnumber,detail_event,produce_id,detail_time,detail_money,detail_type,TIMESTAMPDIFF(MINUTE,detail_time,STR_TO_DATE(#{newDate} worker_id, '%Y-%m-%d %H:%i:%s')) from t_detail where detail_carnumber=#{carNumber}  ORDER BY detail_time desc LIMIT 1
     </select>
 

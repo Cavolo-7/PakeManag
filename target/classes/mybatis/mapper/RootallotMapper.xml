@@ -72,6 +72,7 @@
          delete from t_relation where urisdiction_id=#{urisdictionId}
     </delete>
 
+
     <!--    增加该权限等级所分配到的权限-->
     <insert id="insertAll" parameterType="java.util.Map">
         insert into t_relation(menu_id,urisdiction_id) values

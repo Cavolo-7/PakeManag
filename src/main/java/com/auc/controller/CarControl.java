@@ -31,10 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static com.alipay.api.AlipayConstants.*;
 import static com.auc.util.AlipayConfig.*;
@@ -58,6 +55,24 @@ public class CarControl {
 
     /**
      * @Author: TheBigBlue
+     * @Description: 空闲时显示屏信息
+     * @Date: 2020/9/8
+     * @return: java.lang.String
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/noCarWelcome")
+    public ModelAndView noCarWelcome() {
+        System.out.println("noCarWelcome()");
+        WelcomeInfo welcomeInfo = carServiceImpl.noCarWelcome();//查询空闲时的欢迎信息
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("welcomeInfo", welcomeInfo);
+        modelAndView.setViewName("/jsp/CarIn.jsp");
+        return modelAndView;
+    }
+
+
+    /**
+     * @Author: TheBigBlue
      * @Description: 车牌入场扫描
      * @Date: 2020/9/11
      * @Param request:
@@ -71,15 +86,19 @@ public class CarControl {
         String accessToken = authServiceImpl.getAuth();//获取accessToken
         Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
         LayuiData layuiData = new LayuiData();
-        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描成功
+        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描失败
             layuiData.setMsg("error");
-        } else {//车牌扫描失败
-            //查询车库表是否有该车辆
-            CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());
-            if (carPort == null) {
-                layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);
-            } else {
-                layuiData.setMsg("repeat");
+        } else {//车牌扫描成功---车辆可进场判断：（1）停车场车位满时不能再入场（2）车辆已在停车场时不能再入场
+            int num = carServiceImpl.findCarPortNum();
+            if (num > 0) {//停车场车位未满时
+                CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());//查询车库表是否有该车辆
+                if (carPort == null) {
+                    layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);
+                } else {
+                    layuiData.setMsg("repeat");
+                }
+            } else {//停车场车位满时
+                layuiData.setMsg("full");
             }
         }
         layuiData.setCode(0);
@@ -102,38 +121,21 @@ public class CarControl {
         String accessToken = authServiceImpl.getAuth();//获取accessToken
         Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
         LayuiData layuiData = new LayuiData();
-        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描成功
+        if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描失败
             layuiData.setMsg("error");
-        } else {//车牌扫描失败
+        } else {//车牌扫描成功
             //查询车库表是否有该车辆
             CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());
             if (carPort == null) {
                 layuiData.setMsg("nocar");//该车不在车库
             } else {
-                layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);//该车在车库
+                layuiData.setMsg("success&" + carInfo.getWords_result().getNumber());//该车在车库
             }
         }
         layuiData.setCode(0);
         return layuiData;
     }
 
-
-    /**
-     * @Author: TheBigBlue
-     * @Description: 空闲时显示屏信息
-     * @Date: 2020/9/8
-     * @return: java.lang.String
-     **/
-    @ResponseBody
-    @RequestMapping(value = "/noCarWelcome")
-    public ModelAndView noCarWelcome() {
-        System.out.println("noCarWelcome()");
-        WelcomeInfo welcomeInfo = carServiceImpl.noCarWelcome();//查询空闲时的欢迎信息
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("welcomeInfo", welcomeInfo);
-        modelAndView.setViewName("/jsp/CarIn.jsp");
-        return modelAndView;
-    }
 
     /**
      * @Author: TheBigBlue
@@ -172,7 +174,7 @@ public class CarControl {
 
     /**
      * @Author: TheBigBlue
-     * @Description: 结算费用并获取车辆出场信息
+     * @Description: 车辆出场
      * @Date: 2020/9/10
      * @Param request:
      * @Param file:
