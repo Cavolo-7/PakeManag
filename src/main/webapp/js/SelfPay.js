@@ -16,6 +16,7 @@ function findCar() {
                 alert("车牌号输入错误，请重新输入！");
                 return false;
             }
+            $("#search").prop("disabled", "disabled");//防止数据重复提交
         },
         success: function (result) {
             console.log(result)
@@ -29,7 +30,7 @@ function findCar() {
             $("#longTime").text(result.longTime + "分");//停车时长
             $("#payState").text(result.payState);//支付状态
 
-            $("#info-div").css('display', "block");
+            $("#info-div").css('display', "block");//结算信息可见
 
             $("#total_amount").val(result.money);
             $("#subject").val(result.carNumber);
@@ -39,6 +40,7 @@ function findCar() {
         error: function () {
         },
         complete: function () {
+            $("#search").prop("disabled", false);
         }
     })
 }

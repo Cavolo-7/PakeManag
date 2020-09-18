@@ -19,7 +19,10 @@ function jqAjax() {
             success: function (data) {
                 if (data == "账号密码错误") {
                     alert("账号密码错误！")
-                } else if (data == "登录成功") {
+                }else if (data=="账户被禁用"){
+                    alert("账户被禁用,请联系管理员");
+                }
+                else if (data == "登录成功") {
                     alert("登录成功！")
                     location.href = "/user/userMenus";//菜单
                 }

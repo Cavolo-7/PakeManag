@@ -128,7 +128,7 @@
 
     <!--    修改普通用户类型/添加会员-->
     <update id="addVip" parameterType="com.auc.pojo.Person">
-        update t_person set person_identity=1,person_recharge=#{personRecharge},worker_id=#{workerId} where person_id=#{personId}
+        update t_person set person_identity=1,person_recharge=#{personRecharge},worker_id=#{workerId},person_score=#{personScore} where person_id=#{personId}
     </update>
 
     <!--    添加免交名单-->

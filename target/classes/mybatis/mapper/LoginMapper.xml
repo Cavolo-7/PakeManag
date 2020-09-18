@@ -19,5 +19,9 @@
     roleName
     from t_worker as w where w.worker_account = #{workerAccount}
     and w.worker_password=#{workerPassword}  limit 1
-  </select>
+     </select>
+    <!--判断账号登录状态-->
+    <select id="chaState" parameterType="java.lang.String" resultType="com.auc.pojo.Admin">
+        select * from t_worker w where worker_state=(select param_value from t_param where param_type='workerState' and param_name='启用') and w.worker_account=#{workerAccount}
+    </select>
 </mapper>

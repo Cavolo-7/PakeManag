@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addRole(String paramName,String roleName) {
        boolean flag=false;
-
        Param param =userMapper.inquireUser(paramName);
        Param param2=userMapper.inquireUser("启用");
        int n=userMapper.addRole(param.getParamValue(),roleName,param2.getParamValue());

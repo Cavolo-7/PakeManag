@@ -141,6 +141,7 @@ public class PersonController {
         //开通vip
         Person person2 = new Person();
         person2.setPersonId(Integer.parseInt(personId));
+        person2.setPersonScore(allRecharge);
         person2.setPersonAccount(personAccount);
         person2.setWorkerId(admin.getWorkerId());
         person2.setPersonRecharge(allRecharge);
@@ -212,6 +213,7 @@ public class PersonController {
         Person person2 = new Person();
         person2.setPersonId(Integer.parseInt(personId));
         person2.setPersonAccount(personAccount);
+        person2.setPersonScore(allRecharge);
         person2.setWorkerId(admin.getWorkerId());
         person2.setPersonRecharge(allRecharge);
         person2.setPersonCarnumber(personCarnumber);
@@ -454,7 +456,7 @@ public class PersonController {
                     money = money + produce2.getProduceMoney();
                 }
                 System.out.println("超过15天金额" + money);
-//                refundMoney=money;
+                refundMoney=money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             } else {
@@ -491,7 +493,7 @@ public class PersonController {
                 }
                 ;
                 System.out.println("未超过15天金额" + money);
-//                refundMoney=money;
+                refundMoney=money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             }
@@ -527,7 +529,7 @@ public class PersonController {
                     money = money + produce2.getProduceMoney();
                 }
                 System.out.println("大于一个月产品超过15天金额" + money);
-//                refundMoney=money;
+                refundMoney=money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             } else {
@@ -566,7 +568,7 @@ public class PersonController {
                     money = money + produce2.getProduceMoney();
                 }
                 System.out.println("大于一个月未超过15天金额" + money);
-//                refundMoney=money;
+                refundMoney=money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             }

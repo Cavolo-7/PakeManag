@@ -5,6 +5,7 @@ import com.auc.pojo.Admin;
 import com.auc.pojo.Menu;
 import com.auc.pojo.Role;
 import com.auc.service.LoginService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,17 @@ public class LoginServiceImpl implements LoginService {
             menuMap.put(menu.getMenuName(),sMenus);
         };
         return menuMap;
+    }
+
+    //查询账号状态
+    @Override
+    public boolean chaState(String workerAccount) {
+        boolean flag=false;
+        Admin admin=loginMapper.chaState(workerAccount);
+        if (admin!=null) {
+            flag=true;
+        }
+        return flag;
     }
 
     //登录

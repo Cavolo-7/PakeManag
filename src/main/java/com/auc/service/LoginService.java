@@ -15,5 +15,6 @@ public interface LoginService {
     //菜单显示
     public Map<String, List<Menu>> findMenus(Integer roleId);
 
-
+    //查询账号状态
+    public  boolean chaState(String workerAccount);
 }

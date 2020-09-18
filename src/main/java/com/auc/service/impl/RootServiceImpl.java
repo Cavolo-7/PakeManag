@@ -1,5 +1,6 @@
 package com.auc.service.impl;
 
+import com.auc.mapper.CarInMapper;
 import com.auc.mapper.RootMapper;
 import com.auc.pojo.Menu;
 import com.auc.pojo.Param;
@@ -22,9 +23,9 @@ public class RootServiceImpl implements RootService {
 
 
     @Override
-    public List<Param> selectRole(Integer page, Integer limit,String paramName) {
+    public List<Param> selectRole(Integer page, Integer limit, String paramName) {
         page = (page - 1) * limit;
-        List<Param> roleList = rootMapper.selectRole(page, limit,paramName);
+        List<Param> roleList = rootMapper.selectRole(page, limit, paramName);
         return roleList;
     }
 
@@ -91,12 +92,25 @@ public class RootServiceImpl implements RootService {
     public boolean UpdateMenu(List<Integer> menuIdList, Integer urisdictionId) {
         int deleteAllNum = rootMapper.deleteAll(urisdictionId);//删除该权限等级所有菜单
         HashMap hashMap = new HashMap();
-        hashMap.put("urisdictionId",urisdictionId);
-        hashMap.put("list",menuIdList);
+        hashMap.put("urisdictionId", urisdictionId);
+        hashMap.put("list", menuIdList);
         int insertAllNum = rootMapper.insertAll(hashMap);//新增该权限等级所分配的菜单
         boolean flag = false;
-        if (deleteAllNum>0&&insertAllNum>0){
-            flag=true;
+        if (insertAllNum > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    //删除该权限等级所有分配的菜单
+    @Transactional
+    @Override
+    public boolean deleteAll(Integer urisdictionId) {
+        int deleteAllNum = rootMapper.deleteAll(urisdictionId);//删除所有菜单
+        System.out.println("deleteAllNum：" + deleteAllNum);
+        boolean flag = false;
+        if (deleteAllNum > 0) {
+            flag = true;
         }
         return flag;
     }

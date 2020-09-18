@@ -89,6 +89,7 @@ function carInSubmit() {
                     alert("请输入正确的车牌号！");
                     return false;
                 }
+                $("#submitBtn").prop("disabled", "disabled");//防止数据重复提交
             },
             success: function (result) {
                 var url = path + '/jsp/OpenCarIn.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
@@ -97,6 +98,7 @@ function carInSubmit() {
             error: function () {
             },
             complete: function () {
+                $("#submitBtn").prop("disabled", false);
             }
         }
     );

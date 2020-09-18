@@ -21,5 +21,8 @@ public interface RootService {
     //修改权限等级所分配的菜单
     public boolean UpdateMenu(List<Integer> menuIdList, Integer urisdictionId);
 
+    //删除该权限等级所有分配的菜单
+    public boolean deleteAll(Integer urisdictionId);
+
 
 }

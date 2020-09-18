@@ -19,4 +19,7 @@ public interface LoginMapper {
 
     //查询用户权限
     public Role findRoot(Integer RoleId);
+
+    //查询账号状态
+    public  Admin chaState(String workerAccount);
 }
