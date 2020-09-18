@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -93,17 +94,19 @@
                 </div>
             </div>
 
-
             <div class="layui-form-item">
-                <label for="roleName" class="layui-form-label">
-                    <span class="x-red">*</span>角色</label>
-                <div class="layui-input-inline">
-                    <select id="roleName" name="roleName" class="valid">
-                        <option value="收费员">收费员</option>
-                        <option value="管理员">管理员</option>
-                        <option value="超级管理员">超级管理员</option>
-                    </select>
-                </div>
+                <label for="roleNames" class="layui-form-label">
+                    <span class="x-red"></span>角色</label>
+                    <div class="layui-input-inline" style="margin-top: 5px">
+                        <select name="roleNames" id="roleNames" lay-verify="required">
+                            <option value="">请选择</option>
+                            <c:if test="${not empty roleNameList}">
+                                <c:forEach items="${roleNameList}" var="r">
+                                    <option value="${r.roleName}" >${r.roleName}</option>
+                                </c:forEach>
+                            </c:if>
+                        </select>
+                    </div>
             </div>
 
             <div class="layui-form-item">
@@ -192,6 +195,8 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
+            var roleNames=$("#roleNames").val()
+            if (roleNames!=null){
             $.ajax({
                 url: "/admin/updateAdmin",
                 data: data.field,
@@ -213,6 +218,9 @@
                     }
                 }
             })
+            }else {
+                layer.msg("管理员角色不能为空！")
+            }
             return false;
             });
 

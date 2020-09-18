@@ -124,6 +124,11 @@
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
+                $.ajax({
+                    url: "/person/selectProuduce",
+                    dataType: "text",
+                    type: "Post",
+                })
                 layer.confirm('确定要续费吗？', function (index) {
                     layer.open({
                         // anim: 1,

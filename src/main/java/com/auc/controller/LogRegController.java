@@ -29,6 +29,7 @@ public class LogRegController {
         String sex = request.getParameter("sex");
         String personAge = request.getParameter("personAge");
         String personPhone = request.getParameter("personPhone");
+        String address=request.getParameter("address");
 
         System.out.println("我注册的信息是:"+"personName:"+personName + "password:"+password+ "personAccount:"+personAccount + "carNumber:"+carNumber + "sex:"+sex + "personAge:"+personAge + "personPhone:"+personPhone);
         Person person=logRegService.selectPersonAccount(personAccount);//查询用户账号是否存在
@@ -47,6 +48,7 @@ public class LogRegController {
             person2.setPersonSex(sexValue);
             person2.setPersonAge(Integer.parseInt(personAge));
             person2.setPersonPhone(personPhone);
+            person2.setPersonAddress(address);
             boolean flag=logRegService.regPerson(person2);
             if (flag==true){
                 str="注册成功";

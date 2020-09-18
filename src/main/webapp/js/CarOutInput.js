@@ -72,6 +72,7 @@ function carInSubmit() {
         console.log(8)
         console.log(carNumber)
     }
+
     var path = $("#path").val();
     //1.判断非空（7位，或者8位）
     $.ajax({
@@ -91,6 +92,7 @@ function carInSubmit() {
                     alert("请输入正确的车牌号！");
                     return false;
                 }
+                $("#submitBtn").prop("disabled", "disabled");//防止数据重复提交
             },
             success: function (result) {
                 console.log("res" + result)
@@ -100,6 +102,7 @@ function carInSubmit() {
             error: function () {
             },
             complete: function () {
+                $("#submitBtn").prop("disabled", false);
             }
         }
     );

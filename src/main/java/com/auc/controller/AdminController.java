@@ -1,10 +1,8 @@
 package com.auc.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.auc.pojo.Admin;
-import com.auc.pojo.LayuiData;
-import com.auc.pojo.Person;
-import com.auc.pojo.Role;
+import com.alipay.api.AlipayApiException;
+import com.auc.pojo.*;
 import com.auc.service.AdminService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +59,7 @@ public class AdminController {
             pageSize = Integer.parseInt(pageSizeStr);
             curPage = (curPage - 1) * pageSize;
         }
+
         LayuiData<Admin> layuiData = adminService.selectAdminList(condition, curPage, pageSize);
 //        Gson gson = new Gson();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -237,4 +237,13 @@ public class AdminController {
             return str;
     }
 
+    //角色下拉框
+    @RequestMapping(value = "/selectRoleName", produces = "text/plain;charset=utf-8")
+    public void selectRoleName(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException, ParseException {
+        //            查询月缴产品名字集合状态
+        String str=null;
+        //            查询角色名字集合状态
+        List<Role> roleNameList2=adminService.selectRoleStateName();
+        request.getSession().setAttribute("roleNameList2", roleNameList2);
+    }
 }

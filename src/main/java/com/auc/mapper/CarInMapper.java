@@ -31,6 +31,10 @@ public interface CarInMapper {
 
     public Integer insertHistory(History history);//插入历史汇总表
 
+    public Integer findHistoryId(History history);//根据车牌查询历史汇总表最新一条
+
+    public Integer updateHistory(History history);//修改历史汇总表
+
     public String findWelcomeMsg(Integer paramValue);//查询欢迎信息
 
     public CarPort findCarPort(String carNumber);//根据车牌查询停车位
@@ -51,7 +55,7 @@ public interface CarInMapper {
 
     public Alipay findAlipay(String alipayNumber);//支付宝订单查询数据
 
-    public Detail findDetailTime(@Param("carNumber")String carNumber,@Param("nowDate")String newDate);//根据车牌查询支付明细表最新一条记录支付时间与当前时间差
+    public Detail findDetailTime(@Param("carNumber") String carNumber, @Param("nowDate") String newDate);//根据车牌查询支付明细表最新一条记录支付时间与当前时间差
 
 
 }

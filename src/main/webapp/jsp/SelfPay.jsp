@@ -71,7 +71,7 @@
         </div>
     </section>
     <section class="receipt__half lower">
-        <button onclick="Alipay()">支付宝支付</button>
+        <button onclick="Alipay()" id="alipay">支付宝支付</button>
     </section>
 </article>
 <script src="${pageContext.request.contextPath}/js/SelfPay.js"></script>

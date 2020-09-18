@@ -5,6 +5,7 @@ import com.auc.pojo.Param;
 import com.auc.pojo.Role;
 import com.auc.service.UserService;
 import com.auc.util.LayuiData;
+import com.auc.util.Textmessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -83,5 +86,38 @@ public class UserControl {
         }else{
             return "操作失败";
         }
+    }
+
+    @RequestMapping(value = "/textMsg", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public void textMsg(HttpServletRequest request, HttpServletResponse response)throws IOException, ParseException{
+        String str="";
+        for (int i=0;i<4;i++){
+            str+=(int)Math.floor(Math.random()*10);
+        }
+        request.getSession().setAttribute("code",str);
+        System.out.println(str+"手机验证码");
+//获取前台传送过来的手机号码
+        String personPhone=request.getParameter("personPhone");
+        boolean flag=Textmessage.sender(personPhone,str);
+    }
+
+    //校验短信验证码
+    @RequestMapping(value = "/textCod", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public void textCod(HttpServletRequest request, HttpServletResponse response)throws IOException, ParseException {
+      String str=null;
+       //前台输入的验证码
+        String code=request.getParameter("code");
+        System.out.println("前台输入"+code);
+       //后台发生的验证码
+        String code2=(String) request.getSession().getAttribute("code");
+        System.out.println("后台获取"+code2);
+        if (code2.equals(code)){
+            response.getWriter().print("0");
+        }else {
+            response.getWriter().print("1");
+        }
+
     }
 }

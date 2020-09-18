@@ -5,11 +5,11 @@
 <mapper namespace="com.auc.mapper.ProducePayMapper">
 
     <insert id="addProducePay" parameterType="com.auc.pojo.Alipay">
-         insert into t_alipay (alipay_number,alipay_carnumber,person_id,person_account,person_name,produce_name,work_id) values (#{alipayNumber},#{alipayCarnumber},#{personId},#{personAccount},#{personName},#{produceName},#{workerId})
+         insert into t_alipay (alipay_number,alipay_carnumber,person_id,person_account,person_name,produce_name) values (#{alipayNumber},#{alipayCarnumber},#{personId},#{personAccount},#{personName},#{produceName})
     </insert>
 
 <select id="selectProducePay" parameterType="java.lang.String" resultType="com.auc.pojo.Alipay">
-    select alipay_number,alipay_carnumber,person_id,person_account,person_name,produce_name,worker_id from t_alipay where alipay_number=#{alipayNumber}
+    select alipay_number,alipay_carnumber,person_id,person_account,person_name,produce_name from t_alipay where alipay_number=#{alipayNumber}
 </select>
 
 </mapper>

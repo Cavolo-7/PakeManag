@@ -93,7 +93,6 @@ public class FileUtil {
         String savePath = request.getSession().getServletContext().getRealPath("/upload");//保存路径
         //要保存的路径和文件名
         String projectPath = savePath + File.separator + dateStr + File.separator + uuid + "." + prefix;
-        System.out.println("保存路径：" + projectPath);
         File files = new File(projectPath);
         //判断目录是否存在
         if (!files.getParentFile().exists()) {
