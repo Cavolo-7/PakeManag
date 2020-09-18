@@ -16,13 +16,15 @@ import java.util.HashMap;
  **/
 public interface CarService {
 
+    public Integer findCarPortNum();//查询车库剩余车位
+
     public WelcomeInfo noCarWelcome();//空闲时入场显示屏信息
 
     public WelcomeInfo carIn(String carNumber, String path);//车辆入场
 
     public WelcomeInfo carOut(String carNumber);//车辆出场
 
-    public boolean carOutNoPay(String carNumber,Integer carportId);//车辆出场无需缴费
+    public boolean carOutNoPay(String carNumber, Integer carportId);//车辆出场无需缴费
 
     public boolean carOutMoney(Integer money, String carNumber, Integer carportId);//车辆出场现金支付
 
@@ -38,7 +40,7 @@ public interface CarService {
 
     public WelcomeInfo findCarPayInfo(String carNumber);//查询车辆结算信息
 
-    public CarPort findCarPort(String carNumber);//查询车库信息
+    public CarPort findCarPort(String carNumber);//根据车牌查询车位
 
 
 }

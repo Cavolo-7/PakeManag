@@ -78,9 +78,11 @@
 
                 </div>
                 <c:if test="${param.money!='null'}">
-                    <div class="tr_rechcho am-form-group" style="margin-bottom: 0px">
-                        <input type="text" id="payMoney" style="display: inline-block;width: 150px">
-                    </div>
+                    <c:if test="${param.money!=0}">
+                        <div class="tr_rechcho am-form-group" style="margin-bottom: 0px">
+                            <input type="text" id="payMoney" style="display: inline-block;width: 150px">
+                        </div>
+                    </c:if>
                     <div class="tr_rechnum" style="border: 0px;margin-top: 10px">
                         <span>停车费用：</span>
                         <p class="rechnum">${param.money}元</p>

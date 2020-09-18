@@ -26,14 +26,16 @@ layui.use(['upload'], function () {
                 carInFindSuccess(carNumber, photoPath);//车牌识别成功
             } else if (res.msg == 'repeat') {
                 layer.msg('该车辆已经停在停车场！');
+            } else if (res.msg == 'full') {
+                layer.msg('停车场车位已满！');
             } else {
                 openInput();//车牌识别失败 手动输入车牌
-                layer.msg('抱歉识别失败,请手动输入车牌号');
+                layer.msg('识别失败,请手动输入车牌号！');
             }
         }
         , error: function (res, index, upload) {
             layer.closeAll('loading'); //关闭loading
-            layer.msg('上传失败');
+            layer.msg('上传失败！');
         }
     });
 
