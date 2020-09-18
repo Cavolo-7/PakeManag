@@ -13,21 +13,21 @@ function reg(node) {
     var path=$("#path").val();
 
     var personName=$("#personName").val();//用户名
-    alert(personName)
+
     var personAccount=$("#personAccount").val();//账号
-    alert(personAccount)
+
     var password=$("#password").val();//密码
-    alert(password)
+
     var passwords=$("#passwords").val();//确认密码
-    alert(passwords)
+
     var carNumber=$("#carNumber").val();//车牌号
-    alert(carNumber)
+
     var sex=$('input[name="sex"]:checked').val();//性别
-    alert(sex)
+
     var personAge=$("#personAge").val();//年龄
-    alert(personAge)
+
     var personPhone=$("#personPhone").val()//电话
-    alert(personPhone)
+
     var reg=/^[0-9]+$/;
     var name=/^[\u4e00-\u9fa5]+$/;
     // var idcard=/^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;

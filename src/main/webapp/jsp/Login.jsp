@@ -42,6 +42,9 @@
 <%--        <input name="voCode" placeholder="验证码"  type="text" lay-verify="required" class="layui-input" >--%>
 <%--        <hr class="hr15">--%>
         <input value="登录" onclick="jqAjax()"  style="width:100%;" type="button">
+        <br>
+        <br>
+        <input value="人脸登录" onclick="jqAjax()"  style="width:100%;" type="button">
         <hr class="hr20" >
     </form>
 </div>

@@ -42,10 +42,10 @@ public class LoginController {
         admin1.setWorkerAccount(account);
         admin1.setWorkerPassword(password);
         Admin admins =loginService.login(admin1);
+        boolean flag=loginService.chaState(account);
+        if (flag==true){
         if (admins != null) {
-
             request.getSession().setAttribute("admin", admins);
-
             //查询收费管理员姓名集合
             List<Admin> adminList=adminService.selectAdminNameList();
             request.getSession().setAttribute("adminList", adminList);
@@ -64,8 +64,12 @@ public class LoginController {
             request.getSession().setAttribute("produceList2", produceList2);
 
             str = "登录成功";
+
         } else {
             str = "账号密码错误";
+        }
+        }else {
+            str="账户被禁用";
         }
         return str;
     }
