@@ -5,8 +5,8 @@
 <mapper namespace="com.auc.mapper.LogRegMapper">
     <!--注册用户-->
     <insert id="regPerson" parameterType="com.auc.pojo.Person">
-   insert into t_person (person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_identity) values
-    (#{personName},#{personAccount},#{personPassword},#{personCarnumber},#{personSex},#{personAge},#{personPhone},0)
+   insert into t_person (person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_address,person_identity) values
+    (#{personName},#{personAccount},#{personPassword},#{personCarnumber},#{personSex},#{personAge},#{personPhone},#{personAddress},0)
     </insert>
 
     <select id="loginPerson" resultType="com.auc.pojo.Person">

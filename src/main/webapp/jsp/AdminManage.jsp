@@ -53,6 +53,8 @@
 
                         <div class="layui-inline">
                             <form class="layui-form">
+                                <label for="roleNames" class="layui-form-label">
+                                <span class="x-red"></span>角色</label>
                                 <div class="layui-input-inline" style="margin-top: 5px">
                                     <select name="roleNames" id="roleNames" lay-verify="required">
                                         <option value="">请选择</option>
@@ -68,9 +70,9 @@
 
                         <button class="layui-btn" data-type="reload" id="search">搜索</button>
                         <br><br><br>
-                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddAdmin.jsp',600,470)"><i
-                                class="layui-icon"></i>添加
-                        </button>
+<%--                        onclick="xadmin.open('添加用户','./AddAdmin.jsp',600,470)"--%>
+<%--                        <i class="layui-icon"></i>--%>
+                        <button class="layui-btn" onclick="addAdmins(this)" >添加</button>
                     </div>
                 </div>
                 <div class="layui-card-body ">
@@ -138,6 +140,11 @@
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
+                $.ajax({
+                    url: "/admin/selectRoleName",
+                    dataType: "text",
+                    type: "Post",
+                })
                 layer.confirm('确定要修改吗？', function (index) {
                     layer.open({
                         // anim: 1,
@@ -284,7 +291,28 @@
         // };
 
     });
-
+function addAdmins(node) {
+    $.ajax({
+        url: "/admin/selectRoleName",
+        dataType: "text",
+        type: "Post",
+    });
+    layer.confirm('确定要添加吗？', function (index) {
+        layer.open({
+            // anim: 1,
+            type: 2,//Page层类型
+            area: ['500px', '500px'],
+            title: '添加员工账号',
+            shadeClose: true,
+            shade: false,
+            id: 'alterp',
+            shade: 0.6, //遮罩透明度,
+            maxmin: true, //允许全屏最小化,
+            anim: 1, //0-6的动画形式，-1不开启,
+            content: ['/jsp/AddAdmin.jsp']
+        })
+    });
+}
 
 </script>
 </html>

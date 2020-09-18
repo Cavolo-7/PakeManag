@@ -52,16 +52,16 @@ public class LoginController {
             //            查询角色名字集合
             List<Role> roleNameList=adminService.selectRoleList();
             request.getSession().setAttribute("roleNameList", roleNameList);
-            //            查询角色名字集合状态
-            List<Role> roleNameList2=adminService.selectRoleStateName();
-            request.getSession().setAttribute("roleNameList2", roleNameList2);
+//            //            查询角色名字集合状态
+//            List<Role> roleNameList2=adminService.selectRoleStateName();
+//            request.getSession().setAttribute("roleNameList2", roleNameList2);
 
             //            查询月缴产品名字集合
             List<Produce> produceList=personService.selectProduceNameList();
             request.getSession().setAttribute("produceList", produceList);
             //            查询月缴产品名字集合状态
-            List<Produce> produceList2=personService.selectProduceStateName();
-            request.getSession().setAttribute("produceList2", produceList2);
+//            List<Produce> produceList2=personService.selectProduceStateName();
+//            request.getSession().setAttribute("produceList2", produceList2);
 
             str = "登录成功";
         } else {

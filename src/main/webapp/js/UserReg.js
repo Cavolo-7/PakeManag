@@ -8,6 +8,7 @@ function back(node) {
 }
 
 function reg(node) {
+
     alert("执行注册按钮")
 
     var path=$("#path").val();
