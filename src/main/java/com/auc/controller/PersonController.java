@@ -428,7 +428,7 @@ public class PersonController {
                 double money = 0;
 
                 Detail detail2 = new Detail();
-                String thing3 = "支付宝支付";//缴费发生
+                String thing3 = "支付宝支付退费";//缴费发生
                 String thing4 = "月缴退费";//操作时间
                 detail2.setDetailCarnumber(personCarnumber);
                 detail2.setDetailEvent(thing4);
@@ -443,7 +443,7 @@ public class PersonController {
                     Produce produce2 = personService.selectProduceMoney(record4.getProduceId());
                     //添加明细
                     Detail detail = new Detail();
-                    String thing2 = "退费";//缴费发生
+                    String thing2 = "支付宝支付退费";//缴费发生
                     String thing = "月缴退费";//操作时间
                     detail.setDetailCarnumber(personCarnumber);
                     detail.setDetailEvent(thing);
@@ -456,14 +456,14 @@ public class PersonController {
                     money = money + produce2.getProduceMoney();
                 }
                 System.out.println("超过15天金额" + money);
-                refundMoney=money;
+                refundMoney = money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             } else {
                 double money = new BigDecimal((float) produce.getProduceMoney() / 2).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
                 Detail detail2 = new Detail();
-                String thing3 = "退费";//缴费发生
+                String thing3 = "支付宝支付退费";//缴费发生
                 String thing4 = "月缴退费";//操作时间
                 detail2.setDetailCarnumber(personCarnumber);
                 detail2.setDetailEvent(thing4);
@@ -479,7 +479,7 @@ public class PersonController {
 
                     //添加明细
                     Detail detail = new Detail();
-                    String thing2 = "退费";//缴费发生
+                    String thing2 = "支付宝支付退费";//缴费发生
                     String thing = "月缴退费";//操作时间
                     detail.setDetailCarnumber(personCarnumber);
                     detail.setDetailEvent(thing);
@@ -493,7 +493,7 @@ public class PersonController {
                 }
                 ;
                 System.out.println("未超过15天金额" + money);
-                refundMoney=money;
+                refundMoney = money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             }
@@ -502,7 +502,7 @@ public class PersonController {
                 double money = new BigDecimal((float) produce.getProduceMoney() / produce.getProduceMonths()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 money = produce.getProduceMoney() - money;
                 Detail detail2 = new Detail();
-                String thing3 = "退费";//缴费发生
+                String thing3 = "支付宝支付退费";//缴费发生
                 String thing4 = "月缴退费";//操作时间
                 detail2.setDetailCarnumber(personCarnumber);
                 detail2.setDetailEvent(thing4);
@@ -517,7 +517,7 @@ public class PersonController {
                     Produce produce2 = personService.selectProduceMoney(record4.getProduceId());
                     //添加明细
                     Detail detail = new Detail();
-                    String thing2 = "退费";//缴费发生
+                    String thing2 = "支付宝支付退费";//缴费发生
                     String thing = "月缴退费";//操作时间
                     detail.setDetailCarnumber(personCarnumber);
                     detail.setDetailEvent(thing);
@@ -529,7 +529,7 @@ public class PersonController {
                     money = money + produce2.getProduceMoney();
                 }
                 System.out.println("大于一个月产品超过15天金额" + money);
-                refundMoney=money;
+                refundMoney = money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             } else {
@@ -540,7 +540,7 @@ public class PersonController {
 
                 //添加明细
                 Detail detail2 = new Detail();
-                String thing3 = "退费";//缴费发生
+                String thing3 = "支付宝支付退费";//缴费发生
                 String thing4 = "月缴退费";//操作时间
                 detail2.setDetailCarnumber(personCarnumber);
                 detail2.setDetailEvent(thing4);
@@ -556,7 +556,7 @@ public class PersonController {
 
                     //添加明细
                     Detail detail = new Detail();
-                    String thing2 = "退费";//缴费发生
+                    String thing2 = "支付宝支付退费";//缴费发生
                     String thing = "月缴退费";//操作时间
                     detail.setDetailCarnumber(personCarnumber);
                     detail.setDetailEvent(thing);
@@ -568,7 +568,7 @@ public class PersonController {
                     money = money + produce2.getProduceMoney();
                 }
                 System.out.println("大于一个月未超过15天金额" + money);
-                refundMoney=money;
+                refundMoney = money;
                 money = Double.parseDouble(df.format(money));
                 str = "退款成功！ 退款金额：" + money + "元!";
             }
@@ -734,16 +734,16 @@ public class PersonController {
 ////        return str;
 //    }
 
-//下拉框
-@RequestMapping(value = "/selectProuduce", produces = "text/plain;charset=utf-8")
-public void selectProuduce(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException, ParseException {
-    //            查询月缴产品名字集合状态
-    String str=null;
-    List<Produce> produceList2=personService.selectProduceStateName();
-    request.getSession().setAttribute("produceList2", produceList2);
+    //下拉框
+    @RequestMapping(value = "/selectProuduce", produces = "text/plain;charset=utf-8")
+    public void selectProuduce(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException, ParseException {
+        //            查询月缴产品名字集合状态
+        String str = null;
+        List<Produce> produceList2 = personService.selectProduceStateName();
+        request.getSession().setAttribute("produceList2", produceList2);
 //    str=JSON.toJSONString(produceList2);
 //    System.out.println(str);
 //    return  str;
-}
+    }
 
 }

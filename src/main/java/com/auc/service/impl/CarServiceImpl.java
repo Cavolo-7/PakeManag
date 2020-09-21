@@ -98,12 +98,24 @@ public class CarServiceImpl implements CarService {
             } else {
                 welcomeInfo.setCarType("临时停车");
             }
-        } else {
+        }
+        CarPort isCarPort = carInMapper.findCarPort(carNumber);//根据车牌查询车库表
+        //没有该车牌信息时，自动分配一个车位
+        if (isCarPort == null) {
+            List<CarPort> carPortList = carInMapper.findCarPortList(); //查询停车场车位表
+            CarPort carPort = CountUtil.getCarParkPosition(carPortList);//随机分配一个停车位
+            carInMapper.updateCarPort(carNumber, path, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 1, carPort.getCarportId());//将车辆信息插入停车车位表
+            welcomeInfo.setCarPort("负" + carPort.getCarportFnum() + "楼" + carPort.getCarportArea() + "区" + carPort.getCarportNumber() + "号");//车位
             welcomeInfo.setCarType("临时停车");
         }
-        List<CarPort> carPortList = carInMapper.findCarPortList(); //查询停车场车位表
-        CarPort carPort = CountUtil.getCarParkPosition(carPortList);//随机分配一个停车位
-        carInMapper.updateCarPort(carNumber, path, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 1, carPort.getCarportId());//将车辆信息插入停车车位表
+        //有车牌信息时，判断是否为预约车位
+        else if (isCarPort != null) {
+            if (isCarPort.getCarportReserveid() != null) {//预约车位
+                carInMapper.updateReserve(path, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 1, isCarPort.getCarportId(), null);//修改车库表，清空预约id
+                welcomeInfo.setCarPort("负" + isCarPort.getCarportFnum() + "楼" + isCarPort.getCarportArea() + "区" + isCarPort.getCarportNumber() + "号");//车位
+                welcomeInfo.setCarType("已预约，临时停车");
+            }
+        }
         //g。将车辆服务器中照片路径，车牌号，开始停车时间（当前时间），插入历史汇总表
         History history = new History();
         history.setHistorCarnumber(carNumber);
@@ -111,7 +123,6 @@ public class CarServiceImpl implements CarService {
         carInMapper.insertHistory(history);//插入历史汇总表
         welcomeInfo.setCarNumber(carNumber);//车牌号
         welcomeInfo.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));//入场时间
-        welcomeInfo.setCarPort("负" + carPort.getCarportFnum() + "楼" + carPort.getCarportArea() + "区" + carPort.getCarportNumber() + "号");//车位
         welcomeInfo.setWelcomeMsg(carInMapper.findWelcomeMsg(1001));//欢迎信息
         return welcomeInfo;//返回车辆入场信息
     }
@@ -128,7 +139,6 @@ public class CarServiceImpl implements CarService {
     @Override
     public WelcomeInfo carOut(String carNumber) {
         WelcomeInfo welcomeInfo = new WelcomeInfo();
-
         String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());//当前时间
         int minute = carInMapper.findTime(carNumber, nowDate);//查询车库表返回计算后的停车时长(分)
         Exemption exemption = carInMapper.findExemption(carNumber);//查询免检名单表

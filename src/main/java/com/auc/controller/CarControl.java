@@ -92,10 +92,14 @@ public class CarControl {
             int num = carServiceImpl.findCarPortNum();
             if (num > 0) {//停车场车位未满时
                 CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());//查询车库表是否有该车辆
-                if (carPort == null) {
+                if (carPort == null) {//没有该车牌时
                     layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);
-                } else {
-                    layuiData.setMsg("repeat");
+                } else {//有该车牌时,判断是否为预约用户,预约时间
+                    if (carPort.getCarportReserveid() != null) {//被预约
+                        layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);//返回预约用户可停车消息
+                    } else {//未被预约，则是已停车，返回不能重复停车消息
+                        layuiData.setMsg("repeat");
+                    }
                 }
             } else {//停车场车位满时
                 layuiData.setMsg("full");
@@ -285,6 +289,7 @@ public class CarControl {
 //            String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8"); //商户订单号
             WelcomeInfo welcomeInfo = carServiceImpl.noCarWelcome();//查询空闲时的欢迎信息
             modelAndView.addObject("welcomeInfo", welcomeInfo);
+            modelAndView.addObject("isCarOut", true);
             modelAndView.setViewName("/jsp/CarIn.jsp");
         } else {
         }

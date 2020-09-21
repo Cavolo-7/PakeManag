@@ -15,7 +15,7 @@ public class CarPort {
     private String carportCarnumber;//车牌号
     private String carportPhoto;//车辆照片路径（入场所拍摄）
     private Date carportStarttime;//入场时间
-    private Integer carportState;//车位状态（考虑后期预约停车）
+    private Integer carportState;//车位状态
 
     private String carportFnum;//楼层
 
@@ -36,6 +36,7 @@ public class CarPort {
     private String carportX;
     private String carportY;
 
+    private Integer carportReserveid;//预约id
 
     public CarPort() {
     }
@@ -49,7 +50,7 @@ public class CarPort {
     }
 
 
-    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, String carportFnum, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure, Integer ID, String name, Integer fnum, Integer status, String carportX, String carportY) {
+    public CarPort(Integer carportId, String carportArea, Integer carportNumber, String carportCarnumber, String carportPhoto, Date carportStarttime, Integer carportState, String carportFnum, Integer allPark, Integer employPark, Integer leisurePark, Integer allSubarea, Integer subarEaemploy, Integer subarLeisure, Integer ID, String name, Integer fnum, Integer status, String carportX, String carportY, Integer carportReserveid) {
         this.carportId = carportId;
         this.carportArea = carportArea;
         this.carportNumber = carportNumber;
@@ -70,62 +71,7 @@ public class CarPort {
         this.status = status;
         this.carportX = carportX;
         this.carportY = carportY;
-    }
-
-    public String getCarportX() {
-        return carportX;
-    }
-
-    public void setCarportX(String carportX) {
-        this.carportX = carportX;
-    }
-
-    public String getCarportY() {
-        return carportY;
-    }
-
-    public void setCarportY(String carportY) {
-        this.carportY = carportY;
-    }
-
-    public String getCarportFnum() {
-        return carportFnum;
-    }
-
-    public void setCarportFnum(String carportFnum) {
-        this.carportFnum = carportFnum;
-    }
-
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getFnum() {
-        return fnum;
-    }
-
-    public void setFnum(Integer fnum) {
-        this.fnum = fnum;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+        this.carportReserveid = carportReserveid;
     }
 
     public Integer getCarportId() {
@@ -184,6 +130,14 @@ public class CarPort {
         this.carportState = carportState;
     }
 
+    public String getCarportFnum() {
+        return carportFnum;
+    }
+
+    public void setCarportFnum(String carportFnum) {
+        this.carportFnum = carportFnum;
+    }
+
     public Integer getAllPark() {
         return allPark;
     }
@@ -232,6 +186,62 @@ public class CarPort {
         this.subarLeisure = subarLeisure;
     }
 
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getFnum() {
+        return fnum;
+    }
+
+    public void setFnum(Integer fnum) {
+        this.fnum = fnum;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getCarportX() {
+        return carportX;
+    }
+
+    public void setCarportX(String carportX) {
+        this.carportX = carportX;
+    }
+
+    public String getCarportY() {
+        return carportY;
+    }
+
+    public void setCarportY(String carportY) {
+        this.carportY = carportY;
+    }
+
+    public Integer getCarportReserveid() {
+        return carportReserveid;
+    }
+
+    public void setCarportReserveid(Integer carportReserveid) {
+        this.carportReserveid = carportReserveid;
+    }
+
     @Override
     public String toString() {
         return "CarPort{" +
@@ -253,6 +263,9 @@ public class CarPort {
                 ", name='" + name + '\'' +
                 ", fnum=" + fnum +
                 ", status=" + status +
+                ", carportX='" + carportX + '\'' +
+                ", carportY='" + carportY + '\'' +
+                ", carportReserveid=" + carportReserveid +
                 '}';
     }
 }

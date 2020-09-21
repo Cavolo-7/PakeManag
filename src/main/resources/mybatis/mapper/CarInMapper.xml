@@ -24,6 +24,11 @@
           update t_carport set carport_carnumber=#{carportCarnumber},carport_photo=#{carportPhoto},carport_starttime=#{carportStarttime},carport_state=#{carportState} where carport_id = #{carportId}
     </update>
 
+    <!--  预约车信息修改停车车位表  -->
+    <update id="updateReserve">
+          update t_carport set carport_photo=#{carportPhoto},carport_starttime=#{carportStarttime},carport_state=#{carportState},carport_reserveid=#{carportReserveid} where carport_id = #{carportId}
+    </update>
+
     <!--  插入历史汇总表  -->
     <insert id="insertHistory" parameterType="com.auc.pojo.History">
           INSERT into t_histor(histor_carnumber,histor_photo) VALUES(#{historCarnumber},#{historPhoto})
@@ -47,7 +52,7 @@
 
     <!--  根据车牌查询停车位  -->
     <select id="findCarPort" resultType="com.auc.pojo.CarPort">
-         SELECT carport_id,carport_number,carport_fnum,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport where carport_carnumber=#{carNumber}
+         SELECT carport_id,carport_number,carport_fnum,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state,carport_reserveid from t_carport where carport_carnumber=#{carNumber}
     </select>
 
     <!--  根据车牌查询免检名单表  -->

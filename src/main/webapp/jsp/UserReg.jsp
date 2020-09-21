@@ -85,14 +85,22 @@
         if (flag < 60) {
             return;
         }
-        var xhr = new XMLHttpRequest();
-        xhr.open("get", "/userControl/textMsg?personPhone=" + document.getElementById("personPhone").value, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-// alert(xhr.responseText);
-            }
-        }
-        xhr.send(null);
+        var personPhone=$("#personPhone").val()
+        $.ajax({
+            url:"/userControl/textMsg",
+            dataType: "text",
+            type: "Post",
+            data:"personPhone="+personPhone,
+        })
+
+//         var xhr = new XMLHttpRequest();
+//         xhr.open("get", "/userControl/textMsg?personPhone=" + document.getElementById("personPhone").value, true);
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState == 4 && xhr.status == 200) {
+// // alert(xhr.responseText);
+//             }
+//         }
+//         xhr.send(null);
         timer();
     }
 
@@ -102,13 +110,21 @@
         // if (flag < 60) {
         //     return;
         // }
-        var xhr = new XMLHttpRequest();
-        xhr.open("get", "/userControl/textCod?code=" + document.getElementById("code").value, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                if (xhr.responseText == 0) {
-                    alert("执行注册按钮")
 
+        var code=$("#code").val()
+        $.ajax({
+            url:"/userControl/textCod",
+            dataType: "text",
+            type: "Post",
+            data:"code="+code,
+    success:function (date) {
+        if (date=="验证成功"){
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("get", "/userControl/textCod?code=" + document.getElementById("code").value, true);
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState == 4 && xhr.status == 200) {
+        //         if (xhr.responseText == 0) {
+                    alert("执行注册按钮")
                     var path = $("#path").val();
                     var personName = $("#personName").val();//用户名
                     alert(personName)
@@ -174,10 +190,11 @@
                 } else {
                     alert("验证码错误！")
                 }
-            }
-        }
-
-        xhr.send(null);
+        //     }
+        // }
+    }
+    })
+        // xhr.send(null);
     }
 
     function timer() {
