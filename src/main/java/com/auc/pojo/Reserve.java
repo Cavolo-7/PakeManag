@@ -14,16 +14,18 @@ public class Reserve {
     private String reserveCarNumber;//车牌号
     private String reserveTime;//预约时间
 
+    private Integer carportId;//停车位id
     private String carPort;//停车位信息
     private Integer flag;//（0-车位已满不可预约，1-已预约，2-当前时间该车已经预约（无法再预约）3-当前时间该车已经停车（无法再预约））
 
     public Reserve() {
     }
 
-    public Reserve(Integer reserveId, String reserveCarNumber, String reserveTime, String carPort, Integer flag) {
+    public Reserve(Integer reserveId, String reserveCarNumber, String reserveTime, Integer carportId, String carPort, Integer flag) {
         this.reserveId = reserveId;
         this.reserveCarNumber = reserveCarNumber;
         this.reserveTime = reserveTime;
+        this.carportId = carportId;
         this.carPort = carPort;
         this.flag = flag;
     }
@@ -52,6 +54,14 @@ public class Reserve {
         this.reserveTime = reserveTime;
     }
 
+    public Integer getCarportId() {
+        return carportId;
+    }
+
+    public void setCarportId(Integer carportId) {
+        this.carportId = carportId;
+    }
+
     public String getCarPort() {
         return carPort;
     }
@@ -74,6 +84,7 @@ public class Reserve {
                 "reserveId=" + reserveId +
                 ", reserveCarNumber='" + reserveCarNumber + '\'' +
                 ", reserveTime='" + reserveTime + '\'' +
+                ", carportId=" + carportId +
                 ", carPort='" + carPort + '\'' +
                 ", flag=" + flag +
                 '}';

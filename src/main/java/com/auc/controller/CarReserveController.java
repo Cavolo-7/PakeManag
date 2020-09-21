@@ -52,7 +52,8 @@ public class CarReserveController {
     @RequestMapping(value = "/isReserve")
     public String isReserve(HttpServletRequest request) {
         String carNumber = request.getParameter("carNumber");
-        boolean flag = CarReserveServiceImpl.isReserve(carNumber);
+        String carportId = request.getParameter("carportId");
+        boolean flag = CarReserveServiceImpl.isReserve(carNumber,new Integer(carportId));
         String str = "";
         if (flag == true) {
             str = "success";

@@ -67,6 +67,7 @@ public class CarReserveServiceImpl implements CarReserveService {
                 reserve.setCarPort("负" + userCarPort.getCarportFnum() + "楼" + userCarPort.getCarportArea() + "区" + userCarPort.getCarportNumber() + "号");
                 reserve.setReserveCarNumber(carNumber);
                 reserve.setReserveTime(CountUtil.getOneHourAgo(new Date()));
+                reserve.setReserveId(userCarPort.getCarportId());
             }
         }
         return reserve;
@@ -82,7 +83,7 @@ public class CarReserveServiceImpl implements CarReserveService {
      **/
     @Transactional
     @Override
-    public boolean isReserve(String carNumber) {
+    public boolean isReserve(String carNumber,Integer carportId) {
         boolean flag = false;
         //1.添加信息至预约表
         Reserve reserve = new Reserve();
@@ -93,6 +94,7 @@ public class CarReserveServiceImpl implements CarReserveService {
         CarPort carPort = new CarPort();
         carPort.setCarportReserveid(reserve.getReserveId());
         carPort.setCarportCarnumber(carNumber);
+        carPort.setCarportId(carportId);
         int updateCarportNum = carReserveMapper.updateCarport(carPort);
         if (insertReserveNum > 0 && updateCarportNum > 0) {
             flag = true;
