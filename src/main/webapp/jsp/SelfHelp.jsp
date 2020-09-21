@@ -12,15 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自助客户端</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- end font -->
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SelfHelp.css">
+    <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
+    <script src="${pageContext.request.contextPath}/js/SelfHelp.js"></script>
 </head>
 <body>
 <input id="path" value="${pageContext.request.contextPath}" type="hidden">
@@ -53,57 +52,21 @@
                     <p>Self service payment</p>
                 </div>
             </div>
-            <!--				<div class="col-md-4 col-sm-12">-->
-            <!--					<div class="content">-->
-            <!--						<div class="serv-icon">-->
-            <!--							<i class="icon ion-ios-desktop"></i>-->
-            <!--							<span class="clone-icon"><i class="icon ion-ios-desktop"></i></span>-->
-            <!--						</div>-->
-            <!--						<h5>Web Development</h5>-->
-            <!--						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit deserunt</p>-->
-            <!--					</div>-->
-            <!--				</div>-->
         </div>
-        <!--			<div class="row">-->
-        <!--				<div class="col-md-4 col-sm-12">-->
-        <!--					<div class="content">-->
-        <!--						<div class="serv-icon">-->
-        <!--							<i class="icon ion-logo-html5"></i>-->
-        <!--							<span class="clone-icon"><i class="icon ion-logo-html5"></i></span>-->
-        <!--						</div>-->
-        <!--						<h5>HTML 5</h5>-->
-        <!--						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit deserunt</p>-->
-        <!--					</div>-->
-        <!--				</div>-->
-        <!--				<div class="col-md-4 col-sm-12">-->
-        <!--					<div class="content">-->
-        <!--						<div class="serv-icon">-->
-        <!--							<i class="icon ion-ios-paper"></i>-->
-        <!--							<span class="clone-icon"><i class="icon ion-ios-paper"></i></span>-->
-        <!--						</div>-->
-        <!--						<h5>Branding</h5>-->
-        <!--						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit deserunt</p>-->
-        <!--					</div>-->
-        <!--				</div>-->
-        <!--				<div class="col-md-4 col-sm-12">-->
-        <!--					<div class="content">-->
-        <!--						<div class="serv-icon">-->
-        <!--							<i class="icon ion-logo-wordpress"></i>-->
-        <!--							<span class="clone-icon"><i class="icon ion-logo-wordpress"></i></span>-->
-        <!--						</div>-->
-        <!--						<h5>Wordpress</h5>-->
-        <!--						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit deserunt</p>-->
-        <!--					</div>-->
-        <!--				</div>-->
-        <!--			</div>-->
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="layui-carousel" id="test1">
+                    <div carousel-item="" id="picture">
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <!-- end services -->
 <script>
-    function openArea() {
-        var path = $("#path").val();
-        location.href = '/jsp/Area.jsp';
-    }
 
     function openSelfHelf() {
         var path = $("#path").val();

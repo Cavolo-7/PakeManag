@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css"/>
     <script src="${pageContext.request.contextPath}/js/CarIn.js"></script>
     <script>
+        if (${isCarOut}){
+            alert("支付成功，车辆出场成功！")
+        }
         setInterval(function () {
             var date = new Date();
             var year = date.getFullYear(); //获取当前年份
