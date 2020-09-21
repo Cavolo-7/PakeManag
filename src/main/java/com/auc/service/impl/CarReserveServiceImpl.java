@@ -67,7 +67,7 @@ public class CarReserveServiceImpl implements CarReserveService {
                 reserve.setCarPort("负" + userCarPort.getCarportFnum() + "楼" + userCarPort.getCarportArea() + "区" + userCarPort.getCarportNumber() + "号");
                 reserve.setReserveCarNumber(carNumber);
                 reserve.setReserveTime(CountUtil.getOneHourAgo(new Date()));
-                reserve.setReserveId(userCarPort.getCarportId());
+                reserve.setCarportId(userCarPort.getCarportId());
             }
         }
         return reserve;
