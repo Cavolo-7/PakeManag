@@ -105,7 +105,7 @@ public class UserControl {
     //校验短信验证码
     @RequestMapping(value = "/textCod", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public void textCod(HttpServletRequest request, HttpServletResponse response)throws IOException, ParseException {
+    public String textCod(HttpServletRequest request, HttpServletResponse response)throws IOException, ParseException {
       String str=null;
        //前台输入的验证码
         String code=request.getParameter("code");
@@ -114,10 +114,12 @@ public class UserControl {
         String code2=(String) request.getSession().getAttribute("code");
         System.out.println("后台获取"+code2);
         if (code2.equals(code)){
-            response.getWriter().print("0");
+//            response.getWriter().print("0");
+        str="验证成功";
         }else {
-            response.getWriter().print("1");
+//            response.getWriter().print("1");
+        str="验证失败";
         }
-
+return str;
     }
 }

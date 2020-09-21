@@ -148,7 +148,7 @@
                         // anim: 1,
                         type: 2,//Page层类型
                         area: ['500px', '500px'],
-                        title: 'VI开通',
+                        title: 'VIP开通',
                         shadeClose: true,
                         shade: false,
                         id: 'alterp',
