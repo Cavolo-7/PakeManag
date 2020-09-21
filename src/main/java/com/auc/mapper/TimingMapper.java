@@ -23,9 +23,9 @@ public interface TimingMapper {
 
     public void RemoveVip(Integer personId);   //移除记录
 
-    public List<Detail> Sttlement(Integer page,Integer limit, String starTime, String endTime); //判断时间区间
+    public List<Detail> Sttlement(Integer page, Integer limit, String starTime, String endTime); //判断时间区间
 
     public Integer SttlementCount(String starTime, String endTime); //查询时间区间总页码
 
-
+    public void findReserveList();//查询预约表
 }
