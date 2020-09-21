@@ -29,6 +29,9 @@ public interface CarInMapper {
     public Integer updateCarPort(@Param("carportCarnumber") String carportCarnumber, @Param("carportPhoto") String carportPhoto,
                                  @Param("carportStarttime") String carportStarttime, @Param("carportState") Integer carportState, @Param("carportId") Integer carportId);//车信息插入停车车位表
 
+    public Integer updateReserve(@Param("carportPhoto") String carportPhoto, @Param("carportStarttime") String carportStarttime, @Param("carportState") Integer carportState,
+                                 @Param("carportId") Integer carportId, @Param("carportReserveid") Integer carportReserveid);//预约车信息修改停车车位表
+
     public Integer insertHistory(History history);//插入历史汇总表
 
     public Integer findHistoryId(History history);//根据车牌查询历史汇总表最新一条

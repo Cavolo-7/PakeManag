@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,6 +83,19 @@ public class CountUtil {
             carPort = noUseCarPortList.get(num);//分配的停车位
         }
         return carPort;
+    }
+
+    /**
+     * 获取一小时后时间
+     */
+    public static String getOneHourAgo(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(date);
+        rightNow.add(Calendar.HOUR, +1);
+        Date dt1 = rightNow.getTime();
+        String oneHoursAgoTime = sdf.format(dt1);
+        return oneHoursAgoTime;
     }
 
 }
