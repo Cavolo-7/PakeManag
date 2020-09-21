@@ -56,8 +56,6 @@ public class LogRegController {
                 str="注册失败";
             }
         }
-
-
         return str;
 
     }
@@ -68,12 +66,8 @@ public class LogRegController {
         System.out.println("执行用户登录方法");
         String personAccount=request.getParameter("personAccount");//获取账号
         String personPassword=request.getParameter("personPassword");//获取密码
-//        String vCode = request.getParameter("vCode");//获取验证码
-//        String svCode = (String) request.getSession().getAttribute("vCode");//将验证码转为string类型
         String str = null;
-//        request.getSession().removeAttribute("vCode");
-//        if (vCode.equalsIgnoreCase(svCode)) {//判断验证码是否相等
-            Person person=logRegService.loginPerson(personAccount,personPassword);//调用登录方法传入账号密码
+        Person person=logRegService.loginPerson(personAccount,personPassword);//调用登录方法传入账号密码
             if (person!=null){
                 request.getSession().setAttribute("person",person);
                 str = "登录成功";
@@ -82,9 +76,6 @@ public class LogRegController {
 //            }
 
         }
-//        else {
-//            str = "验证码错误";
-//        }
         return str;
     }
 
