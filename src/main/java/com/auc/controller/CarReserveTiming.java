@@ -21,8 +21,9 @@ public class CarReserveTiming {
      * @Date: 2020/9/21
      * @return: void
      **/
-//    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0 */5  * * * ?")
     public void JudgeReserve() {
+        System.out.println("判断预约停车是否超时（5分钟/次）");
         carReserveTimingService.JudgeReserve();
     }
 

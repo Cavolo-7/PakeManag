@@ -345,7 +345,7 @@ public class CarServiceImpl implements CarService {
         String form = "";
         try {
             String uuid = UUID.randomUUID().toString();//商户订单号
-            form = AlipayUtil.getAlipay(uuid, subject, total_amount, body, AlipayConfig.notify_url, AlipayConfig.notify_url);
+            form = AlipayUtil.getAlipay(uuid, subject, total_amount, body, "http://acsk.free.idcfengye.com/car/alipayNotify", "http://acsk.free.idcfengye.com/car/alipayReturnUrl");
             Alipay alipay = new Alipay();
             alipay.setAlipayNumber(uuid);
             alipay.setAlipayCarnumber(subject);

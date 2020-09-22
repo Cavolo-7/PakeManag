@@ -21,10 +21,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq4sTLqXdgCMi4xku5HvBeyr6SUmB3rFjS/dQ4UPd9pisZtqzsVjq/I905BLzhk+H1Ofwxh5rX77JRn/PwsfO+qQB8Yzalr+AoMrYsNTeTZcWh41mIdRwkrMQw8HLNDJjwCi77JDIIJ9lLZK0xDIm4NCh4tFCqD/7f9J+ZGjv6weyS6rJD2adsFICxBVZRGt+RvBcMz0Sb/6cH16LMy3qpxLdEqc/3NaigBNGI/Sr6olTndICZLtvuF+Q5MixmDfcvcS+JexpPz9caQ6IJjMDvHGZlc/npdMH8JyzEf9PRtWuHOgjfW+O2W37au2Dlg10vRw5gvevcWbahcBwbO8E4wIDAQAB";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String notify_url = "http://acsk.free.idcfengye.com/car/alipayNotify";
+    public static String notify_url = "";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://acsk.free.idcfengye.com/car/alipayReturnUrl";
+    public static String return_url = "";
 
     // 签名方式
     public static String sign_type = "RSA2";

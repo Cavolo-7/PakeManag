@@ -396,12 +396,13 @@ public class CarControl {
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
         ModelAndView modelAndView = new ModelAndView();
         if (signVerified) {
+            System.out.println("alipayReturnUrl");
             String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8"); //商户订单号
             Alipay alipay = carServiceImpl.findAlipay(out_trade_no);
             WelcomeInfo welcomeInfo = carServiceImpl.findCarPayInfo(alipay.getAlipayCarnumber());//查询车辆结算信息
             modelAndView.addObject("welcomeInfo", welcomeInfo);
             modelAndView.setViewName("/jsp/SelfPaySuccess.jsp");//跳转回自助缴费页面
-        } else {
+            System.out.println("modelAndView");
         }
         return modelAndView;
     }
