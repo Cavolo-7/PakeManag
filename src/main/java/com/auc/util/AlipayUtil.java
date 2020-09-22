@@ -45,6 +45,7 @@ public class AlipayUtil {
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
         //生成表单
         String form = alipayClient.pageExecute(alipayRequest).getBody();
+        System.out.println("form:"+form);
         return form;
     }
 
