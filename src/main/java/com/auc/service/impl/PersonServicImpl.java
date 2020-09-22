@@ -18,6 +18,7 @@ public class PersonServicImpl implements PersonService {
     @Autowired
     public PersonMapper personMapper;
     //查询普通用户列表表格数据/普通用户
+    @com.auc.util.Log()
     @Override
     public LayuiData<Person> selectOrdinaryList(Map<String, String> condition, Integer curPage, Integer pageSize) {
         LayuiData<Person> layuiData = new LayuiData();
@@ -32,6 +33,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询普通用户列表表格数据/vip
+    @com.auc.util.Log()
     @Override
     public LayuiData<Person> selectVipList(Map<String, String> condition, Integer curPage, Integer pageSize) {
         LayuiData<Person> layuiData = new LayuiData();
@@ -46,6 +48,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询计算好的时间
+    @com.auc.util.Log()
     @Override
     public Date selectEndTime(Record record) {
         Date date=personMapper.selectEndTime(record);
@@ -54,12 +57,14 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询产品
+    @com.auc.util.Log()
     @Override
     public Produce selectProduceId(String produceName) {
         Produce produce=personMapper.selectProduceId(produceName);
         return produce;
     }
-//添加vip
+    //添加vip
+    @com.auc.util.Log()
     @Override
     public boolean addVip(Person person) {
         boolean flag=false;
@@ -71,6 +76,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //添加明细表
+    @com.auc.util.Log()
     @Override
     public boolean addDetail(Detail detail) {
         boolean flag=false;
@@ -80,13 +86,15 @@ public class PersonServicImpl implements PersonService {
         }
         return flag;
     }
-//根据id查询用户信息
+    //根据id查询用户信息
+    @com.auc.util.Log()
     @Override
     public Person selectPersonId(Integer personId) {
         Person person=personMapper.selectPersonId(personId);
         return person;
     }
-//添加免检
+    //添加免检
+    @com.auc.util.Log()
     @Override
     public boolean addExemptionPerson(Exemption exemption) {
         boolean flag=false;
@@ -98,6 +106,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //添加用户记录
+    @com.auc.util.Log()
     @Override
     public boolean addPersonRecord(Record record) {
         boolean flag=false;
@@ -109,6 +118,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询月缴产品名字集合
+    @com.auc.util.Log()
     @Override
     public List<Produce> selectProduceNameList() {
         List<Produce> list=new ArrayList<Produce>();
@@ -118,6 +128,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询月缴产品名字/状态
+    @com.auc.util.Log()
     @Override
     public List<Produce> selectProduceStateName() {
         List<Produce> list=new ArrayList<Produce>();
@@ -127,6 +138,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //修改用户总消费
+    @com.auc.util.Log()
     @Override
     public boolean updateRecharge(Person person) {
         boolean flag=false;
@@ -138,6 +150,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //添加用户记录加开始时间
+    @com.auc.util.Log()
     @Override
     public boolean addPersonRecords(Record record) {
         boolean flag=false;
@@ -149,6 +162,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询当前使用的产品记录
+    @com.auc.util.Log()
     @Override
     public Record selectNowProduce(Record record) {
         Record record2=personMapper.selectNowProduce(record);
@@ -156,6 +170,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询未使用过的产品记录
+    @com.auc.util.Log()
     @Override
     public List<Record> selectNoUseProduce(Record record) {
         List<Record> list=new ArrayList<Record>();
@@ -164,6 +179,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //根据产品id查询产品金额
+    @com.auc.util.Log()
     @Override
     public Produce selectProduceMoney(Integer produceId) {
         Produce produce=personMapper.selectProduceMoney(produceId);
@@ -171,6 +187,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //查询计算产品使用天数
+    @com.auc.util.Log()
     @Override
     public boolean selectDateTime(Record record) {
         boolean flag=false;
@@ -184,6 +201,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //删除用户记录表
+    @com.auc.util.Log()
     @Override
     public boolean deletePersonRecord(Integer produceId) {
         boolean flag=false;
@@ -195,6 +213,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //删除年检表用户
+    @com.auc.util.Log()
     @Override
     public boolean deleteExemptionPerson(String exemptionCarnumber) {
         boolean flag=false;
@@ -206,6 +225,7 @@ public class PersonServicImpl implements PersonService {
     }
 
     //退费
+    @com.auc.util.Log()
     @Override
     public boolean updateVipIdentity(Person person) {
         boolean flag=false;

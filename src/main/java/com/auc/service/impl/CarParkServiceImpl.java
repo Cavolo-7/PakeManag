@@ -6,6 +6,7 @@ import com.auc.pojo.CarPort;
 import com.auc.pojo.LayuiData;
 import com.auc.pojo.Produce;
 import com.auc.service.CarParkService;
+import com.auc.util.Log;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class CarParkServiceImpl implements CarParkService {
     @Autowired
     public CarParkMapper carParkMapper;
 
+    @Log()
     @Override
     public HashMap selectAllParkList(HashMap hashMap) {
         List<CarPort> list = new ArrayList<CarPort>();
@@ -31,6 +33,7 @@ public class CarParkServiceImpl implements CarParkService {
         return hashMaps;
     }
 
+    @Log()
     @Override
     public HashMap selectSubareaParkList(HashMap hashMap) {
         List<CarPort> list = new ArrayList<CarPort>();
@@ -42,6 +45,7 @@ public class CarParkServiceImpl implements CarParkService {
         return hashMaps;
     }
 
+    @Log()
     @Override
     public Integer selectSubareaNumber() {
         int n=carParkMapper.selectSubareaNumber();

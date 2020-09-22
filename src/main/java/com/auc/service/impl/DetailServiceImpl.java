@@ -4,8 +4,10 @@ import com.auc.mapper.DetailMapper;
 import com.auc.pojo.Detail;
 
 import com.auc.service.DetailService;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class DetailServiceImpl implements DetailService {
     @Autowired
     DetailMapper detailMapper;
 
+    @Log()
     @Override
     public HashMap queryFirst(HashMap hashMap) {
         List<Detail> list = new ArrayList<Detail>();
@@ -38,6 +41,7 @@ public class DetailServiceImpl implements DetailService {
         return hashMaps;
     }
 
+    @Log()
     @Override
     public HashMap querySecond(HashMap hashMap) {
         List<Detail> list = new ArrayList<Detail>();
@@ -60,6 +64,7 @@ public class DetailServiceImpl implements DetailService {
         return hashMaps;
     }
 
+    @Log()
     @Override
     public HashMap queryThird(HashMap hashMap) {
         List<Detail> list = new ArrayList<Detail>();
@@ -71,6 +76,7 @@ public class DetailServiceImpl implements DetailService {
         return hashMaps;
     }
 
+    @Log()
     @Override
     public HashMap queryFourth(HashMap hashMap) {
         List<Detail> list = new ArrayList<Detail>();

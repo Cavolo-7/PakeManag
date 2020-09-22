@@ -17,7 +17,7 @@ public class SettlementServiceImpl implements SettlementService {
     @Autowired
     public SettlementMapper settlementMapper;
 
-
+    @com.auc.util.Log()
     @Override
     public LayuiData<Detail> selectDetailList(Map<String, String> condition, Integer curPage, Integer pageSize) {
         LayuiData<Detail> layuiData = new LayuiData();

@@ -9,6 +9,7 @@ import com.auc.pojo.Record;
 import com.auc.pojo.Reserve;
 import com.auc.service.CarReserveTimingService;
 import com.auc.service.TimingService;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ public class CarReserveTimingServiceImpl implements CarReserveTimingService {
      * @Date: 2020/9/21
      * @return: java.util.List<com.auc.pojo.Reserve>
      **/
+    @Log()
     @Override
     public void JudgeReserve() {
         List<Reserve> reserveList = carReserveTimingMapper.findReserveList();//查询预约列表

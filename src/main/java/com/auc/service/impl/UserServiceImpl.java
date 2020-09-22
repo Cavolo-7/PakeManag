@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserMapper userMapper;
     //查询所有用户
+    @com.auc.util.Log()
     @Override
     public List<Role> selectRole(Integer page, Integer limit ,String roleName,String urisdiction,String roleState) {
         page=(page-1)*limit;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
         return roleList;
     }
     //查询总页数
+    @com.auc.util.Log()
     @Override
     public Integer queryRoleCount() {
         int count = userMapper.queryRoleCount();
@@ -34,6 +36,7 @@ public class UserServiceImpl implements UserService {
     //查询关系表中的参数值值
 
     //增加管理员账号
+    @com.auc.util.Log()
     @Override
     public boolean addRole(String paramName,String roleName) {
        boolean flag=false;
@@ -46,6 +49,7 @@ public class UserServiceImpl implements UserService {
         return flag;
     }
     //修改
+    @com.auc.util.Log()
     @Override
     public boolean updRole(String roleId,String roleName,String urisdictionName) {
         boolean flag=false;
@@ -59,6 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     //禁用启用
+    @com.auc.util.Log()
     @Override
     public boolean roleState(Integer roleId, String roleState) {
         boolean flag=false;

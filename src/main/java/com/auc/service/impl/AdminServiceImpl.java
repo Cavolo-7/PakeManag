@@ -1,8 +1,13 @@
 package com.auc.service.impl;
 
 import com.auc.mapper.AdminMapper;
-import com.auc.pojo.*;
+
+import com.auc.pojo.Admin;
+import com.auc.pojo.LayuiData;
+import com.auc.pojo.Person;
+import com.auc.pojo.Role;
 import com.auc.service.AdminService;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,7 @@ public class AdminServiceImpl implements AdminService {
     public AdminMapper adminMapper;
 
     //查询管理员列表表格数据
+    @Log(operationName = "查找工作人员")
     @Override
     public LayuiData<Admin> selectAdminList(Map<String, String> condition, Integer curPage, Integer pageSize) {
         LayuiData<Admin> layuiData = new LayuiData();
@@ -31,6 +37,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //删除管理员账号
+    @Log(operationName = "删除工作人员")
     @Override
     public boolean updateDimission(Admin admin) {
         boolean flag = false;
@@ -42,6 +49,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询参数id
+    @Log()
     @Override
     public Integer selectParam(String paramName) {
         int n=adminMapper.selectParam(paramName);
@@ -50,6 +58,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //重置管理员密码
+    @Log(operationName = "重置管理员密码")
     @Override
     public boolean updateAdminPassword(String workerAccount) {
         boolean flag=false;
@@ -61,6 +70,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //添加管理员账号
+    @Log(operationName = "添加管理员账号")
     @Override
     public boolean addAdmin(Admin admin) {
         boolean flag=false;
@@ -72,6 +82,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询角色id
+    @Log()
     @Override
     public Integer selectRoleId(String roleName) {
         int n=adminMapper.selectRoleId(roleName);
@@ -79,6 +90,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询员工状态参数id
+    @Log()
     @Override
     public Integer selectWorkerParam(String paramName) {
         int n=adminMapper.selectWorkerParam(paramName);
@@ -86,6 +98,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询员工性别参数id
+    @Log()
     @Override
     public Integer selectSexParam(String sexName) {
         int n=adminMapper.selectSexParam(sexName);
@@ -93,6 +106,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询管理员账号是否存在
+    @Log()
     @Override
     public Admin selectAdminAccount(String workerAccount) {
         Admin admin=null;
@@ -101,6 +115,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询用户账号是否存在
+    @Log()
     @Override
     public Person selectPersonAccount(String personAccount) {
         Person person=null;
@@ -109,6 +124,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询管理员电话是否存在
+    @Log()
     @Override
     public Admin selectAdminPhone(String workerPhoe) {
         Admin admin=null;
@@ -118,6 +134,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //修改管理员信息
+    @Log(operationName = "修改管理员信息")
     @Override
     public boolean updateAdmin(Admin admin) {
         boolean flag=false;
@@ -129,6 +146,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     //查询角色名字集合
+    @Log()
     @Override
     public List<Role> selectRoleList() {
         List<Role> list=new ArrayList<Role>();
@@ -137,6 +155,7 @@ public class AdminServiceImpl implements AdminService {
         return list;
     }
 
+    @Log()
     @Override
     public List<Role> selectRoleStateName() {
         List<Role> list=new ArrayList<Role>();
@@ -145,6 +164,7 @@ public class AdminServiceImpl implements AdminService {
         return list;
     }
 
+    @Log()
     @Override
     public List<Admin> selectAdminNameList() {
         List<Admin> list=new ArrayList<Admin>();

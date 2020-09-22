@@ -13,6 +13,7 @@ public class ProducePayServiceImpl implements ProducePayService {
     @Autowired
     ProducePayMapper producePayMapper;
 
+    @com.auc.util.Log()
     @Override
     public boolean addProducePay(Alipay alipay) {
         boolean flag=false;
@@ -23,6 +24,7 @@ public class ProducePayServiceImpl implements ProducePayService {
         return flag;
     }
 
+    @com.auc.util.Log()
     @Override
     public Alipay selectProducePay(String alipayNumber) {
 

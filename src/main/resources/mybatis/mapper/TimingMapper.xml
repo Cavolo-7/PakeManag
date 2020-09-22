@@ -47,4 +47,8 @@
         </where>
     </select>
 
+    <insert id="AddLog" parameterType="com.auc.pojo.Log">
+        insert into t_log (log_event,log_worker) VALUES (#{logEvent},#{logWorker})
+    </insert>
+
 </mapper>
