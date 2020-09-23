@@ -21,11 +21,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/xadmin.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-    <%--    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->--%>
-    <%--    <!--[if lt IE 9]>--%>
-    <%--        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>--%>
-    <%--        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>--%>
-    <%--    <![endif]-->--%>
 </head>
 <body>
 <div class="layui-fluid">
@@ -120,34 +115,7 @@
 
         //自定义验证规则
         form.verify({
-            // workerAccount:[/^[0-9]+$/,'账号为整数类型'],
-            // workerAccount:function(value){
-            //     if (value.length<2){
-            //         return '账号长度需要大于或大于3位'
-            //     }
-            // },
-            //
-            // workerName:function(value){
-            //   if (value.length<2){
-            //       return '用户名需要大于或等于两个字符'
-            //   }
-            // },
-            //
-            // workerAge:[ /^([1-9]\d?|1[01]\d|120)$/,'年龄填写错误'],
-            //
-            //
-            // workerAddress:function(value){
-            //   if (value==''){
-            //       return '住址必须填写'
-            //   }
-            // },
-            //
-            // pass: [/(.+){6,12}$/, '密码必须6到12位'],
-            // repass: function (value) {
-            //     if ($('#L_pass').val() != $('#L_repass').val()) {
-            //         return '两次密码不一致';
-            //     }
-            // }
+
         });
 //选择套餐后加上值
         form.on('select(produceName)', function (data) {
