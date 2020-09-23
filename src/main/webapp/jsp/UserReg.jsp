@@ -125,7 +125,7 @@
                     //     if (xhr.readyState == 4 && xhr.status == 200) {
                     //         if (xhr.responseText == 0) {
                     var path = $("#path").val();
-                    var personName = $("#personName").val();//用户名
+                    var personName = $("#personName").val();//用户名020
                     var personAccount = $("#personAccount").val();//账号
                     var password = $("#password").val();//密码
                     var passwords = $("#passwords").val();//确认密码

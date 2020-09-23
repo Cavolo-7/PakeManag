@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/九月二十号备份/ParkManage" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/新建文件夹 (2)/ParkManage" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/新建文件夹/ParkManage" vcs="Git" />
   </component>
 </project>

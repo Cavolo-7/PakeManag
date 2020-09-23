@@ -9,6 +9,7 @@ import com.auc.service.SettlementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,23 @@ public class SettlementServiceImpl implements SettlementService {
         layuiData.setCount(record);
         layuiData.setCurrPage(curPage);
         return layuiData;
+    }
+    //月份总收入统计
+    @Override
+    public List<Detail> selectMonth() {
+        List<Detail> list=new ArrayList<Detail>();
+        list=settlementMapper.selectMonth();
+        Detail detail=new Detail();
+        for (int i=0;i<list.size();i++){
+            for (int j=1;i<=12;j++){
+                if (j!=list.get(i).getCountMonth()){
+                    detail.setDetailMoney(0);
+                    list.add(detail);
+                }else {
+                   detail.setDetailMoney(list.get(i).getDetailMoney());
+                }
+            }
+        }
+        return list;
     }
 }

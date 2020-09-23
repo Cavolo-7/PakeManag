@@ -131,7 +131,7 @@
       trigger: 'axis'
     },
     legend: {
-      data:['总车位','已用车位数','空闲车位数']
+      data:['已用车位数']
     },
     grid: {
       left: '3%',
@@ -152,26 +152,12 @@
     yAxis: {
       type: 'value'
     },
-    series: [
-      {
-        name:'总车位',
-        type:'line',
-        stack: '总量',
-        data:[120, 132, 101, 134, 90, 230, 210]
-      },
-      {
+      series: [{
         name:'已用车位数',
         type:'line',
         stack: '总量',
-        data:[220, 182, 191, 234, 290, 330, 310]
-      },
-      {
-        name:'空闲车位数',
-        type:'line',
-        stack: '总量',
-        data:[ 150, 232, 201, 154, 190, 330, 410]
-      },
-    ]
+        data:[120, 132, 101, 134, 90, 230, 210]
+      }]
   };
   // 使用刚指定的配置项和数据显示图表。
   myChart.setOption(option);

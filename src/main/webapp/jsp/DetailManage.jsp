@@ -71,7 +71,6 @@
 <%--                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddVip.jsp',600,470)"><i--%>
 <%--                                class="layui-icon"></i>新增VIP--%>
 <%--                        </button>--%>
-                        <button type="button" class="layui-btn layui-btn-primary" onclick="scorePDF()">打印成绩单</button>
                     </div>
                 </div>
                 <div class="layui-card-body ">

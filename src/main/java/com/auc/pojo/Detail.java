@@ -13,6 +13,9 @@ public class Detail {
     private String workerName;
     private String detailType; //支付类型
 
+    private Integer countYear;//年份
+    private Integer countMonth;//月份
+
     public Detail() {
     }
 
@@ -26,6 +29,20 @@ public class Detail {
         this.workerId = workerId;
         this.workerName = workerName;
         this.detailType = detailType;
+    }
+
+    public Detail(Integer detailId, String detailCarnumber, String detailEvent, Integer produceId, String detailTime, Integer detailMoney, Integer workerId, String workerName, String detailType, Integer countYear, Integer countMonth) {
+        this.detailId = detailId;
+        this.detailCarnumber = detailCarnumber;
+        this.detailEvent = detailEvent;
+        this.produceId = produceId;
+        this.detailTime = detailTime;
+        this.detailMoney = detailMoney;
+        this.workerId = workerId;
+        this.workerName = workerName;
+        this.detailType = detailType;
+        this.countYear = countYear;
+        this.countMonth = countMonth;
     }
 
     public Integer getDetailId() {
@@ -100,6 +117,22 @@ public class Detail {
         this.detailType = detailType;
     }
 
+    public Integer getCountYear() {
+        return countYear;
+    }
+
+    public void setCountYear(Integer countYear) {
+        this.countYear = countYear;
+    }
+
+    public Integer getCountMonth() {
+        return countMonth;
+    }
+
+    public void setCountMonth(Integer countMonth) {
+        this.countMonth = countMonth;
+    }
+
     @Override
     public String toString() {
         return "Detail{" +
@@ -112,6 +145,8 @@ public class Detail {
                 ", workerId=" + workerId +
                 ", workerName='" + workerName + '\'' +
                 ", detailType='" + detailType + '\'' +
+                ", countYear=" + countYear +
+                ", countMonth=" + countMonth +
                 '}';
     }
 }
