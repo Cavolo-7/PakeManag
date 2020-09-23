@@ -6,6 +6,7 @@ import com.auc.mapper.CarInMapper;
 import com.auc.pojo.*;
 import com.auc.service.CarService;
 import com.auc.util.*;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class CarServiceImpl implements CarService {
      * @Date: 2020/9/18
      * @return: void
      **/
+    @Log()
     @Override
     public Integer findCarPortNum() {
         List<CarPort> carPortList = carInMapper.findCarPortList();//查询停车场车位表
@@ -53,6 +55,7 @@ public class CarServiceImpl implements CarService {
      * @Date: 2020/9/8
      * @return: void
      **/
+    @Log()
     @Override
     public WelcomeInfo noCarWelcome() {
         //（1）欢迎信息
@@ -84,6 +87,7 @@ public class CarServiceImpl implements CarService {
      * @Param accessToken:
      * @return: void
      **/
+    @Log()
     @Transactional
     @Override
     public WelcomeInfo carIn(String carNumber, String path) {
@@ -136,6 +140,7 @@ public class CarServiceImpl implements CarService {
      * @Param path:
      * @return: java.lang.String
      **/
+    @Log()
     @Override
     public WelcomeInfo carOut(String carNumber) {
         WelcomeInfo welcomeInfo = new WelcomeInfo();
@@ -192,6 +197,7 @@ public class CarServiceImpl implements CarService {
      * @Date: 2020/9/17
      * @return: boolean
      **/
+    @Log()
     @Transactional
     @Override
     public boolean carOutNoPay(String carNumber, Integer carportId) {
@@ -225,6 +231,7 @@ public class CarServiceImpl implements CarService {
      * @Param path:
      * @return: boolean
      **/
+    @Log()
     @Transactional
     @Override
     public boolean carOutMoney(Integer money, String carNumber, Integer carportId) {
@@ -264,6 +271,7 @@ public class CarServiceImpl implements CarService {
      * @Param carportId:
      * @return: boolean
      **/
+    @Log()
     @Override
     public String carOutAlipay(String subject, String total_amount, String body) {
         String form = "";
@@ -290,6 +298,7 @@ public class CarServiceImpl implements CarService {
      * @Param carportId:
      * @return: boolean
      **/
+    @Log()
     @Transactional
     @Override
     public boolean carOutAlipaySuccess(Integer money, String carNumber, Integer carportId) {
@@ -330,12 +339,13 @@ public class CarServiceImpl implements CarService {
      * @Param body:           商品描述信息
      * @return: java.lang.String
      **/
+    @Log()
     @Override
     public String alipay(String subject, String total_amount, String body) {
         String form = "";
         try {
             String uuid = UUID.randomUUID().toString();//商户订单号
-            form = AlipayUtil.getAlipay(uuid, subject, total_amount, body, AlipayConfig.notify_url, AlipayConfig.notify_url);
+            form = AlipayUtil.getAlipay(uuid, subject, total_amount, body, "http://acsk.free.idcfengye.com/car/alipayNotify", "http://acsk.free.idcfengye.com/car/alipayReturnUrl");
             Alipay alipay = new Alipay();
             alipay.setAlipayNumber(uuid);
             alipay.setAlipayCarnumber(subject);
@@ -356,6 +366,7 @@ public class CarServiceImpl implements CarService {
      * @Param carportId:
      * @return: boolean
      **/
+    @Log()
     @Transactional
     @Override
     public boolean alipaySuccess(Integer money, String carNumber, Integer carportId) {
@@ -388,6 +399,7 @@ public class CarServiceImpl implements CarService {
      * @Param alipayNumber:
      * @return: com.auc.pojo.Alipay
      **/
+    @Log()
     @Override
     public Alipay findAlipay(String alipayNumber) {
         Alipay alipay = carInMapper.findAlipay(alipayNumber);
@@ -402,6 +414,7 @@ public class CarServiceImpl implements CarService {
      * @Param carNumber:
      * @return: com.auc.pojo.WelcomeInfo
      **/
+    @Log()
     @Override
     public WelcomeInfo findCarPayInfo(String carNumber) {
         WelcomeInfo welcomeInfo = new WelcomeInfo();
@@ -451,6 +464,7 @@ public class CarServiceImpl implements CarService {
      * @Param carNumber:
      * @return: com.auc.pojo.CarPort
      **/
+    @Log()
     @Override
     public CarPort findCarPort(String carNumber) {
         CarPort carPort = carInMapper.findCarPort(carNumber);

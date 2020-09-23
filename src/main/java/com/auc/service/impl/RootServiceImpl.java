@@ -21,7 +21,7 @@ public class RootServiceImpl implements RootService {
     @Autowired
     public RootMapper rootMapper;
 
-
+    @com.auc.util.Log()
     @Override
     public List<Param> selectRole(Integer page, Integer limit, String paramName) {
         page = (page - 1) * limit;
@@ -30,6 +30,7 @@ public class RootServiceImpl implements RootService {
     }
 
     //查询总页数
+    @com.auc.util.Log()
     @Override
     public Integer queryRoleCount(String paramName) {
         int count = rootMapper.queryRoleCount(paramName);
@@ -37,6 +38,7 @@ public class RootServiceImpl implements RootService {
     }
 
     //根据权限等级查询对应的菜单
+    @com.auc.util.Log()
     @Override
     public TreeNode findRootMenu(Integer parentId, Integer urisdictionId) {
         List<Menu> menuList = rootMapper.inquireMenu(parentId);//查询系统全部菜单
@@ -87,6 +89,7 @@ public class RootServiceImpl implements RootService {
 
 
     //修改权限等级所分配的菜单
+    @com.auc.util.Log()
     @Transactional
     @Override
     public boolean UpdateMenu(List<Integer> menuIdList, Integer urisdictionId) {
@@ -103,6 +106,7 @@ public class RootServiceImpl implements RootService {
     }
 
     //删除该权限等级所有分配的菜单
+    @com.auc.util.Log()
     @Transactional
     @Override
     public boolean deleteAll(Integer urisdictionId) {

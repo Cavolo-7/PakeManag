@@ -45,19 +45,6 @@
       </div>
     </div>
 
-    <div class="layui-col-md12">
-      <div class="layui-card">
-        <div class="layui-card-body ">
-          <blockquote class="layui-elem-quote">
-          </blockquote>
-          <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-          <div id="main" style="width: 100%;height:400px;"></div>
-          <blockquote class="layui-elem-quote">
-          </blockquote>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 </div>
@@ -119,48 +106,6 @@
     })
   });
 
-  // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.getElementById('main'));
-
-  // 指定图表的配置项和数据
-  var option = {
-    title: {
-      text: '折线图堆叠'
-    },
-    tooltip: {
-      trigger: 'axis'
-    },
-    legend: {
-      data:['已用车位数']
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    toolbox: {
-      feature: {
-        saveAsImage: {}
-      }
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['周一','周二','周三','周四','周五','周六','周日']
-    },
-    yAxis: {
-      type: 'value'
-    },
-      series: [{
-        name:'已用车位数',
-        type:'line',
-        stack: '总量',
-        data:[120, 132, 101, 134, 90, 230, 210]
-      }]
-  };
-  // 使用刚指定的配置项和数据显示图表。
-  myChart.setOption(option);
 </script>
 </body>
 </html>

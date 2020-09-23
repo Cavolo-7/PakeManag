@@ -3,8 +3,10 @@ package com.auc.service.impl;
 import com.auc.mapper.PersonManageMapper;
 import com.auc.pojo.White;
 import com.auc.service.PersonManageService;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ public class PersonManageimpl implements PersonManageService {
     @Autowired
     PersonManageMapper personManageMapper;
 
+    @Log(operationName = "查询白名单")
     @Override
     public HashMap queryWhite(HashMap hashMap) {
         List<White> list = new ArrayList<White>();
@@ -35,6 +38,7 @@ public class PersonManageimpl implements PersonManageService {
         return hashMaps;
     }
 
+    @Log(operationName = "删除白名单")
     @Override
     public boolean delWhite(String whiteAccount) {
         boolean fal=false;
@@ -46,6 +50,7 @@ public class PersonManageimpl implements PersonManageService {
         return fal;
     }
 
+    @Log(operationName = "更新白名单")
     @Override
     public boolean updWhite(String whiteAccount,String whiteName,String whiteCarnumber, String whitePhone) {
         boolean fal=false;
@@ -57,6 +62,8 @@ public class PersonManageimpl implements PersonManageService {
         return fal;
     }
 
+    @Log(operationName = "新增白名单")
+    @Transactional
     @Override
     public boolean addWhite(White white) {
         boolean fal=false;

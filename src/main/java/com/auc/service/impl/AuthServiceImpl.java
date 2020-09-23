@@ -3,6 +3,7 @@ package com.auc.service.impl;
 
 import com.auc.service.AuthService;
 
+import com.auc.util.Log;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
      * "access_token": "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567",
      * "expires_in": 2592000
      */
+    @Log()
     @Override
     public String getAuth() {
         // 官网获取的 API Key 更新为你注册的
@@ -46,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
      * @return assess_token 示例：
      * "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567"
      */
+    @Log()
     @Override
     public String getAuth(String ak, String sk) {
         // 获取token地址

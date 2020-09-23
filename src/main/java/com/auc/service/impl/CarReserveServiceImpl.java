@@ -6,6 +6,7 @@ import com.auc.pojo.CarPort;
 import com.auc.pojo.Reserve;
 import com.auc.service.CarReserveService;
 import com.auc.util.CountUtil;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class CarReserveServiceImpl implements CarReserveService {
      * @Date: 2020/9/21
      * @return: void
      **/
+    @Log()
     @Override
     public Reserve judge(String carNumber) {
         Reserve reserve = new Reserve();
@@ -81,6 +83,7 @@ public class CarReserveServiceImpl implements CarReserveService {
      * @Param carNumber:
      * @return: void
      **/
+    @Log()
     @Transactional
     @Override
     public boolean isReserve(String carNumber,Integer carportId) {

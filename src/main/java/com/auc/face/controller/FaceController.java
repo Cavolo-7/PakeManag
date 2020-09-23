@@ -17,7 +17,6 @@ import com.auc.face.pojo.UserFaceInfo;
 import com.auc.face.service.FaceEngineService;
 import com.auc.face.service.UserFaceInfoService;
 import lombok.extern.slf4j.Slf4j;
-//import org.bouncycastle.util.encoders.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;

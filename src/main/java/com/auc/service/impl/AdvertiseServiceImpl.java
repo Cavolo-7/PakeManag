@@ -5,6 +5,7 @@ import com.auc.mapper.AdvertiseMapper;
 import com.auc.mapper.CarInMapper;
 import com.auc.pojo.Advertise;
 import com.auc.service.AdvertiseService;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Service
 public class AdvertiseServiceImpl implements AdvertiseService {
 
+
     @Autowired
     private AdvertiseMapper advertiseMapper;
 
@@ -28,6 +30,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
      * @Date: 2020/9/18
      * @return: java.util.List<com.auc.pojo.Advertise>
      **/
+    @Log()
     @Override
     public List<Advertise> findAdvertiseList() {
         List<Advertise> advertises = advertiseMapper.findAdvertiseList();

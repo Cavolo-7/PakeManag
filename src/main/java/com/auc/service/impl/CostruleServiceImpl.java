@@ -6,8 +6,10 @@ import com.auc.mapper.CostrulesMapper;
 import com.auc.pojo.Costrules;
 import com.auc.pojo.Param;
 import com.auc.service.CostruleService;
+import com.auc.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ public class CostruleServiceImpl implements CostruleService {
     @Autowired
     CostrulesMapper costrulesMapper;
 
+    @Log(operationName = "查询计费规则表")
     @Override
     public HashMap queryCostrule(HashMap hashMap) {
         List<Costrules> list = new ArrayList<Costrules>();
@@ -37,6 +40,8 @@ public class CostruleServiceImpl implements CostruleService {
         return hashMaps;
     }
 
+    @Log(operationName = "删除计费规则表")
+    @Transactional
     @Override
     public boolean delCostrule(String costrulesName) {
         Param param=costrulesMapper.queryCostrulesStatic("禁用");
@@ -50,6 +55,8 @@ public class CostruleServiceImpl implements CostruleService {
         return fal;
     }
 
+    @Log(operationName = "启用计费规则表")
+    @Transactional
     @Override
     public boolean UpdStatic(String costrulesName, String produceStatic) {
         boolean fal=false;
@@ -67,6 +74,7 @@ public class CostruleServiceImpl implements CostruleService {
         return fal;
     }
 
+    @Log()
     @Override
     public boolean updCostrule(Integer costrulesId,String costrulesDescribe,Integer costrulesBasemoney,Integer costrulesAddmoney) {
         boolean fal=false;
@@ -78,6 +86,8 @@ public class CostruleServiceImpl implements CostruleService {
         return fal;
     }
 
+    @Log(operationName = "新增计费规则表")
+    @Transactional
     @Override
     public boolean addCostrule(String costrulesName
             ,String costrulesBasemoney,String costrulesAddmoney,String costrulesDescribe

@@ -6,6 +6,7 @@ import com.auc.pojo.Produce;
 import com.auc.service.ProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class ProduceServiceImpl implements ProduceService {
     @Autowired
     ProduceMapper produceMapper;
 
+    @com.auc.util.Log()
     @Override
     public HashMap queryProduce(HashMap hashMap) {
         List<Produce> list = new ArrayList<Produce>();
@@ -37,6 +39,8 @@ public class ProduceServiceImpl implements ProduceService {
         return hashMaps;
     }
 
+    @com.auc.util.Log()
+    @Transactional
     @Override
     public boolean delProduce(String produceId,String produceStatic) {
         boolean fal=false;
@@ -54,6 +58,7 @@ public class ProduceServiceImpl implements ProduceService {
         return fal;
     }
 
+    @com.auc.util.Log()
     @Override
     public boolean updProduce(String produceId,String produceName,String produceMoney) {
         boolean fal=false;
@@ -65,6 +70,8 @@ public class ProduceServiceImpl implements ProduceService {
         return fal;
     }
 
+    @com.auc.util.Log()
+    @Transactional
     @Override
     public boolean addProduce(String produceName, String produceDescribe,String produceMoney,String produceTime) {
         boolean fal=false;

@@ -3,6 +3,7 @@ package com.auc.service.impl;
 import com.auc.mapper.TimingMapper;
 
 import com.auc.pojo.Detail;
+import com.auc.pojo.Log;
 import com.auc.pojo.Person;
 import com.auc.pojo.Record;
 import com.auc.service.TimingService;
@@ -26,6 +27,7 @@ public class TimingServiceImpl implements TimingService {
     @Autowired
     TimingMapper timingMapper;
 
+    @com.auc.util.Log()
     @Override
     public void JudgeVip() {
         SimpleDateFormat sdf  =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,6 +46,7 @@ public class TimingServiceImpl implements TimingService {
         }
     }
 
+    @com.auc.util.Log()
     @Override
     public HashMap Sttlement(Integer page, Integer limit) {
         HashMap hashMaps = new HashMap();
@@ -56,6 +59,7 @@ public class TimingServiceImpl implements TimingService {
         return hashMaps;
     }
 
+    @com.auc.util.Log()
     @Override
     public HashMap Sttlement2(Integer page, Integer limit) {
         HashMap hashMaps = new HashMap();
@@ -68,6 +72,7 @@ public class TimingServiceImpl implements TimingService {
         return hashMaps;
     }
 
+    @com.auc.util.Log()
     @Override
     public HashMap Sttlement3(Integer page, Integer limit) {
         HashMap hashMaps = new HashMap();
@@ -80,6 +85,13 @@ public class TimingServiceImpl implements TimingService {
         return hashMaps;
     }
 
+    @com.auc.util.Log()
+    @Override
+    public void AddLog(Log log) {
+        timingMapper.AddLog(log);
+    }
+
+    @com.auc.util.Log()
     public String getDate(Integer inte ,Integer inte2){
         Date date = new Date();
         if (inte2==1) {

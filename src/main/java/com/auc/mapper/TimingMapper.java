@@ -1,6 +1,7 @@
 package com.auc.mapper;
 
 import com.auc.pojo.Detail;
+import com.auc.pojo.Log;
 import com.auc.pojo.Person;
 
 import com.auc.pojo.Record;
@@ -28,4 +29,6 @@ public interface TimingMapper {
     public Integer SttlementCount(String starTime, String endTime); //查询时间区间总页码
 
     public void findReserveList();//查询预约表
+
+    public void AddLog(Log log);
 }

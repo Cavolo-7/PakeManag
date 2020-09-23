@@ -13,8 +13,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <title>
     迪士尼        - 智慧停车|骑着文伟撞传奇    </title>
-  <meta name="Keywords" content="捷停车,智慧停车,找车位,租车位,云托管服务,停车,">
-  <meta name="Description" content="捷停车（JParking），是顺易通推出的智慧停车一体化服务平台，主要业务包括智慧停车车场运营服务、通道运营服务、广告运营服务三大版块。">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
 
   <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 
@@ -224,21 +224,6 @@
         display: block;
       }
 
-      /*.newsBox .secNews .noActive {*/
-      /*  height: 12px;*/
-      /*  width: 12px;*/
-      /*  background: url(../state/images/newsactive.png) no-repeat center left;*/
-      /*  left: -48px;*/
-      /*  top: 7px;*/
-      /*}*/
-      /*.newsBox .secNews .active {*/
-      /*  height: 62px;*/
-      /*  width: 62px;*/
-      /*  background: url(../state/images/newsactive.png) #fff no-repeat center left;*/
-      /*  left: -75px;*/
-      /*  top: -18px;*/
-      /*}*/
-
       .newsBox .secNews {
         border-left: 1px solid #ccc;
         padding-left: 42px;
@@ -282,7 +267,7 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 w-50 display_flex align-center">
           <a href="http://www.jparking.cn/home" class="header-logo">
-            <img src="../resources/picture/5dc9268f39e0e.png" alt="">
+<%--            <img src="../resources/picture/5dc9268f39e0e.png" alt="">--%>
           </a>
         </div>
         <div class="col-lg-8 col-md-8 w-50 t-right display_flex">
@@ -303,7 +288,7 @@
                   <a  href="/car//noCarWelcome">扫描系统</a>
                 </li>
                 <li >
-                  <a  href="http://www.jparking.cn/lists/index?tid=4">关于我们</a>
+                  <a  href="">关于我们</a>
                 </li>
                 <script>
                   if(screen.width >375){
@@ -408,84 +393,82 @@
     </div>
   </div>
 
-  <div class="dataCount">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-2 col-md-6 wow fadeInLeft" data-wow-delay="0.8s">
-          <div class="single-counter-box">
-            <p class="counter-number fs68"><span>279</span>+</p>
-            <p>覆盖城市</p>
-            <!-- <p>COVERING CITIES</p>-->
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
-          <div class="single-counter-box">
-            <p class="counter-number fs68"><span>13600</span>+</p>
-            <p>智慧停车场</p>
-            <!-- <p>SMART PARKING</p>-->
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.4s">
-          <div class="single-counter-box">
-            <p class="counter-number fs68"><span>540</span>w+</p>
-            <p>停车位</p>
-            <!-- <p>PAPKING SPACE</p>-->
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.2s">
-          <div class="single-counter-box">
-            <p class="counter-number fs68"><span>2300</span>w+</p>
-            <p>累计用户数</p>
-            <!-- <p>CUMULATIVE USERS</p>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<%--  <div class="dataCount">--%>
+<%--    <div class="container">--%>
+<%--      <div class="row">--%>
+<%--        <div class="col-lg-2 col-md-6 wow fadeInLeft" data-wow-delay="0.8s">--%>
+<%--          <div class="single-counter-box">--%>
+<%--            <p class="counter-number fs68"><span>279</span>+</p>--%>
+<%--            <p>覆盖城市</p>--%>
+<%--            <!-- <p>COVERING CITIES</p>-->--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.6s">--%>
+<%--          <div class="single-counter-box">--%>
+<%--            <p class="counter-number fs68"><span>13600</span>+</p>--%>
+<%--            <p>智慧停车场</p>--%>
+<%--            <!-- <p>SMART PARKING</p>-->--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.4s">--%>
+<%--          <div class="single-counter-box">--%>
+<%--            <p class="counter-number fs68"><span>540</span>w+</p>--%>
+<%--            <p>停车位</p>--%>
+<%--            <!-- <p>PAPKING SPACE</p>-->--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.2s">--%>
+<%--          <div class="single-counter-box">--%>
+<%--            <p class="counter-number fs68"><span>2300</span>w+</p>--%>
+<%--            <p>累计用户数</p>--%>
+<%--            <!-- <p>CUMULATIVE USERS</p>-->--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
 </div>
 
 <div class="rectangle-area pd-130 o-hi newsBox">
-  <div class="container newsContent">
-    <div class="title probootstrap-animate">
-      <p class="fs48">企业<i>动态</i></p>
-    </div>
-    <div class="row aic">
-      <div class="col-lg-5  wow fadeInLeft" data-wow-delay="0.2s">
-        <div class="mainNews" style="margin:0 10px;">
-          <a href="http://www.jparking.cn/lists/detail?tid=5&cid=8&id=88">
-            <img src="resources/picture/5ee2e0e11f763.png" style="width:100%;height:100%;"/>
-            <strong>城市停车场“新基建”驶入快车道，停车场云托管管理模式正当风口</strong>
-            <p>当下的智慧停车行业在全国各地区、各领域都呈现出活跃的发展态势，政策、市场、技术齐头并进，不管是城市智慧化发展和市场供需关系的客观要求，还是疫情带来的停车场景变革影响，智慧停车行业的发展备受大众关注。</p>
-            <i class="text-right" style="font-size:14px; border-bottom: 1px dashed #999; padding-bottom: 6px; margin-bottom: 72px;">2020-06-12</i>
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.4s">
-        <div class="secNews ">
-          <a href="http://www.jparking.cn/lists/detail?tid=5&cid=8&id=86">
-            <div class="list probootstrap-animate ">
-              <span class="point noActive"></span>
-              <strong>通达莞邑便利生活：捷停车受邀出席东莞通APP新功能发布会</strong>
-              <p>6月3日上午，东莞通公司在东莞市市民中心展开了“东莞通APP便民新功能上线发布仪式”，捷顺东莞分公司以及捷顺旗下智慧停车一体化服务平台捷停车受邀参与。</p>
-              <i style="border-bottom: 1px dashed #999; padding-bottom: 6px; margin-bottom: 16px;">2020-06-03</i>
-            </div>
-          </a>
+<%--  <div class="container newsContent">--%>
+<%--    <div class="title probootstrap-animate">--%>
+<%--      <p class="fs48">企业<i>动态</i></p>--%>
+<%--    </div>--%>
+<%--    <div class="row aic">--%>
+<%--      <div class="col-lg-5  wow fadeInLeft" data-wow-delay="0.2s">--%>
+<%--        <div class="mainNews" style="margin:0 10px;">--%>
+<%--          <a href="http://www.jparking.cn/lists/detail?tid=5&cid=8&id=88">--%>
+<%--            <img src="resources/picture/5ee2e0e11f763.png" style="width:100%;height:100%;"/>--%>
+<%--            <strong>城市停车场“新基建”驶入快车道，停车场云托管管理模式正当风口</strong>--%>
+<%--            <p>当下的智慧停车行业在全国各地区、各领域都呈现出活跃的发展态势，政策、市场、技术齐头并进，不管是城市智慧化发展和市场供需关系的客观要求，还是疫情带来的停车场景变革影响，智慧停车行业的发展备受大众关注。</p>--%>
+<%--            <i class="text-right" style="font-size:14px; border-bottom: 1px dashed #999; padding-bottom: 6px; margin-bottom: 72px;">2020-06-12</i>--%>
+<%--          </a>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--      <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.4s">--%>
+<%--        <div class="secNews ">--%>
+<%--          <a href="http://www.jparking.cn/lists/detail?tid=5&cid=8&id=86">--%>
+<%--            <div class="list probootstrap-animate ">--%>
+<%--              <span class="point noActive"></span>--%>
+<%--              <strong>通达莞邑便利生活：捷停车受邀出席东莞通APP新功能发布会</strong>--%>
+<%--              <p>6月3日上午，东莞通公司在东莞市市民中心展开了“东莞通APP便民新功能上线发布仪式”，捷顺东莞分公司以及捷顺旗下智慧停车一体化服务平台捷停车受邀参与。</p>--%>
+<%--              <i style="border-bottom: 1px dashed #999; padding-bottom: 6px; margin-bottom: 16px;">2020-06-03</i>--%>
+<%--            </div>--%>
+<%--          </a>--%>
 
-          <a href="http://www.jparking.cn/lists/detail?tid=5&cid=8&id=82">
-            <div class="list probootstrap-animate">
-              <span class="point noActive"></span>
-              <strong>捷停车总用户数突破1500万！“疫考”之下，智慧停车见真章</strong>
-              <p>5月14日，捷停车累计用户达到15,014,196名，总用户数突破1500万，距离突破1000万的2019年12月仅过去不足5个月，中间还经历了春节假期和新冠疫情全国严抓防控的时期。</p>
-              <i>2020-05-15</i>
-            </div>
-          </a>
-        </div>
-        <div style="clear: both;"></div>
-      </div>
-    </div>
-
-
-  </div>
+<%--          <a href="http://www.jparking.cn/lists/detail?tid=5&cid=8&id=82">--%>
+<%--            <div class="list probootstrap-animate">--%>
+<%--              <span class="point noActive"></span>--%>
+<%--              <strong>捷停车总用户数突破1500万！“疫考”之下，智慧停车见真章</strong>--%>
+<%--              <p>5月14日，捷停车累计用户达到15,014,196名，总用户数突破1500万，距离突破1000万的2019年12月仅过去不足5个月，中间还经历了春节假期和新冠疫情全国严抓防控的时期。</p>--%>
+<%--              <i>2020-05-15</i>--%>
+<%--            </div>--%>
+<%--          </a>--%>
+<%--        </div>--%>
+<%--        <div style="clear: both;"></div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
   <script>
     $(function () {
 

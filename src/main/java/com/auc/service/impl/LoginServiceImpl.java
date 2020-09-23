@@ -5,6 +5,7 @@ import com.auc.pojo.Admin;
 import com.auc.pojo.Menu;
 import com.auc.pojo.Role;
 import com.auc.service.LoginService;
+import com.auc.util.Log;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class LoginServiceImpl implements LoginService {
     //显示菜单
     @Autowired
     public LoginMapper loginMapper;
-//    @Log(operationType = "查询",operationName = "查询菜单")
+    @Log()
     @Override
     public Map<String, List<Menu>> findMenus(Integer roleId) {
         Role role=loginMapper.findRoot(roleId);
@@ -31,10 +32,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     //查询账号状态
+    @Log()
     @Override
     public boolean chaState(String workerAccount) {
         boolean flag=false;
         Admin admin=loginMapper.chaState(workerAccount);
+        System.out.println(admin);
         if (admin!=null) {
             flag=true;
         }
@@ -42,6 +45,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     //登录
+    @Log()
     @Override
     public Admin login(Admin admin) {
         Admin admins = null;

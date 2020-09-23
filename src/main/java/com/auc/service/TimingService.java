@@ -1,6 +1,7 @@
 package com.auc.service;
 
 import com.auc.pojo.Detail;
+import com.auc.pojo.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,5 +15,7 @@ public interface TimingService {
     public HashMap Sttlement2(Integer page, Integer limit); //统计午结算
 
     public HashMap Sttlement3(Integer page, Integer limit); //统计晚结算
+
+    public void AddLog(Log log);
 
 }
