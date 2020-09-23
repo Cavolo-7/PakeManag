@@ -22,21 +22,14 @@ public class DetailServiceImpl implements DetailService {
     @Log()
     @Override
     public HashMap queryFirst(HashMap hashMap) {
-        List<Detail> list = new ArrayList<Detail>();
+        List<Integer> list = new ArrayList<Integer>();
         HashMap hashMaps = new HashMap();
-        int page = (int) hashMap.get("page");
-        int pageSize = (int) hashMap.get("pageSize");
-        int num=detailMapper.queryFirst(page,pageSize);
-        int num2=detailMapper.queryFirsts(page,pageSize);
-        int num3=detailMapper.queryFirstss(page,pageSize);
+        int num=detailMapper.queryFirst();
+        int num2=detailMapper.queryFirsts();
+        int num3=detailMapper.queryFirstss();
         int num5=num-num2;
-        Detail detail=new Detail();
-        detail.setDetailEvent("月缴用户");
-        detail.setDetailMoney(num5);
-        list.add(detail);
-        Detail detail2=new Detail();
-        detail2.setDetailEvent("临时用户");
-        detail2.setDetailMoney(num3);
+        list.add(num3);
+        list.add(num5);
         hashMaps.put("list", list);
         return hashMaps;
     }
@@ -46,12 +39,12 @@ public class DetailServiceImpl implements DetailService {
     public HashMap querySecond(HashMap hashMap) {
         List<Detail> list = new ArrayList<Detail>();
         List<Detail> list1 = new ArrayList<Detail>();
+        List<Integer> mapValue = new ArrayList<Integer>();
+        List<String> mapName = new ArrayList<String>();
         HashMap hashMaps = new HashMap();
-        int page = (int) hashMap.get("page");
-        int pageSize = (int) hashMap.get("pageSize");
         int num = 0;
-        list=detailMapper.querySecond(page,pageSize);
-        list1=detailMapper.querySeconds(page,pageSize);
+        list=detailMapper.querySecond();
+        list1=detailMapper.querySeconds();
         for (int i=0;i<list1.size();i++){
             for (int j=0;j<list.size();j++){
                 if (list1.get(i).getDetailEvent().equals(list.get(j).getDetailEvent())){
@@ -59,8 +52,12 @@ public class DetailServiceImpl implements DetailService {
                 }
             }
         }
-        hashMaps.put("list", list);
-        hashMaps.put("num", num);
+        for (int i=0;i<list.size();i++){
+            mapName.add(list.get(i).getDetailEvent());
+            mapValue.add(list.get(i).getDetailMoney());
+        }
+        hashMaps.put("mapName", mapName);
+        hashMaps.put("mapValue", mapValue);
         return hashMaps;
     }
 
@@ -68,28 +65,28 @@ public class DetailServiceImpl implements DetailService {
     @Override
     public HashMap queryThird(HashMap hashMap) {
         List<Detail> list = new ArrayList<Detail>();
+        List<Integer> lists = new ArrayList<Integer>();
         HashMap hashMaps = new HashMap();
-        int page = (int) hashMap.get("page");
-        int pageSize = (int) hashMap.get("pageSize");
-        list=detailMapper.queryThird(page,pageSize);
-        hashMaps.put("list", list);
+        list=detailMapper.queryThird();
+        if (list.size()>0){
+            lists.add(list.get(0).getDetailMoney());
+        }else {
+            lists.add(0);
+        }
+        hashMaps.put("list", lists);
         return hashMaps;
     }
 
     @Log()
     @Override
     public HashMap queryFourth(HashMap hashMap) {
-        List<Detail> list = new ArrayList<Detail>();
+        List<Integer> list = new ArrayList<Integer>();
         HashMap hashMaps = new HashMap();
-        int page = (int) hashMap.get("page");
-        int pageSize = (int) hashMap.get("pageSize");
-        int num=detailMapper.queryFourth(page,pageSize);
-        int num2=detailMapper.queryFourths(page,pageSize);
-        int car=detailMapper.queryCar(page,pageSize);
-        Detail detail=new Detail();
-        detail.setDetailMoney(num-num2);
-        detail.setDetailEvent(String.valueOf(car));
-        list.add(detail);
+        int num=detailMapper.queryFourth();
+        int num2=detailMapper.queryFourths();
+        int car=detailMapper.queryCar();
+        list.add(num-num2);
+        list.add(car);
         hashMaps.put("list", list);
         return hashMaps;
     }
