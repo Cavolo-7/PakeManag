@@ -85,12 +85,12 @@
         if (flag < 60) {
             return;
         }
-        var personPhone=$("#personPhone").val()
+        var personPhone = $("#personPhone").val()
         $.ajax({
-            url:"/userControl/textMsg",
+            url: "/userControl/textMsg",
             dataType: "text",
             type: "Post",
-            data:"personPhone="+personPhone,
+            data: "personPhone=" + personPhone,
         })
 
 //         var xhr = new XMLHttpRequest();
@@ -111,38 +111,29 @@
         //     return;
         // }
 
-        var code=$("#code").val()
+        var code = $("#code").val()
         $.ajax({
-            url:"/userControl/textCod",
+            url: "/userControl/textCod",
             dataType: "text",
             type: "Post",
-            data:"code="+code,
-    success:function (date) {
-        if (date=="验证成功"){
-        // var xhr = new XMLHttpRequest();
-        // xhr.open("get", "/userControl/textCod?code=" + document.getElementById("code").value, true);
-        // xhr.onreadystatechange = function () {
-        //     if (xhr.readyState == 4 && xhr.status == 200) {
-        //         if (xhr.responseText == 0) {
-                    alert("执行注册按钮")
+            data: "code=" + code,
+            success: function (date) {
+                if (date == "验证成功") {
+                    // var xhr = new XMLHttpRequest();
+                    // xhr.open("get", "/userControl/textCod?code=" + document.getElementById("code").value, true);
+                    // xhr.onreadystatechange = function () {
+                    //     if (xhr.readyState == 4 && xhr.status == 200) {
+                    //         if (xhr.responseText == 0) {
                     var path = $("#path").val();
-                    var personName = $("#personName").val();//用户名
-                    alert(personName)
+                    var personName = $("#personName").val();//用户名020
                     var personAccount = $("#personAccount").val();//账号
-                    alert(personAccount)
                     var password = $("#password").val();//密码
-                    alert(password)
                     var passwords = $("#passwords").val();//确认密码
-                    alert(passwords)
                     var carNumber = $("#carNumber").val();//车牌号
-                    alert(carNumber)
                     var sex = $('input[name="sex"]:checked').val();//性别
-                    alert(sex)
                     var personAge = $("#personAge").val();//年龄
-                    alert(personAge)
                     var personPhone = $("#personPhone").val()//电话
-                    alert(personPhone)
-                    var address=$("#address").val()//住址
+                    var address = $("#address").val()//住址
                     var reg = /^[0-9]+$/;
                     var name = /^[\u4e00-\u9fa5]+$/;
                     // var idcard=/^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
@@ -162,16 +153,16 @@
                         alert("性别不能为空!")
                     } else if (personAge == undefined) {
                         alert("年龄不能为空！")
-                    }else if(address==null){
+                    } else if (address == null) {
                         alert("名字不能为空！")
-                    }else if (personPhone.length <= 0) {
+                    } else if (personPhone.length <= 0) {
                         alert("手机号码不能为空！")
                     } else if (!reg.test(personPhone) || personPhone.length < 11 || personPhone.length > 11) {
                         alert("手机号格式输入错误！")
                     } else {
                         $.ajax({
 
-                            data: "personName=" + personName + "&personAccount=" + personAccount + "&password=" + password + "&carNumber=" + carNumber + "&sex=" + sex + "&personAge=" + personAge + "&personPhone=" + personPhone+"&address="+address,
+                            data: "personName=" + personName + "&personAccount=" + personAccount + "&password=" + password + "&carNumber=" + carNumber + "&sex=" + sex + "&personAge=" + personAge + "&personPhone=" + personPhone + "&address=" + address,
                             url: path + "/LogReg/regPerson",
                             dataType: "text",
                             type: "Post",
@@ -190,10 +181,10 @@
                 } else {
                     alert("验证码错误！")
                 }
-        //     }
-        // }
-    }
-    })
+                //     }
+                // }
+            }
+        })
         // xhr.send(null);
     }
 

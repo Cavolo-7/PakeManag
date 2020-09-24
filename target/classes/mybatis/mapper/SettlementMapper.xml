@@ -55,5 +55,9 @@
         </if>
     </select>
 
-
+<!--    查询月份总收入-->
+<select id="selectMonth" resultType="com.auc.pojo.Detail">
+     select year(detail_time) as countYear,month(detail_time) as countMonth ,sum(detail_money) as detailMoney
+        from t_detail as d where year(detail_time)=2020 and  d.detail_type!='支付宝支付退费' group by  year(detail_time), month(detail_time)
+</select>
 </mapper>

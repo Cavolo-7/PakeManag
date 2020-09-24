@@ -21,18 +21,6 @@
     <script type="text/javascript" src="../js/xadmin.js"></script>
 </head>
 <body>
-<div class="x-nav">
-          <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a href="">演示</a>
-            <a>
-              <cite>导航元素</cite></a>
-          </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       onclick="location.reload()"
-       title="刷新">
-        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
-</div>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
@@ -71,7 +59,6 @@
 <%--                        <button class="layui-btn" onclick="xadmin.open('添加用户','./AddVip.jsp',600,470)"><i--%>
 <%--                                class="layui-icon"></i>新增VIP--%>
 <%--                        </button>--%>
-                        <button type="button" class="layui-btn layui-btn-primary" onclick="scorePDF()">打印成绩单</button>
                     </div>
                 </div>
                 <div class="layui-card-body ">

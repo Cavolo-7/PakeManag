@@ -18,4 +18,7 @@ public interface SettlementMapper {
 
     //查询当天收支明细数据条数
     public Integer selectDetailCount(@Param("condition") Map<String, String> condition);
+
+    //查询月份总收入
+    public List<Detail> selectMonth();
 }

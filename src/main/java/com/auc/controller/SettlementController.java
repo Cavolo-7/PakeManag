@@ -28,26 +28,6 @@ public class SettlementController {
     //获取收支明细表格数据
     @RequestMapping(value = "/getDetailList", produces = "text/plain;charset=utf-8")
     public String getDetailList(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date nowTime =null;
-
-        Date beginTime = null;
-
-        Date endTime = null;
-
-        Date date=new Date();
-        String str2= dateFormat.format(date);
-        str2=str2.substring(0,10);
-
-//        早班
-        beginTime = dateFormat.parse(str2+" 08:00:00");
-        endTime=dateFormat.parse(str2+" 16:00:00");
-
-
-
         String personCarnumber = request.getParameter("key[personCarnumber]");
         String date1 = request.getParameter("key[date1]");
         String date2 = request.getParameter("key[date2]");
@@ -80,4 +60,5 @@ public class SettlementController {
         String str = JSON.toJSONString(layuiData);
         return str;
     }
+
 }
