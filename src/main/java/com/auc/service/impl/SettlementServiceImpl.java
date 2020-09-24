@@ -32,21 +32,20 @@ public class SettlementServiceImpl implements SettlementService {
         return layuiData;
     }
     //月份总收入统计
+    @com.auc.util.Log()
     @Override
-    public List<Detail> selectMonth() {
+    public List<Integer> selectMonth() {
         List<Detail> list=new ArrayList<Detail>();
+        List<Integer> lists=new ArrayList<Integer>();
         list=settlementMapper.selectMonth();
-        Detail detail=new Detail();
-        for (int i=0;i<list.size();i++){
-            for (int j=1;i<=12;j++){
-                if (j!=list.get(i).getCountMonth()){
-                    detail.setDetailMoney(0);
-                    list.add(detail);
-                }else {
-                   detail.setDetailMoney(list.get(i).getDetailMoney());
-                }
-            }
+        System.out.println("大小"+list.size());
+//        for (int i=0;i<list.size();i++)
+        for (int j=1;j<=12;j++){
+            lists.add(0);
         }
-        return list;
+      for (int i=0;i<list.size();i++){
+          lists.set(list.get(i).getCountMonth()-1, list.get(i).getDetailMoney());
+      }
+        return lists;
     }
 }

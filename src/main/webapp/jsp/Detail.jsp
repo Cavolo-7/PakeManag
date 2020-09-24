@@ -31,7 +31,6 @@
         <div class="layui-card-header">临时用户和月缴用户 </div>
         <div class="layui-card-body " style="min-height: 280px;">
           <div id="hao" class="layui-col-sm12" style="height: 300px; width: 100%"></div>
-<%--          <table class="layui-hide" id="firstTable" lay-filter="firstTable"></table>--%>
         </div>
       </div>
     </div>
@@ -111,7 +110,7 @@
     success:function(jsonData){
       myChart.setOption({
         series: [{
-          name: '发布量',
+          name: '收入',
           data: jsonData.data,
           itemStyle: {
             normal: {
@@ -182,7 +181,7 @@
     success:function(jsonData){
       myChartView.setOption({
         series: [{
-          name: '发布量',
+          name: '收入',
           data: jsonData.data,
           itemStyle: {
             normal: {
@@ -254,7 +253,7 @@
     success:function(jsonData){
       myChartViews.setOption({
         series: [{
-          name: '发布量',
+          name: '收入',
           data: jsonData.data,
           itemStyle: {
             normal: {
