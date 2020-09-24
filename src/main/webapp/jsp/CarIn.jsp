@@ -26,7 +26,8 @@
     <link rel="stylesheet" href="../css/responsive.css"/>
     <script src="../js/CarIn.js"></script>
     <script>
-        if (${isCarOut}){
+        var isCarOut =  ${isCarOut};
+        if (isCarOut==true) {
             alert("支付成功，车辆出场成功！")
         }
         setInterval(function () {

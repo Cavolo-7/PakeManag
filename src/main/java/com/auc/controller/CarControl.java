@@ -62,10 +62,10 @@ public class CarControl {
     @ResponseBody
     @RequestMapping(value = "/noCarWelcome")
     public ModelAndView noCarWelcome() {
-        System.out.println("noCarWelcome()");
         WelcomeInfo welcomeInfo = carServiceImpl.noCarWelcome();//查询空闲时的欢迎信息
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("welcomeInfo", welcomeInfo);
+        modelAndView.addObject("isCarOut", false);
         modelAndView.setViewName("/jsp/CarIn.jsp");
         return modelAndView;
     }
