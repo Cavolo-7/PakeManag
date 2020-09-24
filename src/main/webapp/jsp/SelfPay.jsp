@@ -11,11 +11,10 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>自助缴费</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SelfPay.css">
+    <link rel="stylesheet" href="../css/SelfPay.css">
 
 </head>
 <body>
-<input type="hidden" value="${pageContext.request.contextPath}" id="path">
 <input type="hidden" id="body">
 <input type="hidden" id="subject">
 <input type="hidden" id="total_amount">
@@ -74,6 +73,6 @@
         <button onclick="Alipay()" id="alipay">支付宝支付</button>
     </section>
 </article>
-<script src="${pageContext.request.contextPath}/js/SelfPay.js"></script>
+<script src="../js/SelfPay.js"></script>
 </body
 ></html>

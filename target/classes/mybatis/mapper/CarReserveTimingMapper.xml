@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.auc.mapper.CarReserveTimingMapper">
 
-    <!-- 查询车库表已预约车位   -->
+    <!-- 查询车库表所有已预约车位   -->
     <select id="findReserveCarPortList" resultType="com.auc.pojo.CarPort">
          select carport_id,carport_carnumber,carport_reserveid from t_carport where carport_reserveid is not null
     </select>

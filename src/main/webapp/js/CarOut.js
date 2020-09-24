@@ -1,10 +1,9 @@
 //确定按钮---月缴用户，白名单用户,自助缴费未超时,无需支付
 function sure() {
-    var path = $("#path").val();
     var carNumber = $("#carNumber").val();//车牌号
     var carportId = $("#carportId").val();//车位id
     $.ajax({
-            url: path + "/car/carOutNoPay",
+            url: "/car/carOutNoPay",
             type: "post",
             data: {
                 "carNumber": carNumber,
@@ -18,7 +17,7 @@ function sure() {
                 if (result == "success") {
                     alert("出场成功！")
                     xadmin.close();//关闭弹窗
-                    top.location.href = path + '/car/noCarWelcome'//刷新主页
+                    top.location.href = '/car/noCarWelcome'//刷新主页
                 } else {
                     alert("出场失败！")
                 }
@@ -34,11 +33,10 @@ function sure() {
 
 //确定按钮---临时车辆不满半小时,金额为 0
 function zeroMoney() {
-    var path = $("#path").val();
     var carNumber = $("#carNumber").val();//车牌号
     var carportId = $("#carportId").val();//车位id
     $.ajax({
-            url: path + "/car/carOutNoPay",
+            url: "/car/carOutNoPay",
             type: "post",
             data: {
                 "carNumber": carNumber,
@@ -52,7 +50,7 @@ function zeroMoney() {
                 if (result == "success") {
                     alert("出场成功！")
                     xadmin.close();//关闭弹窗
-                    top.location.href = path + '/car/noCarWelcome'//刷新主页
+                    top.location.href = '/car/noCarWelcome'//刷新主页
                 } else {
                     alert("出场失败！")
                 }
@@ -68,13 +66,12 @@ function zeroMoney() {
 
 //车辆出场现金支付
 function pay() {
-    var path = $("#path").val();
     var payMoney = $("#payMoney").val();//支付金额
     var money = $("#money").val();//应付金额
     var carNumber = $("#carNumber").val();//车牌号
     var carportId = $("#carportId").val();//车牌号
     $.ajax({
-            url: path + "/car/payMoney",
+            url: "/car/payMoney",
             type: "post",
             data: {
                 "payMoney": payMoney,
@@ -94,7 +91,7 @@ function pay() {
                 if (result == "success") {
                     alert("支付成功！")
                     xadmin.close();//关闭弹窗
-                    top.location.href = path + '/car/noCarWelcome'//刷新主页
+                    top.location.href = '/car/noCarWelcome'//刷新主页
                 } else {
                     alert("支付失败！")
                 }
@@ -110,12 +107,11 @@ function pay() {
 
 //车辆出场支付宝支付
 function Alipy() {
-    var path = $("#path").val();
     var total_amount = $("#money").val();
     var subject = $("#carNumber").val();
     var body = $("#carportId").val();
     xadmin.close();
-    top.location.href = path + "/car/carOutAlipay?total_amount=" + total_amount + "&subject=" + subject + "&body" + body;
+    top.location.href = "/car/carOutAlipay?total_amount=" + total_amount + "&subject=" + subject + "&body" + body;
     console.log("alipy")
 }
 

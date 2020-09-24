@@ -13,16 +13,15 @@
     <title>自助客户端</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SelfHelp.css">
-    <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
-    <script src="${pageContext.request.contextPath}/js/SelfHelp.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/ionicons.min.css">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <link rel="stylesheet" href="../css/SelfHelp.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/SelfHelp.js"></script>
 </head>
 <body>
-<input id="path" value="${pageContext.request.contextPath}" type="hidden">
 <!-- services -->
 <div id="services" class="services section-bottom-only" style="padding-top: 20px">
     <div class="section-title">
@@ -69,13 +68,11 @@
 <script>
 
     function openSelfHelf() {
-        var path = $("#path").val();
-        location.href = path+'/jsp/SelfPay.jsp';
+        location.href = '/jsp/SelfPay.jsp';
     }
 
     function openArea() {
-        var path = $("#path").val();
-        location.href = path+'/jsp/Area.jsp';
+        location.href = '/jsp/Area.jsp';
     }
 </script>
 

@@ -85,6 +85,7 @@ public class CarControl {
         String projectPath = FileUtil.uploadFile(request, file);//上传车辆入场照片
         String accessToken = authServiceImpl.getAuth();//获取accessToken
         Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
+        String img = "\\upload"+projectPath.split("upload")[1];
         LayuiData layuiData = new LayuiData();
         if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描失败
             layuiData.setMsg("error");
@@ -93,10 +94,10 @@ public class CarControl {
             if (num > 0) {//停车场车位未满时
                 CarPort carPort = carServiceImpl.findCarPort(carInfo.getWords_result().getNumber());//查询车库表是否有该车辆
                 if (carPort == null) {//没有该车牌时
-                    layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);
+                    layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + img);
                 } else {//有该车牌时,判断是否为预约用户,预约时间
                     if (carPort.getCarportReserveid() != null) {//被预约
-                        layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + projectPath);//返回预约用户可停车消息
+                        layuiData.setMsg("success&" + carInfo.getWords_result().getNumber() + "&" + img);//返回预约用户可停车消息
                     } else {//未被预约，则是已停车，返回不能重复停车消息
                         layuiData.setMsg("repeat");
                     }

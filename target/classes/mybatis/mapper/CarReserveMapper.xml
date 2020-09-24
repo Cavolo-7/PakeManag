@@ -5,6 +5,12 @@
 <mapper namespace="com.auc.mapper.CarReserveMapper">
 
     <!--  查询停车场车位表  -->
+    <select id="findCostrules" resultType="com.auc.pojo.Costrules">
+        select costrules_id,costrules_name,costrules_min,costrules_max,costrules_basemoney,costrules_addmoney,costrules_describe,costrules_state
+        from t_costrules where costrules_state=3
+    </select>
+
+    <!--  查询停车场车位表  -->
     <select id="findCarPortList" resultType="com.auc.pojo.CarPort">
          SELECT carport_id,carport_number,carport_fnum,carport_area,carport_carnumber,carport_photo,carport_starttime,carport_state from t_carport
     </select>
@@ -24,5 +30,10 @@
     <update id="updateCarport" parameterType="com.auc.pojo.CarPort">
          update t_carport SET carport_reserveid=#{carportReserveid},carport_carnumber=#{carportCarnumber} where carport_id=#{carportId}
     </update>
+
+    <!--  根据预约id查询预约表  -->
+    <select id="findReserveById" parameterType="java.lang.Integer" resultType="com.auc.pojo.Reserve">
+         SELECT reserve_id,reserve_carNumber,STR_TO_DATE(reserve_time, '%Y-%m-%d %H:%i:%s') as reserve_time from t_reserve where reserve_id=#{reserveId}
+    </select>
 
 </mapper>

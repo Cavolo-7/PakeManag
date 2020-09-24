@@ -50,7 +50,7 @@ layui.use(['layer', 'form'], function () {
 });
 
 
-//车辆入场手动输入车牌
+//车辆出场手动输入车牌
 function carInSubmit() {
     var carNum1 = $("#cp1").text();
     var carNum2 = $("#cp2").text();
@@ -73,10 +73,9 @@ function carInSubmit() {
         console.log(carNumber)
     }
 
-    var path = $("#path").val();
     //1.判断非空（7位，或者8位）
     $.ajax({
-            url: path + "/car/carOut",
+            url: "/car/carOut",
             type: "post",
             data: {
                 "carNumber": carNumber,
@@ -96,7 +95,7 @@ function carInSubmit() {
             },
             success: function (result) {
                 console.log("res" + result)
-                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg;
+                var url = '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg+ '&carportId=' + result.carportId;
                 xadmin.open('出场缴费', url, 600, 450);
             },
             error: function () {

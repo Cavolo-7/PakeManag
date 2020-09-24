@@ -70,10 +70,9 @@ function carInSubmit() {
         carNumber = carNum1 + carNum2 + carNum3 + carNum4 + carNum5 + carNum6 + carNum7 + carNum8;
     }
 
-    var path = $("#path").val();
     //1.判断非空（7位，或者8位）
     $.ajax({
-            url: path + "/car/inputCarIn",
+            url: "/car/inputCarIn",
             type: "post",
             data: {
                 "carNumber": carNumber,
@@ -92,7 +91,7 @@ function carInSubmit() {
                 $("#submitBtn").prop("disabled", "disabled");//防止数据重复提交
             },
             success: function (result) {
-                var url = path + '/jsp/OpenCarIn.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
+                var url = '/jsp/OpenCarIn.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
                 xadmin.open('车辆入场', url, 600, 450);
             },
             error: function () {

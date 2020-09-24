@@ -1,13 +1,11 @@
 layui.use(['upload'], function () {
     var $ = layui.jquery
         , upload = layui.upload;
-    var path = $("#path").val();
-
 
     //车辆入场扫描车牌
     upload.render({
         elem: '#choseFile'
-        , url: path + '/car/findCarNumber'
+        , url: '/car/findCarNumber'
         , auto: true
         , accept: 'images'
         , bindAction: '#upload'
@@ -43,7 +41,7 @@ layui.use(['upload'], function () {
     //车辆出场扫描车牌
     upload.render({
         elem: '#choseOutFile'
-        , url: path + '/car/findCarNumberOut'
+        , url: '/car/findCarNumberOut'
         , auto: true
         , accept: 'images'
         , bindAction: '#upload'
@@ -76,23 +74,20 @@ layui.use(['upload'], function () {
 
 //打开入场输入弹窗层
 function openInput() {
-    var path = $("#path").val();
-    xadmin.open('输入车牌号', path + '/jsp/CarNumberInput.jsp', 600, 450);
+    xadmin.open('输入车牌号', '/jsp/CarNumberInput.jsp', 600, 450);
 }
 
 
 //打开出场输入弹窗层
 function openOutInput() {
-    var path = $("#path").val();
-    xadmin.open('输入车牌号', path + '/jsp/CarOutInput.jsp', 600, 450);
+    xadmin.open('输入车牌号', '/jsp/CarOutInput.jsp', 600, 450);
 }
 
 
 //车辆入场识别成功
 function carInFindSuccess(carNumber, photoPath) {
-    var path = $("#path").val();
     $.ajax({
-            url: path + "/car/carIn",
+            url: "/car/carIn",
             type: "post",
             data: {
                 'carNumber': carNumber,
@@ -103,7 +98,7 @@ function carInFindSuccess(carNumber, photoPath) {
             },
             success: function (result) {
                 console.log(result)
-                var url = path + '/jsp/OpenCarIn.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
+                var url = '/jsp/OpenCarIn.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&startTime=' + result.startTime + '&welcomeMsg=' + result.welcomeMsg;
                 xadmin.open('车辆入场', url, 600, 450);
             },
             error: function () {
@@ -117,9 +112,8 @@ function carInFindSuccess(carNumber, photoPath) {
 
 //车辆出场识别成功
 function carOutFindSuccess(carNumber) {
-    var path = $("#path").val();
     $.ajax({
-            url: path + "/car/carOut",
+            url: "/car/carOut",
             type: "post",
             data: {
                 'carNumber': carNumber
@@ -129,7 +123,7 @@ function carOutFindSuccess(carNumber) {
             },
             success: function (result) {
                 console.log(result)
-                var url = path + '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg + '&carportId=' + result.carportId;
+                var url = '/jsp/CarOut.jsp?carNumber=' + result.carNumber + '&carPort=' + result.carPort + '&carType=' + result.carType + '&money=' + result.money + '&payState=' + result.payState + '&startTime=' + result.startTime + '&endTime=' + result.endTime + '&longTime=' + result.longTime + '&welcomeMsg=' + result.welcomeMsg + '&carportId=' + result.carportId;
                 xadmin.open('出场缴费', url, 600, 450);
             },
             error: function () {

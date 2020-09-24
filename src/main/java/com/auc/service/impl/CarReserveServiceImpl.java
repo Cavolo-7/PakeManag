@@ -3,6 +3,7 @@ package com.auc.service.impl;
 import com.auc.mapper.AdvertiseMapper;
 import com.auc.mapper.CarReserveMapper;
 import com.auc.pojo.CarPort;
+import com.auc.pojo.Costrules;
 import com.auc.pojo.Reserve;
 import com.auc.service.CarReserveService;
 import com.auc.util.CountUtil;
@@ -28,6 +29,20 @@ public class CarReserveServiceImpl implements CarReserveService {
 
     @Autowired
     private CarReserveMapper carReserveMapper;
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 查询计费规则
+     * @Date: 2020/9/23
+     * @return: java.util.List<com.auc.pojo.Costrules>
+     **/
+    @Log()
+    @Override
+    public List<Costrules> findCostrules() {
+        List<Costrules> costrulesList = carReserveMapper.findCostrules();
+        return costrulesList;
+    }
+
 
     /**
      * @Author: TheBigBlue
@@ -61,6 +76,11 @@ public class CarReserveServiceImpl implements CarReserveService {
                 } else if (carPort.getCarportReserveid() != null) {
                     System.out.println("当前时间该车已经预约");
                     reserve.setFlag(2);
+                    //根据预约id查询预约表最新一条记录
+                    Reserve alrReserve = carReserveMapper.findReserveById(carPort.getCarportReserveid());
+                    reserve.setReserveCarNumber(carNumber);
+                    reserve.setReserveTime(alrReserve.getReserveTime());
+                    reserve.setCarPort("负" + carPort.getCarportFnum() + "楼" + carPort.getCarportArea() + "区" + carPort.getCarportNumber() + "号");
                 }
             } else {
                 System.out.println("进行预约");
@@ -86,7 +106,7 @@ public class CarReserveServiceImpl implements CarReserveService {
     @Log()
     @Transactional
     @Override
-    public boolean isReserve(String carNumber,Integer carportId) {
+    public boolean isReserve(String carNumber, Integer carportId) {
         boolean flag = false;
         //1.添加信息至预约表
         Reserve reserve = new Reserve();

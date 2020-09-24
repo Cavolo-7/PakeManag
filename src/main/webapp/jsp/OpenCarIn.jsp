@@ -17,13 +17,12 @@
     <meta name="format-detection" content="telephone=no">
     <title>车辆入场信息</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/amazeui.min.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
+    <script src="../layui/layui.js"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/amazeui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
 </head>
 <body>
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
 
 <div class="pay">
     <div class="tr_recharge">
@@ -35,7 +34,7 @@
             <div class="tr_rechbox"
                  style="border: 0px;padding-top: 5px;padding-bottom: 0px;padding-left: 20px;padding-right: 20px">
                 <div class="tr_rechhead" style="margin-bottom: 20px">
-                    <img src="${pageContext.request.contextPath}/imags/ys_head2.jpg"/>
+                    <img src="../imags/ys_head2.jpg"/>
                     <p>
                         车牌号：
                         <a>${param.carNumber}</a>
@@ -65,6 +64,7 @@
 <script>
     //确定按钮
     function sure() {
+        alert("车辆入场成功！");
         xadmin.close();//关闭车辆进场弹窗
         top.location.href="/car/noCarWelcome";//刷新停车场车位使用情况
     }
