@@ -13,7 +13,7 @@ public interface SettlementService {
     public LayuiData<Detail> selectDetailList(Map<String, String> condition, Integer curPage, Integer pageSize);
     //查询月份总收入
     //查询月份总收入
-    public List<Detail> selectMonth();
+    public List<Integer> selectMonth();
 }
 
 

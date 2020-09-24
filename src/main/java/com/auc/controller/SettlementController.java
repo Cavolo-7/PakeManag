@@ -6,6 +6,7 @@ import com.auc.pojo.LayuiData;
 import com.auc.pojo.Person;
 import com.auc.service.PersonService;
 import com.auc.service.SettlementService;
+import com.auc.util.ReportDataBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -58,6 +60,17 @@ public class SettlementController {
         }
         LayuiData<Detail> layuiData = settlementService.selectDetailList(condition, curPage, pageSize);
         String str = JSON.toJSONString(layuiData);
+        return str;
+    }
+
+    //获取收支明细表格数据
+    @RequestMapping(value = "/getYearDetail", produces = "text/plain;charset=utf-8")
+    public String getYearDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+
+        List<Integer> list=settlementService.selectMonth();
+        ReportDataBean bean=new ReportDataBean();
+        bean.setData(list);
+        String str= JSON.toJSONString(bean);
         return str;
     }
 
