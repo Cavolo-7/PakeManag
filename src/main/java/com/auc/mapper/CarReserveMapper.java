@@ -25,4 +25,8 @@ public interface CarReserveMapper {
 
     public Reserve findReserveById(Integer id);//根据预约id查询预约表
 
+    public Reserve findReserveByCar(String carNumber);//根据车牌号查询预约表，返回预约id
+
+    public Integer deleteReserve(Integer id);//根据预约id删除预约表
+
 }

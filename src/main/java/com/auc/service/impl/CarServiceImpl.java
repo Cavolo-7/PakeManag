@@ -110,14 +110,17 @@ public class CarServiceImpl implements CarService {
             CarPort carPort = CountUtil.getCarParkPosition(carPortList);//随机分配一个停车位
             carInMapper.updateCarPort(carNumber, path, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 1, carPort.getCarportId());//将车辆信息插入停车车位表
             welcomeInfo.setCarPort("负" + carPort.getCarportFnum() + "楼" + carPort.getCarportArea() + "区" + carPort.getCarportNumber() + "号");//车位
-            welcomeInfo.setCarType("临时停车");
         }
         //有车牌信息时，判断是否为预约车位
         else if (isCarPort != null) {
             if (isCarPort.getCarportReserveid() != null) {//预约车位
                 carInMapper.updateReserve(path, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 1, isCarPort.getCarportId(), null);//修改车库表，清空预约id
                 welcomeInfo.setCarPort("负" + isCarPort.getCarportFnum() + "楼" + isCarPort.getCarportArea() + "区" + isCarPort.getCarportNumber() + "号");//车位
-                welcomeInfo.setCarType("已预约，临时停车");
+                if (white!=null){//白名单用户，隐藏不显示，只显示已预约
+                    welcomeInfo.setCarType("已预约");
+                }else {
+                    welcomeInfo.setCarType("已预约，"+welcomeInfo.getCarType());
+                }
             }
         }
         //g。将车辆服务器中照片路径，车牌号，开始停车时间（当前时间），插入历史汇总表

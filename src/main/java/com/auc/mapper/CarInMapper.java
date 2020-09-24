@@ -60,5 +60,4 @@ public interface CarInMapper {
 
     public Detail findDetailTime(@Param("carNumber") String carNumber, @Param("nowDate") String newDate);//根据车牌查询支付明细表最新一条记录支付时间与当前时间差
 
-
 }

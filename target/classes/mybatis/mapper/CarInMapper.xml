@@ -80,7 +80,7 @@
           delete from t_exemption where exemption_carnumber=#{carNumber}
     </insert>
 
-    <!--  查询收费规则  -->
+    <!--  根据车牌查询用户表  -->
     <select id="findPerson" resultType="com.auc.pojo.Person">
          select person_id,person_name,person_account,person_password,person_carnumber,person_sex,person_age,person_phone,person_address,person_recharge,person_score,person_identity,worker_id
          from t_person where person_carnumber=#{carNumber}

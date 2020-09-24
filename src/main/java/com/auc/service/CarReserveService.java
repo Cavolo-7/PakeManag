@@ -13,5 +13,6 @@ public interface CarReserveService {
 
     public boolean isReserve(String carNumber, Integer carportId);//进行预约
 
+    public String cancelReserve(String carNumber,Integer carportId);//取消预约
 
 }

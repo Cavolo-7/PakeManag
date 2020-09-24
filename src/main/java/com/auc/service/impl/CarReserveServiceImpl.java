@@ -124,4 +124,40 @@ public class CarReserveServiceImpl implements CarReserveService {
         }
         return flag;
     }
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 取消预约
+     * @Date: 2020/9/24
+     * @Param carNumber:
+     * @return: boolean
+     **/
+    @Log()
+    @Transactional
+    @Override
+    public String cancelReserve(String carNumber, Integer carportId) {
+        String str = "";
+        Reserve reserve = carReserveMapper.findReserveByCar(carNumber);//根据车牌查询预约表
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String curTime = df.format(new Date());//当前时间
+        Integer timeout = curTime.compareTo(reserve.getReserveTime());//比较时间
+        if (timeout < 0) {
+            //根据预约id修改车库表
+            CarPort carPort = new CarPort();
+            carPort.setCarportId(carportId);
+            carPort.setCarportCarnumber("");
+            carPort.setCarportReserveid(null);
+            Integer updateCarportNum = carReserveMapper.updateCarport(carPort);
+            //根据预约id删除预约表
+            Integer deleteReserveNum = carReserveMapper.deleteReserve(reserve.getReserveId());
+            if (updateCarportNum > 0 && deleteReserveNum > 0) {
+                str = "success";//取消预约成功
+            } else {
+                str = "error";//取消预约失败
+            }
+        } else {
+            str = "timeout";//超时无法取消预约
+        }
+        return str;
+    }
 }

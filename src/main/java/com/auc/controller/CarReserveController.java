@@ -80,4 +80,24 @@ public class CarReserveController {
         return str;
     }
 
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 取消预约
+     * @Date: 2020/9/24
+     * @Param request:
+     * @return: java.lang.String
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/cancelReserve")
+    public String cancelReserve(HttpServletRequest request) {
+        String carNumber = request.getParameter("carNumber");//车牌
+        String carportId = request.getParameter("carportId");//车位id
+        String str = "";
+        if (carNumber != null && carportId != null) {
+            str = CarReserveServiceImpl.cancelReserve(carNumber, new Integer(carportId));
+        }
+        return str;
+    }
+
 }

@@ -36,4 +36,15 @@
          SELECT reserve_id,reserve_carNumber,STR_TO_DATE(reserve_time, '%Y-%m-%d %H:%i:%s') as reserve_time from t_reserve where reserve_id=#{reserveId}
     </select>
 
+    <!--  根据车牌号查询预约表，返回最新一条预约id  -->
+    <select id="findReserveByCar" parameterType="java.lang.String" resultType="com.auc.pojo.Reserve">
+         SELECT reserve_id,reserve_carNumber,STR_TO_DATE(reserve_time, '%Y-%m-%d %H:%i:%s') as reserve_time from t_reserve where reserve_carNumber=#{carNumber}
+         order by reserve_time desc limit 1
+    </select>
+
+    <!--  根据预约id删除预约表  -->
+    <delete id="deleteReserve" parameterType="java.lang.Integer">
+         delete from t_reserve where reserve_id=#{id}
+    </delete>
+
 </mapper>
