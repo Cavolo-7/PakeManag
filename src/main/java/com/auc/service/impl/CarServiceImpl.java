@@ -173,10 +173,14 @@ public class CarServiceImpl implements CarService {
             }
         } else {//不在免检名单中
             welcomeInfo.setCarType("临时停车");
-            welcomeInfo.setPayState("未缴费");
             float hour = CountUtil.getHour(minute);//停车小时整
             List<Costrules> rulesList = carInMapper.findCostRules();//查询收费规则
             int money = CountUtil.getMoney(rulesList, hour);//计算费用
+            if (money == 0) {
+                welcomeInfo.setPayState("已缴费");
+            } else {
+                welcomeInfo.setPayState("未缴费");
+            }
             welcomeInfo.setMoney(money);
         }
         CarPort carPort = carInMapper.findCarPort(carNumber);

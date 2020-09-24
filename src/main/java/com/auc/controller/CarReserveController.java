@@ -1,5 +1,6 @@
 package com.auc.controller;
 
+import com.auc.pojo.Costrules;
 import com.auc.pojo.Reserve;
 import com.auc.pojo.WelcomeInfo;
 import com.auc.service.CarReserveService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @基本功能: 停车位预约
@@ -25,6 +27,21 @@ public class CarReserveController {
 
     @Autowired
     private CarReserveServiceImpl CarReserveServiceImpl;
+
+
+    /**
+     * @Author: TheBigBlue
+     * @Description: 查询计费规则
+     * @Date: 2020/9/23
+     * @return: void
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/findCostrules")
+    public List<Costrules> findCostrules() {
+        List<Costrules> costrulesList = CarReserveServiceImpl.findCostrules();
+        return costrulesList;
+    }
+
 
     /**
      * @Author: TheBigBlue
@@ -53,7 +70,7 @@ public class CarReserveController {
     public String isReserve(HttpServletRequest request) {
         String carNumber = request.getParameter("carNumber");
         String carportId = request.getParameter("carportId");
-        boolean flag = CarReserveServiceImpl.isReserve(carNumber,new Integer(carportId));
+        boolean flag = CarReserveServiceImpl.isReserve(carNumber, new Integer(carportId));
         String str = "";
         if (flag == true) {
             str = "success";

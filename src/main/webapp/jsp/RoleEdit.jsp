@@ -20,7 +20,6 @@
 
 </head>
 <body>
-<input type="hidden" value="${pageContext.request.contextPath}" id="path">
 <div class="x-nav">
           <span class="layui-breadcrumb">
             <a href="">首页</a>

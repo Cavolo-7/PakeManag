@@ -2,11 +2,10 @@
     $ = layui.jquery;
     layer = layui.layer;
     var tree = layui.tree;
-    var path = $("#path").val();
     var value = $("#value").val();
 
     $.ajax({
-            url: path + "/root/rootAllot",
+            url: "/root/rootAllot",
             type: "post",
             data: {
                 "value": value,
@@ -41,7 +40,7 @@
                 }
 
                 $.ajax({
-                    url: path + "/root/updateMenu",
+                    url: "/root/updateMenu",
                     type: "post",
                     data: {
                         "checkData": checkData,
@@ -71,7 +70,7 @@
         layer.confirm('您将取消修改，是否确定？', function (index) {
             layer.close(index);//关闭特定层(confirm)
             $.ajax({
-                    url: path + "/root/rootAllot",
+                    url: "/root/rootAllot",
                     type: "post",
                     data: {
                         "value": value,

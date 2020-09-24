@@ -19,14 +19,13 @@
     <meta name="format-detection" content="telephone=no">
     <title>出场缴费</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/amazeui.min.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
-    <script src="${pageContext.request.contextPath}/js/CarOut.js"></script>
+    <script src="../layui/layui.js"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/amazeui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+    <script src="../js/CarOut.js"></script>
 </head>
 <body>
-<input type="hidden" id="path" value="${pageContext.request.contextPath}">
 <%--车牌号--%>
 <input type="hidden" id="carNumber" value="${param.carNumber}">
 <%--应付金额--%>
@@ -44,7 +43,7 @@
             <div class="tr_rechbox"
                  style="border: 0px;padding-top: 5px;padding-bottom: 0px;padding-left: 20px;padding-right: 20px">
                 <div class="tr_rechhead" style="margin-bottom: 20px">
-                    <img src="${pageContext.request.contextPath}/imags/ys_head2.jpg"/>
+                    <img src="../imags/ys_head2.jpg"/>
                     <p>车牌号：
                         <a>${param.carNumber}</a>
                     </p>

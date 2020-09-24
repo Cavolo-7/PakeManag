@@ -36,12 +36,12 @@ public class CarReserveTimingServiceImpl implements CarReserveTimingService {
     @Log()
     @Override
     public void JudgeReserve() {
-        //查询车库表已预约车位
+        //查询车库表所有已预约车位
         List<CarPort> carPortList = carReserveTimingMapper.findReserveCarPortList();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String curTime = df.format(new Date());//当前时间
         //遍历已预约车位
-        if (carPortList != null) {
+        if (carPortList.size() > 0) {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String curTime = df.format(new Date());//当前时间
             for (int i = 0; i < carPortList.size(); i++) {
                 //根据车位中车牌查询预约列表最新一条记录
                 Reserve reserve = carReserveTimingMapper.findReserve(carPortList.get(i).getCarportCarnumber());

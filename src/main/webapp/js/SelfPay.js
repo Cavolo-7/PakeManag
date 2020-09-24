@@ -1,10 +1,9 @@
 //查找车辆信息
 function findCar() {
-    var path = $("#path").val();
     var carNumber = $("#carNumber").val();
     console.log(carNumber);
     $.ajax({
-        url: path + "/car/findCarPayInfo",
+        url:  "/car/findCarPayInfo",
         type: "post",
         data: {
             "carNumber": carNumber,
@@ -54,13 +53,12 @@ function verifyLicensePlateNum(value) {
 
 //支付宝支付
 function Alipay() {
-    var path = $("#path").val();
     var total_amount = $("#total_amount").val();//订单金额
     if (total_amount == 0) {
         alert("半小时内免费，您无需进行支付！")
     } else {
         var subject = $("#subject").val();//订单标题
         var body = $("#body").val();//订单简介
-        location.href = path + "/car/Alipay?total_amount=" + total_amount + "&subject=" + subject + "&body" + body;
+        location.href = "/car/Alipay?total_amount=" + total_amount + "&subject=" + subject + "&body" + body;
     }
 }
