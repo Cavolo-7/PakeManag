@@ -20,15 +20,14 @@ public class WxControl {
     @RequestMapping("/login")
     @ResponseBody
     public String WxLogin(String account,String password,HttpServletResponse response){
-        System.out.println("进入微信小程序登陆");
-        Person person=logRegService.loginPerson(account,password);//调用登录方法传入账号密码
-        if (person!=null){
-            return JSON.toJSONString(person);
-        }else {
-            return JSON.toJSONString("登录失败");
-//            }
-
-        }
+//        System.out.println("进入微信小程序登陆");
+//        Person person=logRegService.loginPerson(account,password);//调用登录方法传入账号密码
+//        if (person!=null){
+//            return JSON.toJSONString(person);
+//        }else {
+//            return JSON.toJSONString("登录失败");
+//        }
+        return null;
     }
 
     @RequestMapping("/register")

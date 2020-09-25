@@ -92,10 +92,9 @@ public class CarReserveController {
     @RequestMapping(value = "/cancelReserve")
     public String cancelReserve(HttpServletRequest request) {
         String carNumber = request.getParameter("carNumber");//车牌
-        String carportId = request.getParameter("carportId");//车位id
         String str = "";
-        if (carNumber != null && carportId != null) {
-            str = CarReserveServiceImpl.cancelReserve(carNumber, new Integer(carportId));
+        if (carNumber != null) {
+            str = CarReserveServiceImpl.cancelReserve(carNumber);
         }
         return str;
     }

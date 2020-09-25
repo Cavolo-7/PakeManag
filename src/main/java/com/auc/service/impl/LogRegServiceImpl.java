@@ -29,9 +29,9 @@ public class LogRegServiceImpl implements LogRegService {
     //登录
     @Log()
     @Override
-    public Person loginPerson(String personAccount, String personAassword) {
+    public Person loginPerson(String personPhone) {
         Person person=new Person();
-        person=logRegMapper.loginPerson(personAccount, personAassword) ;
+        person=logRegMapper.loginPerson(personPhone) ;
         return person;
     }
 

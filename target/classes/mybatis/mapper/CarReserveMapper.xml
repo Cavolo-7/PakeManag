@@ -47,4 +47,9 @@
          delete from t_reserve where reserve_id=#{id}
     </delete>
 
+    <!--  根据车牌修改车库表  -->
+    <update id="updateCarportByCar" parameterType="com.auc.pojo.CarPort">
+         update t_carport SET carport_reserveid=#{carportReserveid},carport_carnumber='' where carport_carnumber=#{carportCarnumber}
+    </update>
+
 </mapper>

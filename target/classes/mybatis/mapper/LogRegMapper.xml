@@ -11,7 +11,7 @@
 
     <select id="loginPerson" resultType="com.auc.pojo.Person">
     select p.person_name,p.person_account,p.person_password,p.person_carnumber,p.person_sex,p.person_age,p.person_phone
-    from t_person as p where person_account = #{personAccount} and person_password=#{personAassword} limit 1
+    from t_person as p where person_phone = #{personPhone}  limit 1
   </select>
 
     <!--   查询员工参数表性别-->

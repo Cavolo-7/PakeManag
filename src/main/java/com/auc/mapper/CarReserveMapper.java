@@ -29,4 +29,6 @@ public interface CarReserveMapper {
 
     public Integer deleteReserve(Integer id);//根据预约id删除预约表
 
+    public Integer updateCarportByCar(CarPort carPort);//根据车牌修改车库表
+
 }

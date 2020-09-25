@@ -9,7 +9,7 @@ public interface LogRegService {
     public boolean regPerson(Person person);
 
     //登录
-    public  Person loginPerson(String personAccount ,String personAassword);
+    public  Person loginPerson(String personPhone);
 
     //查询员工参数表性别
     public Integer querySexParam(String sexName);

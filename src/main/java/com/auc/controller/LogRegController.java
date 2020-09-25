@@ -63,20 +63,20 @@ public class LogRegController {
     //登录
     @RequestMapping(value = "/loginPerson", produces = "text/plain;charset=utf-8")
     public String loginPerson(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        System.out.println("执行用户登录方法");
-        String personAccount=request.getParameter("personAccount");//获取账号
-        String personPassword=request.getParameter("personPassword");//获取密码
-        String str = null;
-        Person person=logRegService.loginPerson(personAccount,personPassword);//调用登录方法传入账号密码
-            if (person!=null){
-                request.getSession().setAttribute("person",person);
-                str = "登录成功";
-            }else {
-                str=  "登录失败";
-//            }
-
-        }
-        return str;
+//        System.out.println("执行用户登录方法");
+//        String personAccount=request.getParameter("personAccount");//获取账号
+//        String personPassword=request.getParameter("personPassword");//获取密码
+//        String str = null;
+//        Person person=logRegService.loginPerson(personAccount,personPassword);//调用登录方法传入账号密码
+//            if (person!=null){
+//                request.getSession().setAttribute("person",person);
+//                str = "登录成功";
+//            }else {
+//                str=  "登录失败";
+////            }
+//
+//        }
+        return null;
     }
 
 }
