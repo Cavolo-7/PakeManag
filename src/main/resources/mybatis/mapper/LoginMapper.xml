@@ -24,4 +24,17 @@
     <select id="chaState" parameterType="java.lang.String" resultType="com.auc.pojo.Admin">
         select * from t_worker w where worker_state=(select param_value from t_param where param_type='workerState' and param_name='启用') and w.worker_account=#{workerAccount}
     </select>
+
+    <!--人脸识别登录-->
+    <select id="fecaLogin" resultType="com.auc.pojo.Admin"   parameterType="com.auc.pojo.Admin">
+    select w.worker_id,w.worker_account,w.worker_password,w.worker_name,w.worker_phone,w.worker_age,w.worker_sex,w.worker_address,w.worker_state,
+    w.role_id,(select r.role_name from t_role r where w.role_id=r.role_id)
+    roleName
+    from t_worker as w , user_face_info u where w.worker_name=u.name and u.name=#{workerName}
+    </select>
+    <!--    查询角色id-->
+    <select id="selectRoleId" resultType="com.auc.pojo.Admin" parameterType="java.lang.String">
+       select w.worker_id,w.worker_account,w.worker_password,w.worker_name,w.worker_phone,w.worker_age,w.worker_sex,w.worker_address,w.worker_state,w.role_id
+        from t_worker w  where w.worker_name =(select user_name from user_face_info where face_id=#{faceId})
+    </select>
 </mapper>

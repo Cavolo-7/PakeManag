@@ -54,4 +54,23 @@ public class LoginServiceImpl implements LoginService {
 
     }
 
+    //人脸识别登录
+    @Log()
+    @Override
+    public Admin fecaLogin(String workerName) {
+        Admin admin1=null;
+        admin1=loginMapper.fecaLogin(workerName);
+        System.out.println("我的名字:"+workerName);
+        return admin1;
+    }
+    //查询角色id
+    @Log()
+    @Override
+    public Admin selectRoleId(String faceId) {
+        System.out.println("角色名字:"+faceId);
+        Admin admin=loginMapper.selectRoleId(faceId);
+        System.out.println("角色名字122121:"+admin.toString());
+        return admin;
+    }
+
 }

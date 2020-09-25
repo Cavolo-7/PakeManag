@@ -36,4 +36,8 @@ function jqAjax() {
 
 }
 
+function Ajax(node) {
+        location.href="facesearch.jsp";
+}
+
 

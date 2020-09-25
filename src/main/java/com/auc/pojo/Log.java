@@ -5,13 +5,13 @@ import java.util.Date;
 public class Log {
     private Integer logId;//id
     private String logEvent;//事件
-    private Date logTime;//时间
+    private String logTime;//时间
     private String logWorker;//操作人
 
     public Log() {
     }
 
-    public Log(Integer logId, String logEvent, Date logTime, String logWorker) {
+    public Log(Integer logId, String logEvent, String logTime, String logWorker) {
         this.logId = logId;
         this.logEvent = logEvent;
         this.logTime = logTime;
@@ -34,11 +34,11 @@ public class Log {
         this.logEvent = logEvent;
     }
 
-    public Date getLogTime() {
+    public String getLogTime() {
         return logTime;
     }
 
-    public void setLogTime(Date logTime) {
+    public void setLogTime(String logTime) {
         this.logTime = logTime;
     }
 
@@ -55,7 +55,7 @@ public class Log {
         return "Log{" +
                 "logId=" + logId +
                 ", logEvent='" + logEvent + '\'' +
-                ", logTime=" + logTime +
+                ", logTime='" + logTime + '\'' +
                 ", logWorker='" + logWorker + '\'' +
                 '}';
     }

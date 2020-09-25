@@ -134,18 +134,21 @@
                     processData: false,
                     async: false,
                     success: function (text) {
-                        var res = JSON.stringify(text)
+                        alert("识别成功")
                         if (text.code == 0) {
-                            var name = text.data.name;
-                            $("#nameDiv").html("姓名：" + name);
-                            var similar = text.data.similarValue;
-                            $("#similarDiv").html("相似度：" + similar + "%");
-                            var age = text.data.age;
-                            $("#ageDiv").html("年龄：" + age);
-                            var gender = text.data.gender;
-                            $("#genderDiv").html("性别：" + gender);
-                            // img.css("background-image", 'url(' + text.data.image + ')');
-                            alert("姓名：" + name +"\n相似度：" + similar + "%" + "\n年龄：" + age +"\n性别：" + gender);
+                            var faceId = text.data.faceId;
+                            $.ajax({
+                                url:"/user/fecaLogin",
+                                data:"faceId=" +faceId,
+                                dataType:'json',
+                                type:'post',
+                                success:function (data) {
+                                    if (data===1){
+                                        alert("登录成功")
+                                        location.href = "/user/userMenus";//菜单
+                                    }
+                                }
+                            })
                         } else {
                             $("#nameDiv").html("");
                             $("#similarDiv").html("");
@@ -186,18 +189,23 @@
                         processData: false,
                         async: false,
                         success: function (text) {
-                            var res = JSON.stringify(text)
+                            alert("识别成功")
                             if (text.code == 0) {
-                                var name = text.data.name;
-                                // $("#nameDiv").html("姓名：" + name);
-                                var similar = text.data.similarValue;
-                                // $("#similarDiv").html("相似度：" + similar + "%");
-                                var age = text.data.age;
-                                // $("#ageDiv").html("年龄：" + age);
-                                var gender = text.data.gender;
-                                // $("#genderDiv").html("性别：" + gender);
-                                // img.css("background-image", 'url(' + text.data.image + ')');
-                                alert("姓名：" + name +"\n相似度：" + similar + "%" + "\n年龄：" + age +"\n性别：" + gender);
+                                var faceId = text.data.faceId;
+                                $.ajax({
+                                    url:"/user/fecaLogin",
+                                    data:"faceId=" +faceId,
+                                    dataType:'json',
+                                    type:'post',
+                                    success:function (data) {
+                                        if (data===1){
+                                            alert("登录成功")
+                                            location.href = "/user/userMenus";//菜单
+                                        }else {
+                                            alert("登录失败")
+                                        }
+                                    }
+                                })
                             } else {
                                 $("#nameDiv").html("");
                                 $("#similarDiv").html("");

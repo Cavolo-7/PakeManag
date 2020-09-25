@@ -17,4 +17,10 @@ public interface LoginService {
 
     //查询账号状态
     public  boolean chaState(String workerAccount);
+
+    //人脸识别登录
+    public Admin fecaLogin(String workerName);
+
+    //查询角色id
+    public Admin selectRoleId(String faceId);
 }
