@@ -84,4 +84,42 @@ public class LoginController {
         modelAndView.setViewName("/jsp/index.jsp");
         return modelAndView;
     }
+
+    //人脸识别登录
+    @RequestMapping(value = "/fecaLogin")
+    @ResponseBody
+    public Object fecaLogin(HttpServletRequest request) throws IOException {
+        String str=null;
+        System.out.println("人脸识别登录");
+        String faceId = request.getParameter("faceId");
+        System.out.println("jin:"+faceId);
+        Admin admin = loginService.selectRoleId(faceId);
+        System.out.println(admin.toString());
+//        System.out.println("woshishshi:"+admin.getWorkerAccount());
+        boolean flag = loginService.chaState(admin.getWorkerAccount());
+
+        System.out.println(flag);
+        if (flag == true) {
+            request.getSession().setAttribute("admin", admin);
+            //查询收费管理员姓名集合
+            List<Admin> adminList = adminService.selectAdminNameList();
+            request.getSession().setAttribute("adminList", adminList);
+            //            查询角色名字集合
+            List<Role> roleNameList = adminService.selectRoleList();
+            request.getSession().setAttribute("roleNameList", roleNameList);
+//            //            查询角色名字集合状态
+//            List<Role> roleNameList2=adminService.selectRoleStateName();
+//            request.getSession().setAttribute("roleNameList2", roleNameList2);
+
+            //            查询月缴产品名字集合
+            List<Produce> produceList = personService.selectProduceNameList();
+            request.getSession().setAttribute("produceList", produceList);
+            str = "1";
+        }else {
+            str = "账户被禁用";
+        }
+        return str;
+
+//        return new Gson().toJson(1);
+    }
 }
