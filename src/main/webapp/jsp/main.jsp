@@ -285,7 +285,7 @@
                   <a href="${pageContext.request.contextPath}/jsp/Login.jsp">管理端</a>
                 </li>
                 <li >
-                  <a  href="/car//noCarWelcome">扫描系统</a>
+                  <a  href="/car/noCarWelcome">扫描系统</a>
                 </li>
                 <li >
                   <a  href="">关于我们</a>
@@ -570,6 +570,7 @@
       </li>
 
     </ul>
+  </div>
   </div>
 </div>
 <script src="../resources/js/jquery-1.12.4.min.js"></script>

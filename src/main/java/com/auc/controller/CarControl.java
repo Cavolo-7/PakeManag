@@ -85,7 +85,7 @@ public class CarControl {
         String projectPath = FileUtil.uploadFile(request, file);//上传车辆入场照片
         String accessToken = authServiceImpl.getAuth();//获取accessToken
         Result carInfo = FileUtil.getCarNumber(projectPath, accessToken);//调用车牌识别接口扫描车牌
-        String img = "\\upload"+projectPath.split("upload")[1];
+        String img = "\\upload" + projectPath.split("upload")[1];
         LayuiData layuiData = new LayuiData();
         if (carInfo.getError_code() != null && carInfo.getError_msg() != null) {//车牌扫描失败
             layuiData.setMsg("error");
@@ -292,7 +292,6 @@ public class CarControl {
             modelAndView.addObject("welcomeInfo", welcomeInfo);
             modelAndView.addObject("isCarOut", true);
             modelAndView.setViewName("/jsp/CarIn.jsp");
-        } else {
         }
         return modelAndView;
     }
@@ -323,12 +322,16 @@ public class CarControl {
         }
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
         if (signVerified) {//验证成功
-            String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");//交易金额
-            String subject = params.get("subject");//车牌
-            if (total_amount != null && !total_amount.equals("")) {
-                String str[] = total_amount.split("\\.");
-                CarPort carPort = carServiceImpl.findCarPort(subject);
-                carServiceImpl.carOutAlipaySuccess(new Integer(str[0]), subject, carPort.getCarportId());//车辆出场支付宝支付成功
+            //交易状态
+            String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
+            if (trade_status.equals("TRADE_SUCCESS")) {//交易支付成功
+                String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");//交易金额
+                String subject = params.get("subject");//车牌
+                if (total_amount != null && !total_amount.equals("")) {
+                    String str[] = total_amount.split("\\.");
+                    CarPort carPort = carServiceImpl.findCarPort(subject);
+                    carServiceImpl.carOutAlipaySuccess(new Integer(str[0]), subject, carPort.getCarportId());//车辆出场支付宝支付成功
+                }
             }
             response.getWriter().print("success");
         } else {//验证失败
@@ -397,13 +400,11 @@ public class CarControl {
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
         ModelAndView modelAndView = new ModelAndView();
         if (signVerified) {
-            System.out.println("alipayReturnUrl");
             String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8"); //商户订单号
             Alipay alipay = carServiceImpl.findAlipay(out_trade_no);
             WelcomeInfo welcomeInfo = carServiceImpl.findCarPayInfo(alipay.getAlipayCarnumber());//查询车辆结算信息
             modelAndView.addObject("welcomeInfo", welcomeInfo);
             modelAndView.setViewName("/jsp/SelfPaySuccess.jsp");//跳转回自助缴费页面
-            System.out.println("modelAndView");
         }
         return modelAndView;
     }
@@ -434,11 +435,15 @@ public class CarControl {
         }
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
         if (signVerified) {//验证成功
-            String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");//交易金额
-            String subject = params.get("subject");//车牌
-            if (total_amount != null && !total_amount.equals("")) {
-                String str[] = total_amount.split("\\.");
-                carServiceImpl.alipaySuccess(new Integer(str[0]), subject, null);//自助缴费成功
+            //交易状态
+            String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
+            if (trade_status.equals("TRADE_SUCCESS")) {//交易支付成功
+                String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");//交易金额
+                String subject = params.get("subject");//车牌
+                if (total_amount != null && !total_amount.equals("")) {
+                    String str[] = total_amount.split("\\.");
+                    carServiceImpl.alipaySuccess(new Integer(str[0]), subject, null);//自助缴费成功
+                }
             }
             response.getWriter().print("success");
         } else {//验证失败
